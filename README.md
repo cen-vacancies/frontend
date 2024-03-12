@@ -1,6 +1,27 @@
+# Сборка и запуск
+
+- Для локальной разработки, доступен по http://localhost:3000/
+
 ```sh
-git clone git@gitlab.telegrafo.ru:cen-vacancies/frontend.git
-cd frontend
-git config user.name "Кирилл Падерин"
-git config user.email "Paderin.Kirill@urfu.me"
+npm run dev
+```
+
+- Билд
+
+```sh
+npm run build
+```
+
+# Запуск docker-compose
+
+После запуска доступен по http://localhost:3000/
+
+```sh
+docker-compose up
+```
+
+Для повторного билда и запуска в случае изменения локальных файлов
+
+```sh
+docker-compose up --build
 ```
