@@ -1,5 +1,7 @@
 default:
   image: node:18.19-alpine3.18
+  artifacts:
+    expire_in: 2 day
 
 build:
   stage: build
@@ -15,6 +17,8 @@ lint:
 
 deploy_preview:
   stage: deploy
+  except:
+    - main
   script:
     - npm install --global vercel
     - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN

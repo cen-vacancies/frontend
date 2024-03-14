@@ -25,3 +25,9 @@ docker-compose up
 ```sh
 docker-compose up --build
 ```
+
+# Превью
+
+Ветку `main` можно посмотреть [здесь](https://cen-vacancies.vercel.app/)
+
+Превью других веток можно отыскать в соответсвующих пайпланах
