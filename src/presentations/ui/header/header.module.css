@@ -1,0 +1,39 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 25px 35px;
+
+  background-color: rgb(var(--page-background-color));
+}
+
+.logo {
+  width: 90px;
+  height: 20px;
+}
+
+.buttons {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+}
+
+.burgerButton {
+  cursor: pointer;
+
+  display: flex;
+
+  width: 20px;
+  height: 20px;
+  padding: 0;
+
+  color: var(--burger-button);
+
+  appearance: none;
+  opacity: 0.8;
+  background-color: transparent;
+  border: none;
+}
