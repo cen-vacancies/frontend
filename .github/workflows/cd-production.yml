@@ -1,0 +1,28 @@
+name: CD-production Pipeline
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+on:
+  push:
+    branches:
+      - main
+jobs:
+  run-ci:
+    uses: ./.github/workflows/ci.yml
+
+  deploy_production:
+    name: Deploy Production
+    runs-on: ubuntu-latest
+    needs:
+      - run-ci
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel
+      - name: Pull Production Environment
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Production
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Production
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
