@@ -1,0 +1,30 @@
+.root[data-grade='main'] {
+  font-family: 'Helvetica Neue', serif;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 18px;
+  text-align: left;
+}
+
+.root[data-grade='subtitle'] {
+  font-family: 'Helvetica Neue', serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+}
+
+.root[data-grade='title'] {
+  font-family: 'Helvetica Neue', serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 25px;
+  text-align: left;
+}
+
+.root[data-grade='big'] {
+  font-family: 'Helvetica Neue', serif;
+  font-size: 25px;
+  line-height: 30px;
+  text-align: left;
+}
