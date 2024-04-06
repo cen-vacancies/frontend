@@ -1,20 +1,18 @@
-.root[data-grade='main'] {
+.body-main-font {
   font-family: 'Helvetica Neue', serif;
   font-size: 15px;
   font-weight: 300;
   line-height: 18px;
-  text-align: left;
 }
 
-.root[data-grade='subtitle'] {
+.subtitle-font {
   font-family: 'Helvetica Neue', serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
-  text-align: left;
 }
 
-.root[data-grade='title'] {
+.title-font {
   font-family: 'Helvetica Neue', serif;
   font-size: 20px;
   font-weight: 400;
@@ -22,9 +20,24 @@
   text-align: left;
 }
 
-.root[data-grade='big'] {
+.title-big-font {
   font-family: 'Helvetica Neue', serif;
   font-size: 25px;
   line-height: 30px;
-  text-align: left;
+}
+
+.root[data-grade='main'] {
+  @extend .body-main-font;
+}
+
+.root[data-grade='subtitle'] {
+  @extend .subtitle-font;
+}
+
+.root[data-grade='title'] {
+  @extend .title-font;
+}
+
+.root[data-grade='big'] {
+  @extend .title-big-font;
 }
