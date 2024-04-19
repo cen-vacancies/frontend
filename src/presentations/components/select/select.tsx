@@ -7,9 +7,10 @@ export type SelectProps = {
   isMultiple?: boolean
   selectedOptions: string[]
   onSelect: (value: string[]) => void
+  name: string
 }
 
-function Select({ header, options, isMultiple = false, selectedOptions, onSelect }: SelectProps) {
+function Select({ header, options, isMultiple = false, selectedOptions, onSelect, name }: SelectProps) {
   const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     if (isMultiple) {
@@ -30,7 +31,7 @@ function Select({ header, options, isMultiple = false, selectedOptions, onSelect
             <input
               checked={selectedOptions.includes(value)}
               type={isMultiple ? 'checkbox' : 'radio'}
-              name={isMultiple ? 'options' : 'option'}
+              name={name}
               value={value}
               onChange={handleClick}
             />

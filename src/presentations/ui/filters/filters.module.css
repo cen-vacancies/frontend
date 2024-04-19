@@ -1,0 +1,11 @@
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  width: 100%;
+  height: fit-content;
+  padding: 30px 50px;
+
+  background-color: #ffffff80;
+}

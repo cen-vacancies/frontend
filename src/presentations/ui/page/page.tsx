@@ -14,4 +14,12 @@ function Page({ children }: { children?: ReactNode }) {
   )
 }
 
+Page.Filters = ({ children }: { children?: ReactNode }) => {
+  return <div className={S.filters}>{children}</div>
+}
+
+Page.Content = ({ children }: { children?: ReactNode }) => {
+  return <div className={S.mainContent}>{children}</div>
+}
+
 export default Page
