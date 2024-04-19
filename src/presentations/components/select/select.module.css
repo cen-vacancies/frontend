@@ -1,0 +1,48 @@
+@import url('../font-tokens/font-tokens.css');
+
+.header {
+  @extend .title-font;
+  margin: 0 0 20px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option input[type='radio'],
+.option input[type='checkbox'] {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.option {
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #a2c7e0;
+  box-shadow:
+    -3px 4px 8px 0 #00000017 inset,
+    16px -13px 20px 0 #ffffff05 inset;
+}
+
+.options[data-multiple='false'] .icon {
+  border-radius: 50%;
+}
+
+.option input:checked + .icon {
+  background-color: #a2c7e0;
+  border: none;
+}
+
+.optionText {
+  @extend .body-main-font;
+}
