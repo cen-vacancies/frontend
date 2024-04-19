@@ -31,3 +31,9 @@ docker-compose up --build
 Ветку `main` можно посмотреть [здесь](https://cen-vacancies.vercel.app/)
 
 Превью других веток можно отыскать в соответсвующих пайпланах
+
+# Генерация типов
+
+```sh
+npx openapi-typescript https://cen.telegrafo.ru/api/openapi --output ./src/domain/api/types/api-types.ts
+```
