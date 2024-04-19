@@ -2,17 +2,17 @@ import S from './filters.module.css'
 import { useState } from 'react'
 import Select from '../../components/select/select.tsx'
 
-//import {operations as ApiOperations} from '../../../domain/api/types/api-types.ts'
+import { operations as ApiOperations } from '../../../domain/api/types/api-types.ts'
 
 import config from './config.json'
 
-//type FiltersQuery = ApiOperations['CenWeb.VacancyController.search']['parameters']['query']
-//type FiltersType = NonNullable<Pick<FiltersQuery, 'employment_types' | 'work_schedules' | 'education' | 'field_of_art'>>
+type FiltersQuery = NonNullable<ApiOperations['CenWeb.VacancyController.search']['parameters']['query']>
+
 type FiltersType = {
-  employment_types: []
-  education: []
-  field_of_art: []
-  work_schedules: []
+  employment_types: NonNullable<FiltersQuery['employment_types']>
+  education: NonNullable<FiltersQuery['education']>[]
+  field_of_art: NonNullable<FiltersQuery['field_of_art']>[]
+  work_schedules: NonNullable<FiltersQuery['work_schedules']>
 }
 
 function Filters() {

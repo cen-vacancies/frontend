@@ -838,7 +838,7 @@ export interface components {
       }
     }
   }
-  responses: {}
+  responses: object
   parameters: never
   requestBodies: never
   headers: never
@@ -1134,9 +1134,9 @@ export interface operations {
         /** @description Search text */
         text?: string
         /** @description Employment types */
-        'employment_types[]'?: ('main' | 'secondary' | 'practice' | 'internship')[]
+        employment_types?: ('main' | 'secondary' | 'practice' | 'internship')[]
         /** @description Employment types */
-        'work_schedules[]'?: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+        work_schedules?: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
         /** @description Education */
         education?: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
         /** @description Field of art */
