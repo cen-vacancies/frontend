@@ -1,7 +1,8 @@
+@import url('../../components/breakpoints-tokens/breakpoints-tokens.css');
+
 .searchForm {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 
   width: 100%;
   padding: 20px 25px 30px;
@@ -14,24 +15,23 @@
 }
 
 .header {
-  margin: 0;
+  margin: 0 0 20px;
   padding: 0;
 }
 
-.input {
-  height: 60px;
-  padding: 20px 16px;
-
-  font-size: 20px;
-  line-height: 20px;
-
-  appearance: none;
-  border: 1px solid rgb(var(--main-fill));
-  border-radius: 10px;
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
 }
 
-.input:focus {
-  outline: none;
+@media (--desktop-min-width) {
+  .main {
+    flex-direction: row;
+    gap: unset;
+    padding: 0 15px;
+  }
 }
 
 .controls {
@@ -41,6 +41,13 @@
   justify-content: space-between;
 
   padding: 0 30px 0 20px;
+}
+
+@media (--desktop-min-width) {
+  .controls {
+    margin-left: 50px;
+    padding: 0;
+  }
 }
 
 .filterButton {
@@ -58,6 +65,12 @@
     -14px 10px 25px 0 #a3a3a329,
     -2px -10px 10px 0 #cacaca33 inset,
     -2px 4px 10px 0 #a3a3a340;
+}
+
+@media (--desktop-min-width) {
+  .filterButton {
+    display: none;
+  }
 }
 
 .searchButton {

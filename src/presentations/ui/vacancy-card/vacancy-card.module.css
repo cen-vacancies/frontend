@@ -1,6 +1,8 @@
+@import url('../../components/font-tokens/font-tokens.css');
+
 .vacancyCard {
   display: flex;
-  gap: 50px;
+  flex-direction: column;
 
   width: 100%;
   padding: 25px 10px 25px 20px;
@@ -12,12 +14,6 @@
     inset 16px -13px 20px rgba(255, 255, 255, 0.02);
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
 .description {
   margin: 0;
   font-size: 15px;
@@ -26,12 +22,34 @@
 }
 
 .header {
+  @extend .title-font;
   margin: 0 0 25px;
   padding: 0;
+  color: #a2c7e0;
 }
 
-.controls {
+.additional {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 90px;
+  align-items: center;
+
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.salary {
+  @extend .title-font;
+  min-width: fit-content;
+}
+
+.exp {
+  @extend .subtitle-font;
+  display: flex;
+  align-items: center;
+
+  height: 40px;
+  padding: 0 10px;
+
+  background-color: #eeeeee;
+  border: 1px solid #a2c7e0;
 }

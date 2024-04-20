@@ -1,0 +1,102 @@
+{
+  "employment_types[]": {
+    "title": "Тип занятости",
+    "isMultiple": true,
+    "options": [
+      {
+        "value": "main",
+        "title": "Основная работа"
+      },
+      {
+        "value": "secondary",
+        "title": "Совместительство"
+      },
+      {
+        "value": "practice",
+        "title": "Практика"
+      },
+      {
+        "value": "internship",
+        "title": "Стажировка"
+      }
+    ]
+  },
+  "work_schedules[]": {
+    "title": "График работы",
+    "isMultiple": false,
+    "options": [
+      {
+        "value": "full_time",
+        "title": "Полный день"
+      },
+      {
+        "value": "part_time",
+        "title": "Неполный день"
+      },
+      {
+        "value": "remote_working",
+        "title": "Удаленная работа"
+      },
+      {
+        "value": "hybrid_working",
+        "title": "Гибридный формат"
+      },
+      {
+        "value": "flexible_schedule",
+        "title": "Гибкий график"
+      }
+    ]
+  },
+  "education": {
+    "title": "Образование",
+    "isMultiple": false,
+    "options": [
+      {
+        "value": "none",
+        "title": "Не требуется"
+      },
+      {
+        "value": "higher",
+        "title": "Высшее"
+      },
+      {
+        "value": "secondary_vocational",
+        "title": "Среднее специальное"
+      },
+      {
+        "value": "secondary",
+        "title": "Среднее"
+      }
+    ]
+  },
+  "field_of_art": {
+    "title": "Сфера искусства",
+    "isMultiple": false,
+    "options": [
+      {
+        "value": "music",
+        "title": "Музыкальное искусство"
+      },
+      {
+        "value": "visual",
+        "title": "Изобразительное искусство"
+      },
+      {
+        "value": "performing",
+        "title": "Театральное искусство"
+      },
+      {
+        "value": "folklore",
+        "title": "Фольклор"
+      },
+      {
+        "value": "choreography",
+        "title": "Хореография"
+      },
+      {
+        "value": "other",
+        "title": "Прочее"
+      }
+    ]
+  }
+}

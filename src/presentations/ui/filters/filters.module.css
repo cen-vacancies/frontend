@@ -1,0 +1,88 @@
+@import url('../../components/font-tokens/font-tokens.css');
+@import url('../../components/breakpoints-tokens/breakpoints-tokens.css');
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  width: 100%;
+  height: fit-content;
+  padding: 30px 50px;
+
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+
+.header {
+  display: flex;
+}
+
+.mainTitle {
+  @extend .title-font;
+  transform: translateX(-50%);
+  margin-left: 50%;
+}
+
+@media (--desktop-min-width) {
+  .mainTitle {
+    transform: none;
+
+    margin: 0;
+
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 35px;
+  }
+}
+
+.resetButton {
+  @extend .title-font;
+  cursor: pointer;
+
+  margin-left: auto;
+  padding: 0;
+
+  text-decoration: underline;
+
+  appearance: none;
+  background: none;
+  border: none;
+}
+
+@media (--desktop-min-width) {
+  .resetButton {
+    display: none;
+  }
+}
+
+.filterHeader,
+.row {
+  @extend .title-font;
+}
+
+.inputWithText {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.filterHeader {
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.searchButton {
+  margin: 0 auto;
+}
+
+@media (--desktop-min-width) {
+  .searchButton {
+    display: none;
+  }
+}

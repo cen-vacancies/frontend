@@ -7,7 +7,7 @@
   width: 100%;
   padding: 25px 35px;
 
-  background-color: rgb(var(--page-background-color));
+  background-color: rgb(var(--header-background-color));
 }
 
 .logo {

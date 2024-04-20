@@ -14,4 +14,16 @@ function Page({ children }: { children?: ReactNode }) {
   )
 }
 
+Page.Filters = ({ children, isVisible = false }: { children?: ReactNode; isVisible?: boolean }) => {
+  return (
+    <div className={S.filters} data-show={isVisible}>
+      {children}
+    </div>
+  )
+}
+
+Page.Content = ({ children }: { children?: ReactNode }) => {
+  return <div className={S.mainContent}>{children}</div>
+}
+
 export default Page

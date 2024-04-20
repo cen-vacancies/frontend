@@ -1,5 +1,14 @@
+@import url('../../components/breakpoints-tokens/breakpoints-tokens.css');
+
 .root {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+}
+
+@media (--desktop-min-width) {
+  .root {
+    gap: 35px;
+  }
 }

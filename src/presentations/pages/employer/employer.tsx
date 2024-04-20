@@ -12,7 +12,8 @@ function EmployerPage() {
       <div className={S.root}>
         <SearchForm header={'Кого вы ищете?'} placeholder={'Должность'} />
         {mock.map((item) => (
-          <VacancyCard key={item.header} typeCard={'employer'} {...item} />
+          // @ts-expect-error: error while employer not ready
+          <VacancyCard key={item.title} {...item} />
         ))}
       </div>
     </Page>

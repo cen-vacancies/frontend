@@ -13,6 +13,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.22.3"
   },
   "jira-prepare-commit-msg": {
@@ -83,7 +84,15 @@
       "color-function-notation": null,
       "alpha-value-notation": null,
       "value-keyword-case": null,
-      "color-hex-length": null
+      "color-hex-length": null,
+      "at-rule-no-unknown": [
+        true,
+        {
+          "ignoreAtRules": [
+            "extend"
+          ]
+        }
+      ]
     }
   },
   "lint-staged": {
@@ -112,6 +121,8 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "jira-prepare-commit-msg": "^1.7.2",
     "lint-staged": "^11.1.2",
+    "postcss-custom-media": "^10.0.4",
+    "postcss-extend": "^1.0.5",
     "prettier": "^3.2.5",
     "simple-git-hooks": "^2.8.1",
     "stylelint": "^16.2.1",
