@@ -22,6 +22,7 @@ body {
 
 .header {
   position: sticky;
+  z-index: 1;
   top: 0;
 }
 
@@ -38,9 +39,33 @@ body {
 }
 
 .filters {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  left: 0;
+
+  display: none;
+
+  width: 100%;
+
+  background-color: #fafafa;
+}
+
+.filters[data-show='true'] {
   display: flex;
-  min-width: 345px;
-  max-width: 345px;
+}
+
+@media (--desktop-min-width) {
+  .filters {
+    position: static;
+
+    display: flex;
+
+    min-width: 345px;
+    max-width: 345px;
+
+    background-color: transparent;
+  }
 }
 
 .mainContent {

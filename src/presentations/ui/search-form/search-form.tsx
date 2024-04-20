@@ -12,25 +12,32 @@ type SearchFormProps = {
   value?: string
   onChange?: (value: string) => void
   onSearch?: VoidFunction
+  onFilterClick?: VoidFunction
 }
 
-function SearchForm({ header, placeholder, value, onChange, onSearch }: SearchFormProps) {
+function SearchForm({ header, placeholder, value, onChange, onSearch, onFilterClick }: SearchFormProps) {
   return (
     <div className={S.searchForm}>
       <p className={S.header}>
         <Text grade='title'>{header}</Text>
       </p>
-      <Input placeholder={placeholder} value={value} onChange={(e) => onChange?.(e.currentTarget.value)} />
-      <div className={S.controls}>
-        <button className={S.filterButton}>
-          <img src={filterImage} />
-        </button>
-        <button className={S.searchButton} onClick={onSearch}>
-          {UIText.search}
-        </button>
+      <div className={S.main}>
+        <Input placeholder={placeholder} value={value} onChange={(e) => onChange?.(e.currentTarget.value)} />
+        <div className={S.controls}>
+          <button className={S.filterButton} onClick={onFilterClick}>
+            <img src={filterImage} />
+          </button>
+          <SearchForm.SearchButton onClick={onSearch} />
+        </div>
       </div>
     </div>
   )
 }
+
+SearchForm.SearchButton = ({ onClick }: { onClick?: VoidFunction }) => (
+  <button className={S.searchButton} onClick={onClick}>
+    {UIText.search}
+  </button>
+)
 
 export default SearchForm

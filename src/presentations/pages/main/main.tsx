@@ -8,23 +8,35 @@ import { FiltersType, vacancies } from '../../../domain/api/data'
 
 import S from './main.module.css'
 
+const filtersInitial = {
+  text: [],
+  'employment_types[]': [],
+  education: [],
+  field_of_art: [],
+  'work_schedules[]': [],
+}
+
 function MainPage() {
-  const [filters, setFilters] = useState<FiltersType>({
-    text: [],
-    'employment_types[]': [],
-    education: [],
-    field_of_art: [],
-    'work_schedules[]': [],
-  })
+  const [isFilterVisible, setIsFilterVisible] = useState(false)
+  const [filters, setFilters] = useState<FiltersType>(filtersInitial)
 
   const { data, refetch } = useQuery(['vacancy'], () => vacancies.searchVacancy(filters), {
     enabled: false,
   })
 
+  const handleSearch = () => {
+    refetch()
+    setIsFilterVisible(false)
+  }
+
+  const handleReset = () => {
+    setFilters(filtersInitial)
+  }
+
   return (
     <Page>
-      <Page.Filters>
-        <Filters filters={filters} setFilters={setFilters} />
+      <Page.Filters isVisible={isFilterVisible}>
+        <Filters filters={filters} setFilters={setFilters} onSearch={handleSearch} onReset={handleReset} />
       </Page.Filters>
       <Page.Content>
         <div className={S.root}>
@@ -33,7 +45,8 @@ function MainPage() {
             placeholder={'Должность'}
             value={filters.text[0]}
             onChange={(val) => setFilters((prev) => ({ ...prev, text: [val] }))}
-            onSearch={refetch}
+            onSearch={handleSearch}
+            onFilterClick={() => setIsFilterVisible((prev) => !prev)}
           />
           {data?.data.map((item) => <VacancyCard key={item.title} {...item} />)}
         </div>

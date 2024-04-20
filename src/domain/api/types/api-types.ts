@@ -128,23 +128,27 @@ export interface components {
      * @example {
      *   "vacancy": {
      *     "description": "Ищем очень хорошего работника!",
-     *     "education": "higher",
-     *     "employment_type": "main",
+     *     "educations": [
+     *       "higher"
+     *     ],
+     *     "employment_types": [
+     *       "main"
+     *     ],
      *     "field_of_art": "other",
      *     "min_years_of_work_experience": 5,
      *     "proposed_salary": "20000",
      *     "title": "Работник",
-     *     "work_schedule": "full_time"
+     *     "work_schedules": [
+     *       "full_time"
+     *     ]
      *   }
      * }
      */
     CreateVacancyRequest: {
       vacancy: {
         description: string
-        /** @enum {string} */
-        education: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
-        /** @enum {string} */
-        employment_type: 'main' | 'secondary' | 'practice' | 'internship'
+        educations: ('none' | 'higher' | 'secondary' | 'secondary_vocational')[]
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
         /** @enum {string} */
         field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
         /** @default 0 */
@@ -152,8 +156,7 @@ export interface components {
         /** @default 0 */
         proposed_salary?: number
         title: string
-        /** @enum {string} */
-        work_schedule: 'full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule'
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
       }
     }
     /**
@@ -375,23 +378,27 @@ export interface components {
      * @example {
      *   "vacancy": {
      *     "description": "Ищем очень хорошего работника!",
-     *     "education": "higher",
-     *     "employment_type": "main",
+     *     "educations": [
+     *       "higher"
+     *     ],
+     *     "employment_types": [
+     *       "main"
+     *     ],
      *     "field_of_art": "other",
      *     "min_years_of_work_experience": 5,
      *     "proposed_salary": "20000",
      *     "title": "Работник",
-     *     "work_schedule": "full_time"
+     *     "work_schedules": [
+     *       "full_time"
+     *     ]
      *   }
      * }
      */
     UpdateVacancyRequest: {
       vacancy: {
         description?: string
-        /** @enum {string} */
-        education?: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
-        /** @enum {string} */
-        employment_type?: 'main' | 'secondary' | 'practice' | 'internship'
+        educations?: ('none' | 'higher' | 'secondary' | 'secondary_vocational')[]
+        employment_types?: ('main' | 'secondary' | 'practice' | 'internship')[]
         /** @enum {string} */
         field_of_art?: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
         /** @default 0 */
@@ -399,8 +406,7 @@ export interface components {
         /** @default 0 */
         proposed_salary?: number
         title?: string
-        /** @enum {string} */
-        work_schedule?: 'full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule'
+        work_schedules?: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
       }
     }
     /**
@@ -483,8 +489,12 @@ export interface components {
      *   "data": [
      *     {
      *       "description": "Ищем очень хорошего работника!",
-     *       "education": "higher",
-     *       "employment_type": "main",
+     *       "educations": [
+     *         "higher"
+     *       ],
+     *       "employment_types": [
+     *         "main"
+     *       ],
      *       "field_of_art": "other",
      *       "id": "756",
      *       "min_years_of_work_experience": 5,
@@ -508,7 +518,9 @@ export interface components {
      *       "published": true,
      *       "reviewed": true,
      *       "title": "Работник",
-     *       "work_schedule": "full_time"
+     *       "work_schedules": [
+     *         "full_time"
+     *       ]
      *     }
      *   ],
      *   "page": {
@@ -522,10 +534,8 @@ export interface components {
     VacanciesQueryResponse: {
       data: {
         description: string
-        /** @enum {string} */
-        education: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
-        /** @enum {string} */
-        employment_type: 'main' | 'secondary' | 'practice' | 'internship'
+        educations: ('none' | 'higher' | 'secondary' | 'secondary_vocational')[]
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
         /** @enum {string} */
         field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
         id: number
@@ -584,8 +594,7 @@ export interface components {
         published: boolean
         reviewed: boolean
         title: string
-        /** @enum {string} */
-        work_schedule: 'full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule'
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
       }[]
       /**
        * Page
@@ -607,8 +616,12 @@ export interface components {
      * Vacancy
      * @example {
      *   "description": "Ищем очень хорошего работника!",
-     *   "education": "higher",
-     *   "employment_type": "main",
+     *   "educations": [
+     *     "higher"
+     *   ],
+     *   "employment_types": [
+     *     "main"
+     *   ],
      *   "field_of_art": "other",
      *   "id": "756",
      *   "min_years_of_work_experience": 5,
@@ -632,15 +645,15 @@ export interface components {
      *   "published": true,
      *   "reviewed": true,
      *   "title": "Работник",
-     *   "work_schedule": "full_time"
+     *   "work_schedules": [
+     *     "full_time"
+     *   ]
      * }
      */
     Vacancy: {
       description: string
-      /** @enum {string} */
-      education: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
-      /** @enum {string} */
-      employment_type: 'main' | 'secondary' | 'practice' | 'internship'
+      educations: ('none' | 'higher' | 'secondary' | 'secondary_vocational')[]
+      employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
       /** @enum {string} */
       field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
       id: number
@@ -699,16 +712,19 @@ export interface components {
       published: boolean
       reviewed: boolean
       title: string
-      /** @enum {string} */
-      work_schedule: 'full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule'
+      work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
     }
     /**
      * VacancyResponse
      * @example {
      *   "data": {
      *     "description": "Ищем очень хорошего работника!",
-     *     "education": "higher",
-     *     "employment_type": "main",
+     *     "educations": [
+     *       "higher"
+     *     ],
+     *     "employment_types": [
+     *       "main"
+     *     ],
      *     "field_of_art": "other",
      *     "id": "756",
      *     "min_years_of_work_experience": 5,
@@ -732,7 +748,9 @@ export interface components {
      *     "published": true,
      *     "reviewed": true,
      *     "title": "Работник",
-     *     "work_schedule": "full_time"
+     *     "work_schedules": [
+     *       "full_time"
+     *     ]
      *   }
      * }
      */
@@ -741,8 +759,12 @@ export interface components {
        * Vacancy
        * @example {
        *   "description": "Ищем очень хорошего работника!",
-       *   "education": "higher",
-       *   "employment_type": "main",
+       *   "educations": [
+       *     "higher"
+       *   ],
+       *   "employment_types": [
+       *     "main"
+       *   ],
        *   "field_of_art": "other",
        *   "id": "756",
        *   "min_years_of_work_experience": 5,
@@ -766,15 +788,15 @@ export interface components {
        *   "published": true,
        *   "reviewed": true,
        *   "title": "Работник",
-       *   "work_schedule": "full_time"
+       *   "work_schedules": [
+       *     "full_time"
+       *   ]
        * }
        */
       data: {
         description: string
-        /** @enum {string} */
-        education: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
-        /** @enum {string} */
-        employment_type: 'main' | 'secondary' | 'practice' | 'internship'
+        educations: ('none' | 'higher' | 'secondary' | 'secondary_vocational')[]
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
         /** @enum {string} */
         field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
         id: number
@@ -833,8 +855,7 @@ export interface components {
         published: boolean
         reviewed: boolean
         title: string
-        /** @enum {string} */
-        work_schedule: 'full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule'
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
       }
     }
   }

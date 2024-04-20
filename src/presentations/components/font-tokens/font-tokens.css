@@ -28,6 +28,13 @@
   line-height: 30px;
 }
 
+.heading-one-font {
+  font-family: 'Helvetica Neue', serif;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 35px;
+}
+
 @media (--desktop-min-width) {
   .title-font {
     font-weight: 600;
