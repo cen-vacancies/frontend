@@ -22,7 +22,9 @@ function MainPage() {
   const [isFilterVisible, setIsFilterVisible] = useState(false)
   const [filters, setFilters] = useState<FiltersType>(filtersInitial)
 
-  const { data, refetch } = useQuery(['vacancy'], () => vacancies.searchVacancy(filters))
+  const { data, refetch } = useQuery(['vacancy'], () => vacancies.searchVacancy(filters), {
+    refetchOnWindowFocus: false,
+  })
 
   const handleSearch = () => {
     refetch()
@@ -43,7 +45,7 @@ function MainPage() {
           <SearchForm
             header={'Какую работу вы ищете?'}
             placeholder={'Должность'}
-            value={filters.text[0]}
+            value={filters.text}
             onChange={(val) => setFilters((prev) => ({ ...prev, text: val }))}
             onSearch={handleSearch}
             onFilterClick={() => setIsFilterVisible((prev) => !prev)}
