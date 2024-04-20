@@ -22,7 +22,7 @@ function SearchForm({ header, placeholder, value, onChange, onSearch, onFilterCl
         <Text grade='title'>{header}</Text>
       </p>
       <div className={S.main}>
-        <Input placeholder={placeholder} value={value} onChange={(e) => onChange?.(e.currentTarget.value)} />
+        <Input placeholder={placeholder} value={value} onChange={(e) => onChange?.(e.target.value)} />
         <div className={S.controls}>
           <button className={S.filterButton} onClick={onFilterClick}>
             <img src={filterImage} />
