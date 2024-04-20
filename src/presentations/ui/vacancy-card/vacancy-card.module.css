@@ -39,6 +39,7 @@
 
 .salary {
   @extend .title-font;
+  min-width: fit-content;
 }
 
 .exp {

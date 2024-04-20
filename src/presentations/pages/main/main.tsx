@@ -9,20 +9,20 @@ import { FiltersType, vacancies } from '../../../domain/api/data'
 import S from './main.module.css'
 
 const filtersInitial = {
-  text: [],
+  text: '',
   'employment_types[]': [],
   education: [],
   field_of_art: [],
   'work_schedules[]': [],
+  preferred_salary: '',
+  years_of_work_experience: '',
 }
 
 function MainPage() {
   const [isFilterVisible, setIsFilterVisible] = useState(false)
   const [filters, setFilters] = useState<FiltersType>(filtersInitial)
 
-  const { data, refetch } = useQuery(['vacancy'], () => vacancies.searchVacancy(filters), {
-    enabled: false,
-  })
+  const { data, refetch } = useQuery(['vacancy'], () => vacancies.searchVacancy(filters))
 
   const handleSearch = () => {
     refetch()
@@ -44,7 +44,7 @@ function MainPage() {
             header={'Какую работу вы ищете?'}
             placeholder={'Должность'}
             value={filters.text[0]}
-            onChange={(val) => setFilters((prev) => ({ ...prev, text: [val] }))}
+            onChange={(val) => setFilters((prev) => ({ ...prev, text: val }))}
             onSearch={handleSearch}
             onFilterClick={() => setIsFilterVisible((prev) => !prev)}
           />

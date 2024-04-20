@@ -15,6 +15,12 @@ type FiltersProps = {
   onReset?: VoidFunction
 }
 
+type CheckboxFiltersName = keyof Omit<FiltersType, 'text' | 'preferred_salary' | 'years_of_work_experience'>
+
+function isNumber(val: string) {
+  return !isNaN(Number(val))
+}
+
 function Filters({ filters, setFilters, onSearch, onReset }: FiltersProps) {
   return (
     <div className={S.filters}>
@@ -25,7 +31,7 @@ function Filters({ filters, setFilters, onSearch, onReset }: FiltersProps) {
         </button>
       </div>
       {Object.keys(config).map((key) => {
-        const { title, options, isMultiple } = config[key as keyof Omit<FiltersType, 'text'>]
+        const { title, options, isMultiple } = config[key as CheckboxFiltersName]
         return (
           <Select
             key={key}
@@ -33,7 +39,7 @@ function Filters({ filters, setFilters, onSearch, onReset }: FiltersProps) {
             options={options}
             isMultiple={isMultiple}
             name={key}
-            selectedOptions={filters[key as keyof FiltersType]}
+            selectedOptions={filters[key as CheckboxFiltersName]}
             onSelect={(items) => {
               setFilters((prev) => ({
                 ...prev,
@@ -47,7 +53,19 @@ function Filters({ filters, setFilters, onSearch, onReset }: FiltersProps) {
         <h2 className={S.filterHeader}>Опыт работы</h2>
         <div className={S.row}>
           До
-          <Input height={45} width={55} />
+          <Input
+            height={45}
+            width={55}
+            value={filters.years_of_work_experience}
+            onChange={(e) => {
+              const value = e.target.value
+              if (!isNumber(value)) return
+              setFilters((prev) => ({
+                ...prev,
+                years_of_work_experience: value,
+              }))
+            }}
+          />
           лет
         </div>
       </div>
@@ -55,7 +73,19 @@ function Filters({ filters, setFilters, onSearch, onReset }: FiltersProps) {
         <h2 className={S.filterHeader}>Зарплата</h2>
         <div className={S.row}>
           От
-          <Input height={45} width={170} />
+          <Input
+            height={45}
+            width={170}
+            value={filters.preferred_salary}
+            onChange={(e) => {
+              const value = e.target.value
+              if (!isNumber(value)) return
+              setFilters((prev) => ({
+                ...prev,
+                preferred_salary: value,
+              }))
+            }}
+          />
           &#8381;
         </div>
       </div>
