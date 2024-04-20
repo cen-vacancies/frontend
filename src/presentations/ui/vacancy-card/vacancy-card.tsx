@@ -1,72 +1,41 @@
-import Text from '../../components/text/text.tsx'
-import ImageLink from '../../components/image-link/image-link.tsx'
+import UItext from './i18n.json'
 
-import chatImage from '../../../assets/chat.png'
-import responseImage from '../../../assets/response.png'
-import inviteImage from '../../../assets/invite.png'
+import type { components } from '../../../domain/api/types/api-types.ts'
 
 import S from './vacancy-card.module.css'
 
-type VacancyCardProps = {
-  header?: string
-  name?: string
-  tag?: string
-  education?: string
-  experience?: string
-  rate?: string
-  schedule?: string
-  typeCard?: 'worker' | 'employer'
-}
+type VacancyCardProps = Pick<
+  components['schemas']['Vacancy'],
+  'title' | 'organization' | 'field_of_art' | 'proposed_salary' | 'min_years_of_work_experience'
+>
 function VacancyCard({
-  header,
-  name,
-  tag,
-  education,
-  experience,
-  rate,
-  schedule,
-  typeCard = 'worker',
+  title,
+  organization,
+  field_of_art,
+  proposed_salary,
+  min_years_of_work_experience,
 }: VacancyCardProps) {
   return (
     <div className={S.vacancyCard}>
-      <div className={S.content}>
-        <p className={S.header}>
-          <Text grade='title'>{header}</Text>
-        </p>
-        <p className={S.description}>
-          {name}
-          <br />
-          {typeCard === 'worker' ? (
-            <>
-              {tag}
-              <br />
-              {education}
-              <br />
-            </>
-          ) : (
-            <>
-              {education}
-              <br />
-              {tag}
-              <br />
-            </>
-          )}
-          {experience}
-          <br />
-          <br />
-          {rate}
-          <br />
-          {schedule}
-          <br />
-          <br />
-        </p>
+      <p className={S.header}>{title}</p>
+      <div className={S.additional}>
+        {proposed_salary && <span className={S.salary}>{proposed_salary.toLocaleString('ru')} &#8381;</span>}
+        <div className={S.exp}>{getExp(min_years_of_work_experience)}</div>
       </div>
-      <div className={S.controls}>
-        {typeCard === 'worker' ? <ImageLink src={responseImage} to={'/'} /> : <ImageLink src={inviteImage} to={'/'} />}
-        <ImageLink src={chatImage} to={'/'} />
-      </div>
+      <p className={S.description}>
+        {organization.name}
+        <br />
+        {UItext.field_of_art[field_of_art]}
+      </p>
     </div>
   )
+}
+
+function getExp(year: number) {
+  if (year <= 0) {
+    return 'Без опыта'
+  }
+  return `Опыт работы от ${year} ${year % 10 === 1 ? 'года' : 'лет'}`
 }
 
 export default VacancyCard

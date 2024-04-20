@@ -18,7 +18,7 @@ function Select({ header, options, isMultiple = false, selectedOptions, onSelect
         selectedOptions.includes(value) ? selectedOptions.filter((item) => item != value) : [...selectedOptions, value],
       )
     } else {
-      onSelect([value])
+      onSelect(selectedOptions.includes(value) ? [] : [value])
     }
   }
 
@@ -30,7 +30,7 @@ function Select({ header, options, isMultiple = false, selectedOptions, onSelect
           <label key={value} className={S.option}>
             <input
               checked={selectedOptions.includes(value)}
-              type={isMultiple ? 'checkbox' : 'radio'}
+              type={'checkbox'}
               name={name}
               value={value}
               onChange={handleClick}

@@ -1,32 +1,21 @@
-import S from './filters.module.css'
-import { useState } from 'react'
 import Select from '../../components/select/select.tsx'
-
-import { operations as ApiOperations } from '../../../domain/api/types/api-types.ts'
+import type { FiltersType } from '../../../domain/api/data'
+import type { Dispatch, SetStateAction } from 'react'
 
 import config from './config.json'
 
-type FiltersQuery = NonNullable<ApiOperations['CenWeb.VacancyController.search']['parameters']['query']>
+import S from './filters.module.css'
 
-type FiltersType = {
-  employment_types: NonNullable<FiltersQuery['employment_types']>
-  education: NonNullable<FiltersQuery['education']>[]
-  field_of_art: NonNullable<FiltersQuery['field_of_art']>[]
-  work_schedules: NonNullable<FiltersQuery['work_schedules']>
+type FiltersProps = {
+  filters: FiltersType
+  setFilters: Dispatch<SetStateAction<FiltersType>>
 }
 
-function Filters() {
-  const [filters, setFilters] = useState<FiltersType>({
-    employment_types: [],
-    education: [],
-    field_of_art: [],
-    work_schedules: [],
-  })
-
+function Filters({ filters, setFilters }: FiltersProps) {
   return (
     <div className={S.filters}>
       {Object.keys(config).map((key) => {
-        const { title, options, isMultiple } = config[key as keyof FiltersType]
+        const { title, options, isMultiple } = config[key as keyof Omit<FiltersType, 'text'>]
         return (
           <Select
             key={key}

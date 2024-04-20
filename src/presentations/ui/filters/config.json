@@ -1,5 +1,5 @@
 {
-  "employment_types": {
+  "employment_types[]": {
     "title": "Тип занятости",
     "isMultiple": true,
     "options": [
@@ -21,7 +21,7 @@
       }
     ]
   },
-  "work_schedules": {
+  "work_schedules[]": {
     "title": "График работы",
     "isMultiple": false,
     "options": [
