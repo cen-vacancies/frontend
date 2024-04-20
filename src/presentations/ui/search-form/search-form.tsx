@@ -1,4 +1,5 @@
 import Text from '../../components/text/text.tsx'
+import Input from '../../components/input/input.tsx'
 
 import filterImage from '../../../assets/settings.svg'
 import UIText from './i18n.json'
@@ -19,12 +20,7 @@ function SearchForm({ header, placeholder, value, onChange, onSearch }: SearchFo
       <p className={S.header}>
         <Text grade='title'>{header}</Text>
       </p>
-      <input
-        className={S.input}
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange?.(e.currentTarget.value)}
-      />
+      <Input placeholder={placeholder} value={value} onChange={(e) => onChange?.(e.currentTarget.value)} />
       <div className={S.controls}>
         <button className={S.filterButton}>
           <img src={filterImage} />

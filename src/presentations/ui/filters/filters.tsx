@@ -1,4 +1,5 @@
 import Select from '../../components/select/select.tsx'
+import Input from '../../components/input/input.tsx'
 import type { FiltersType } from '../../../domain/api/data'
 import type { Dispatch, SetStateAction } from 'react'
 
@@ -33,6 +34,22 @@ function Filters({ filters, setFilters }: FiltersProps) {
           />
         )
       })}
+      <div className={S.inputWithText}>
+        <h2 className={S.filterHeader}>Опыт работы</h2>
+        <div className={S.row}>
+          До
+          <Input height={45} width={55} />
+          лет
+        </div>
+      </div>
+      <div className={S.inputWithText}>
+        <h2 className={S.filterHeader}>Зарплата</h2>
+        <div className={S.row}>
+          От
+          <Input height={45} width={170} />
+          &#8381;
+        </div>
+      </div>
     </div>
   )
 }
