@@ -16,6 +16,7 @@ const filtersInitial = {
   'work_schedules[]': [],
   preferred_salary: '',
   years_of_work_experience: '',
+  min_years_of_work_experience: '',
 }
 
 function MainPage() {

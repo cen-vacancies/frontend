@@ -4,6 +4,22 @@
  */
 
 export interface paths {
+  '/api/cvs': {
+    /** Create CV */
+    post: operations['CenWeb.CVController.create']
+  }
+  '/api/cvs/search': {
+    /** Search CVs */
+    get: operations['CenWeb.CVController.search']
+  }
+  '/api/cvs/{cv_id}': {
+    /** Get CV */
+    get: operations['CenWeb.CVController.show']
+    /** Delete CV */
+    delete: operations['CenWeb.CVController.delete']
+    /** Update CV */
+    patch: operations['CenWeb.CVController.update']
+  }
   '/api/health/check': {
     /** Check health */
     get: operations['CenWeb.HealthCheckController.check']
@@ -61,6 +77,303 @@ export type webhooks = Record<string, never>
 export interface components {
   schemas: {
     /**
+     * CV
+     * @example {
+     *   "applicant": {
+     *     "birth_date": "2000-01-01",
+     *     "email": "username@domain.org",
+     *     "fullname": "Иванов Иван Иванович",
+     *     "id": "756",
+     *     "phone": "+78001234567",
+     *     "role": "applicant"
+     *   },
+     *   "educations": [
+     *     {
+     *       "department": null,
+     *       "educational_institution": "УрФУ",
+     *       "level": "secondary",
+     *       "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *       "year_of_graduation": 2024
+     *     }
+     *   ],
+     *   "employment_types": [
+     *     "main"
+     *   ],
+     *   "field_of_art": "music",
+     *   "id": 521,
+     *   "published": true,
+     *   "reviewed": true,
+     *   "summary": "Я очень хорошо играю на фортепиано.",
+     *   "title": "Педагог по фортепиано",
+     *   "work_schedules": [
+     *     "full_time"
+     *   ],
+     *   "years_of_work_experience": 4
+     * }
+     */
+    CV: {
+      /**
+       * User
+       * @example {
+       *   "birth_date": "2000-01-01",
+       *   "email": "username@domain.org",
+       *   "fullname": "Иванов Иван Иванович",
+       *   "id": "756",
+       *   "phone": "+78001234567",
+       *   "role": "applicant"
+       * }
+       */
+      applicant: {
+        /** Format: date */
+        birth_date: string | null
+        email: string
+        fullname: string
+        id: number
+        /** Format: phone */
+        phone: string
+        /** @enum {string} */
+        role: 'admin' | 'applicant' | 'employer'
+      }
+      educations: {
+        department: string | null
+        educational_institution: string | null
+        /** @enum {string} */
+        level: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+        specialization: string | null
+        year_of_graduation: number | null
+      }[]
+      employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+      /** @enum {string} */
+      field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+      id: number
+      published: boolean
+      reviewed: boolean
+      summary: string
+      title: string
+      work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      years_of_work_experience: number
+    }
+    /**
+     * CVResponse
+     * @example {
+     *   "data": {
+     *     "applicant": {
+     *       "birth_date": "2000-01-01",
+     *       "email": "username@domain.org",
+     *       "fullname": "Иванов Иван Иванович",
+     *       "id": "756",
+     *       "phone": "+78001234567",
+     *       "role": "applicant"
+     *     },
+     *     "educations": [
+     *       {
+     *         "department": null,
+     *         "educational_institution": "УрФУ",
+     *         "level": "secondary",
+     *         "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *         "year_of_graduation": 2024
+     *       }
+     *     ],
+     *     "employment_types": [
+     *       "main"
+     *     ],
+     *     "field_of_art": "music",
+     *     "id": 521,
+     *     "published": true,
+     *     "reviewed": true,
+     *     "summary": "Я очень хорошо играю на фортепиано.",
+     *     "title": "Педагог по фортепиано",
+     *     "work_schedules": [
+     *       "full_time"
+     *     ],
+     *     "years_of_work_experience": 4
+     *   }
+     * }
+     */
+    CVResponse: {
+      /**
+       * CV
+       * @example {
+       *   "applicant": {
+       *     "birth_date": "2000-01-01",
+       *     "email": "username@domain.org",
+       *     "fullname": "Иванов Иван Иванович",
+       *     "id": "756",
+       *     "phone": "+78001234567",
+       *     "role": "applicant"
+       *   },
+       *   "educations": [
+       *     {
+       *       "department": null,
+       *       "educational_institution": "УрФУ",
+       *       "level": "secondary",
+       *       "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+       *       "year_of_graduation": 2024
+       *     }
+       *   ],
+       *   "employment_types": [
+       *     "main"
+       *   ],
+       *   "field_of_art": "music",
+       *   "id": 521,
+       *   "published": true,
+       *   "reviewed": true,
+       *   "summary": "Я очень хорошо играю на фортепиано.",
+       *   "title": "Педагог по фортепиано",
+       *   "work_schedules": [
+       *     "full_time"
+       *   ],
+       *   "years_of_work_experience": 4
+       * }
+       */
+      data: {
+        /**
+         * User
+         * @example {
+         *   "birth_date": "2000-01-01",
+         *   "email": "username@domain.org",
+         *   "fullname": "Иванов Иван Иванович",
+         *   "id": "756",
+         *   "phone": "+78001234567",
+         *   "role": "applicant"
+         * }
+         */
+        applicant: {
+          /** Format: date */
+          birth_date: string | null
+          email: string
+          fullname: string
+          id: number
+          /** Format: phone */
+          phone: string
+          /** @enum {string} */
+          role: 'admin' | 'applicant' | 'employer'
+        }
+        educations: {
+          department: string | null
+          educational_institution: string | null
+          /** @enum {string} */
+          level: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+          specialization: string | null
+          year_of_graduation: number | null
+        }[]
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        id: number
+        published: boolean
+        reviewed: boolean
+        summary: string
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+        years_of_work_experience: number
+      }
+    }
+    /**
+     * CVsQueryResponse
+     * @example {
+     *   "data": [
+     *     {
+     *       "applicant": {
+     *         "birth_date": "2000-01-01",
+     *         "email": "username@domain.org",
+     *         "fullname": "Иванов Иван Иванович",
+     *         "id": "756",
+     *         "phone": "+78001234567",
+     *         "role": "applicant"
+     *       },
+     *       "educations": [
+     *         {
+     *           "department": null,
+     *           "educational_institution": "УрФУ",
+     *           "level": "secondary",
+     *           "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *           "year_of_graduation": 2024
+     *         }
+     *       ],
+     *       "employment_types": [
+     *         "main"
+     *       ],
+     *       "field_of_art": "music",
+     *       "id": 521,
+     *       "published": true,
+     *       "reviewed": true,
+     *       "summary": "Я очень хорошо играю на фортепиано.",
+     *       "title": "Педагог по фортепиано",
+     *       "work_schedules": [
+     *         "full_time"
+     *       ],
+     *       "years_of_work_experience": 4
+     *     }
+     *   ],
+     *   "page": {
+     *     "page_number": 1,
+     *     "page_size": 10,
+     *     "total_entries": 23,
+     *     "total_pages": 3
+     *   }
+     * }
+     */
+    CVsQueryResponse: {
+      data: {
+        /**
+         * User
+         * @example {
+         *   "birth_date": "2000-01-01",
+         *   "email": "username@domain.org",
+         *   "fullname": "Иванов Иван Иванович",
+         *   "id": "756",
+         *   "phone": "+78001234567",
+         *   "role": "applicant"
+         * }
+         */
+        applicant: {
+          /** Format: date */
+          birth_date: string | null
+          email: string
+          fullname: string
+          id: number
+          /** Format: phone */
+          phone: string
+          /** @enum {string} */
+          role: 'admin' | 'applicant' | 'employer'
+        }
+        educations: {
+          department: string | null
+          educational_institution: string | null
+          /** @enum {string} */
+          level: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+          specialization: string | null
+          year_of_graduation: number | null
+        }[]
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        id: number
+        published: boolean
+        reviewed: boolean
+        summary: string
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+        years_of_work_experience: number
+      }[]
+      /**
+       * Page
+       * @example {
+       *   "page_number": 1,
+       *   "page_size": 10,
+       *   "total_entries": 23,
+       *   "total_pages": 3
+       * }
+       */
+      page: {
+        page_number: number
+        page_size: number
+        total_entries: number
+        total_pages: number
+      }
+    }
+    /**
      * ChangesetErrorsResponse
      * @example {
      *   "errors": {
@@ -74,6 +387,55 @@ export interface components {
       /** @description Errors map. Keys are fields and values are array of errors */
       errors: {
         [key: string]: unknown
+      }
+    }
+    /**
+     * CreateCVRequest
+     * @example {
+     *   "cv": {
+     *     "educations": [
+     *       {
+     *         "department": null,
+     *         "educational_institution": "УрФУ",
+     *         "level": "secondary",
+     *         "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *         "year_of_graduation": 2024
+     *       }
+     *     ],
+     *     "employment_types": [
+     *       "main"
+     *     ],
+     *     "field_of_art": "music",
+     *     "published": true,
+     *     "reviewed": true,
+     *     "summary": "Я очень хорошо играю на фортепиано.",
+     *     "title": "Педагог по фортепиано",
+     *     "work_schedules": [
+     *       "full_time"
+     *     ],
+     *     "years_of_work_experience": 4
+     *   }
+     * }
+     */
+    CreateCVRequest: {
+      cv: {
+        educations: {
+          department: string | null
+          educational_institution: string | null
+          /** @enum {string} */
+          level: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+          specialization: string | null
+          year_of_graduation: number | null
+        }[]
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        published?: boolean
+        reviewed: boolean
+        summary: string
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+        years_of_work_experience?: number
       }
     }
     /**
@@ -113,7 +475,7 @@ export interface components {
     CreateUserRequest: {
       user: {
         /** Format: date */
-        birth_date?: string
+        birth_date?: string | null
         email: string
         fullname: string
         password: string
@@ -137,6 +499,7 @@ export interface components {
      *     "field_of_art": "other",
      *     "min_years_of_work_experience": 5,
      *     "proposed_salary": "20000",
+     *     "published": true,
      *     "title": "Работник",
      *     "work_schedules": [
      *       "full_time"
@@ -153,8 +516,8 @@ export interface components {
         field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
         /** @default 0 */
         min_years_of_work_experience?: number
-        /** @default 0 */
-        proposed_salary?: number
+        proposed_salary?: number | null
+        published?: boolean
         title: string
         work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
       }
@@ -195,7 +558,7 @@ export interface components {
      *     "fullname": "Иванов Иван Иванович",
      *     "id": "756",
      *     "phone": "+78001234567",
-     *     "role": "employer"
+     *     "role": "applicant"
      *   },
      *   "id": "756",
      *   "logo": "/uploads/urfu.png",
@@ -214,7 +577,7 @@ export interface components {
        *   "fullname": "Иванов Иван Иванович",
        *   "id": "756",
        *   "phone": "+78001234567",
-       *   "role": "employer"
+       *   "role": "applicant"
        * }
        */
       employer: {
@@ -225,8 +588,8 @@ export interface components {
         id: number
         /** Format: phone */
         phone: string
-        /** Format: employer */
-        role: string
+        /** @enum {string} */
+        role: 'admin' | 'applicant' | 'employer'
       }
       id: number
       logo: string
@@ -245,7 +608,7 @@ export interface components {
      *       "fullname": "Иванов Иван Иванович",
      *       "id": "756",
      *       "phone": "+78001234567",
-     *       "role": "employer"
+     *       "role": "applicant"
      *     },
      *     "id": "756",
      *     "logo": "/uploads/urfu.png",
@@ -266,7 +629,7 @@ export interface components {
        *     "fullname": "Иванов Иван Иванович",
        *     "id": "756",
        *     "phone": "+78001234567",
-       *     "role": "employer"
+       *     "role": "applicant"
        *   },
        *   "id": "756",
        *   "logo": "/uploads/urfu.png",
@@ -285,7 +648,7 @@ export interface components {
          *   "fullname": "Иванов Иван Иванович",
          *   "id": "756",
          *   "phone": "+78001234567",
-         *   "role": "employer"
+         *   "role": "applicant"
          * }
          */
         employer: {
@@ -296,8 +659,8 @@ export interface components {
           id: number
           /** Format: phone */
           phone: string
-          /** Format: employer */
-          role: string
+          /** @enum {string} */
+          role: 'admin' | 'applicant' | 'employer'
         }
         id: number
         logo: string
@@ -334,6 +697,55 @@ export interface components {
       }
     }
     /**
+     * UpdateCVRequest
+     * @example {
+     *   "cv": {
+     *     "educations": [
+     *       {
+     *         "department": null,
+     *         "educational_institution": "УрФУ",
+     *         "level": "secondary",
+     *         "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *         "year_of_graduation": 2024
+     *       }
+     *     ],
+     *     "employment_types": [
+     *       "main"
+     *     ],
+     *     "field_of_art": "music",
+     *     "published": true,
+     *     "reviewed": true,
+     *     "summary": "Я очень хорошо играю на фортепиано.",
+     *     "title": "Педагог по фортепиано",
+     *     "work_schedules": [
+     *       "full_time"
+     *     ],
+     *     "years_of_work_experience": 4
+     *   }
+     * }
+     */
+    UpdateCVRequest: {
+      cv: {
+        educations?: {
+          department: string | null
+          educational_institution: string | null
+          /** @enum {string} */
+          level: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+          specialization: string | null
+          year_of_graduation: number | null
+        }[]
+        employment_types?: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art?: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        published?: boolean
+        reviewed?: boolean
+        summary?: string
+        title?: string
+        work_schedules?: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+        years_of_work_experience?: number
+      }
+    }
+    /**
      * UpdateOrganizationRequest
      * @example {
      *   "organization": {
@@ -350,6 +762,29 @@ export interface components {
         address?: string
         contacts?: string
         description?: string
+        /**
+         * User
+         * @example {
+         *   "birth_date": "2000-01-01",
+         *   "email": "username@domain.org",
+         *   "fullname": "Иванов Иван Иванович",
+         *   "id": "756",
+         *   "phone": "+78001234567",
+         *   "role": "applicant"
+         * }
+         */
+        employer?: {
+          /** Format: date */
+          birth_date: string | null
+          email: string
+          fullname: string
+          id: number
+          /** Format: phone */
+          phone: string
+          /** @enum {string} */
+          role: 'admin' | 'applicant' | 'employer'
+        }
+        id?: number
         logo?: string
         name?: string
       }
@@ -367,7 +802,7 @@ export interface components {
     UpdateUserInfoRequest: {
       user: {
         /** Format: date */
-        birth_date?: string
+        birth_date?: string | null
         fullname?: string
         /** Format: phone */
         phone?: string
@@ -387,6 +822,7 @@ export interface components {
      *     "field_of_art": "other",
      *     "min_years_of_work_experience": 5,
      *     "proposed_salary": "20000",
+     *     "published": true,
      *     "title": "Работник",
      *     "work_schedules": [
      *       "full_time"
@@ -403,8 +839,8 @@ export interface components {
         field_of_art?: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
         /** @default 0 */
         min_years_of_work_experience?: number
-        /** @default 0 */
-        proposed_salary?: number
+        proposed_salary?: number | null
+        published?: boolean
         title?: string
         work_schedules?: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
       }
@@ -417,7 +853,7 @@ export interface components {
      *   "fullname": "Иванов Иван Иванович",
      *   "id": "756",
      *   "phone": "+78001234567",
-     *   "role": "employer"
+     *   "role": "applicant"
      * }
      */
     User: {
@@ -428,8 +864,8 @@ export interface components {
       id: number
       /** Format: phone */
       phone: string
-      /** Format: employer */
-      role: string
+      /** @enum {string} */
+      role: 'admin' | 'applicant' | 'employer'
     }
     /**
      * UserCredentials
@@ -508,7 +944,7 @@ export interface components {
      *           "fullname": "Иванов Иван Иванович",
      *           "id": "756",
      *           "phone": "+78001234567",
-     *           "role": "employer"
+     *           "role": "applicant"
      *         },
      *         "id": "756",
      *         "logo": "/uploads/urfu.png",
@@ -553,7 +989,7 @@ export interface components {
          *     "fullname": "Иванов Иван Иванович",
          *     "id": "756",
          *     "phone": "+78001234567",
-         *     "role": "employer"
+         *     "role": "applicant"
          *   },
          *   "id": "756",
          *   "logo": "/uploads/urfu.png",
@@ -572,7 +1008,7 @@ export interface components {
            *   "fullname": "Иванов Иван Иванович",
            *   "id": "756",
            *   "phone": "+78001234567",
-           *   "role": "employer"
+           *   "role": "applicant"
            * }
            */
           employer: {
@@ -583,8 +1019,8 @@ export interface components {
             id: number
             /** Format: phone */
             phone: string
-            /** Format: employer */
-            role: string
+            /** @enum {string} */
+            role: 'admin' | 'applicant' | 'employer'
           }
           id: number
           logo: string
@@ -635,7 +1071,7 @@ export interface components {
      *       "fullname": "Иванов Иван Иванович",
      *       "id": "756",
      *       "phone": "+78001234567",
-     *       "role": "employer"
+     *       "role": "applicant"
      *     },
      *     "id": "756",
      *     "logo": "/uploads/urfu.png",
@@ -671,7 +1107,7 @@ export interface components {
        *     "fullname": "Иванов Иван Иванович",
        *     "id": "756",
        *     "phone": "+78001234567",
-       *     "role": "employer"
+       *     "role": "applicant"
        *   },
        *   "id": "756",
        *   "logo": "/uploads/urfu.png",
@@ -690,7 +1126,7 @@ export interface components {
          *   "fullname": "Иванов Иван Иванович",
          *   "id": "756",
          *   "phone": "+78001234567",
-         *   "role": "employer"
+         *   "role": "applicant"
          * }
          */
         employer: {
@@ -701,8 +1137,8 @@ export interface components {
           id: number
           /** Format: phone */
           phone: string
-          /** Format: employer */
-          role: string
+          /** @enum {string} */
+          role: 'admin' | 'applicant' | 'employer'
         }
         id: number
         logo: string
@@ -738,7 +1174,7 @@ export interface components {
      *         "fullname": "Иванов Иван Иванович",
      *         "id": "756",
      *         "phone": "+78001234567",
-     *         "role": "employer"
+     *         "role": "applicant"
      *       },
      *       "id": "756",
      *       "logo": "/uploads/urfu.png",
@@ -778,7 +1214,7 @@ export interface components {
        *       "fullname": "Иванов Иван Иванович",
        *       "id": "756",
        *       "phone": "+78001234567",
-       *       "role": "employer"
+       *       "role": "applicant"
        *     },
        *     "id": "756",
        *     "logo": "/uploads/urfu.png",
@@ -814,7 +1250,7 @@ export interface components {
          *     "fullname": "Иванов Иван Иванович",
          *     "id": "756",
          *     "phone": "+78001234567",
-         *     "role": "employer"
+         *     "role": "applicant"
          *   },
          *   "id": "756",
          *   "logo": "/uploads/urfu.png",
@@ -833,7 +1269,7 @@ export interface components {
            *   "fullname": "Иванов Иван Иванович",
            *   "id": "756",
            *   "phone": "+78001234567",
-           *   "role": "employer"
+           *   "role": "applicant"
            * }
            */
           employer: {
@@ -844,8 +1280,8 @@ export interface components {
             id: number
             /** Format: phone */
             phone: string
-            /** Format: employer */
-            role: string
+            /** @enum {string} */
+            role: 'admin' | 'applicant' | 'employer'
           }
           id: number
           logo: string
@@ -871,6 +1307,178 @@ export type $defs = Record<string, never>
 export type external = Record<string, never>
 
 export interface operations {
+  /** Create CV */
+  'CenWeb.CVController.create': {
+    /** @description CV params */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['CreateCVRequest']
+      }
+    }
+    responses: {
+      /** @description Created CV */
+      201: {
+        content: {
+          'application/json': components['schemas']['CVResponse']
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description You are not employer */
+      403: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description Changeset errors */
+      422: {
+        content: {
+          'application/json': components['schemas']['ChangesetErrorsResponse']
+        }
+      }
+    }
+  }
+  /** Search CVs */
+  'CenWeb.CVController.search': {
+    parameters: {
+      query?: {
+        /** @description Search text */
+        text?: string
+        /** @description Employment types */
+        'employment_types[]'?: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @description Employment types */
+        'work_schedules[]'?: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+        /** @description Education */
+        education?: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+        /** @description Field of art */
+        field_of_art?: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        /** @description Minimum years of work experience */
+        min_years_of_work_experience?: number
+        /** @description Page number */
+        page?: number
+        /** @description Page size */
+        page_size?: number
+      }
+    }
+    responses: {
+      /** @description CVs list */
+      200: {
+        content: {
+          'application/json': components['schemas']['CVsQueryResponse']
+        }
+      }
+    }
+  }
+  /** Get CV */
+  'CenWeb.CVController.show': {
+    parameters: {
+      path: {
+        /**
+         * @description CV ID
+         * @example 10132
+         */
+        cv_id: number
+      }
+    }
+    responses: {
+      /** @description Requested CV */
+      200: {
+        content: {
+          'application/json': components['schemas']['CVResponse']
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description CV not found */
+      404: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+    }
+  }
+  /** Delete CV */
+  'CenWeb.CVController.delete': {
+    parameters: {
+      path: {
+        /**
+         * @description CV ID
+         * @example 10132
+         */
+        cv_id: number
+      }
+    }
+    responses: {
+      /** @description CV deleted */
+      204: {
+        content: never
+      }
+      /** @description Unauthorized */
+      401: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description You are not the owner */
+      403: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+    }
+  }
+  /** Update CV */
+  'CenWeb.CVController.update': {
+    parameters: {
+      path: {
+        /**
+         * @description CV ID
+         * @example 10132
+         */
+        cv_id: number
+      }
+    }
+    /** @description CV params */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['UpdateCVRequest']
+      }
+    }
+    responses: {
+      /** @description Requested CV */
+      201: {
+        content: {
+          'application/json': components['schemas']['CVResponse']
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description You are not the owner */
+      403: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description CV not found */
+      404: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+    }
+  }
   /** Check health */
   'CenWeb.HealthCheckController.check': {
     responses: {

@@ -13,15 +13,19 @@ type FiltersProps = {
   setFilters: Dispatch<SetStateAction<FiltersType>>
   onSearch?: VoidFunction
   onReset?: VoidFunction
+  isEmployer?: boolean
 }
 
-type CheckboxFiltersName = keyof Omit<FiltersType, 'text' | 'preferred_salary' | 'years_of_work_experience'>
+type CheckboxFiltersName = keyof Omit<
+  FiltersType,
+  'text' | 'preferred_salary' | 'years_of_work_experience' | 'min_years_of_work_experience'
+>
 
 function isNumber(val: string) {
   return !isNaN(Number(val))
 }
 
-function Filters({ filters, setFilters, onSearch, onReset }: FiltersProps) {
+function Filters({ filters, setFilters, onSearch, onReset, isEmployer = false }: FiltersProps) {
   return (
     <div className={S.filters}>
       <div className={S.header}>
@@ -52,43 +56,50 @@ function Filters({ filters, setFilters, onSearch, onReset }: FiltersProps) {
       <div className={S.inputWithText}>
         <h2 className={S.filterHeader}>Опыт работы</h2>
         <div className={S.row}>
-          До
+          {isEmployer ? 'От' : 'До'}
           <Input
             height={45}
             width={55}
-            value={filters.years_of_work_experience}
+            value={isEmployer ? filters.min_years_of_work_experience : filters.years_of_work_experience}
             onChange={(e) => {
               const value = e.target.value
               if (!isNumber(value)) return
-              setFilters((prev) => ({
-                ...prev,
-                years_of_work_experience: value,
-              }))
+              isEmployer
+                ? setFilters((prev) => ({
+                    ...prev,
+                    min_years_of_work_experience: value,
+                  }))
+                : setFilters((prev) => ({
+                    ...prev,
+                    years_of_work_experience: value,
+                  }))
             }}
           />
           лет
         </div>
       </div>
-      <div className={S.inputWithText}>
-        <h2 className={S.filterHeader}>Зарплата</h2>
-        <div className={S.row}>
-          От
-          <Input
-            height={45}
-            width={170}
-            value={filters.preferred_salary}
-            onChange={(e) => {
-              const value = e.target.value
-              if (!isNumber(value)) return
-              setFilters((prev) => ({
-                ...prev,
-                preferred_salary: value,
-              }))
-            }}
-          />
-          &#8381;
+      {!isEmployer && (
+        <div className={S.inputWithText}>
+          <h2 className={S.filterHeader}>Зарплата</h2>
+          <div className={S.row}>
+            От
+            <Input
+              height={45}
+              width={170}
+              value={filters.preferred_salary}
+              onChange={(e) => {
+                const value = e.target.value
+                if (!isNumber(value)) return
+                setFilters((prev) => ({
+                  ...prev,
+                  preferred_salary: value,
+                }))
+              }}
+            />
+            &#8381;
+          </div>
         </div>
-      </div>
+      )}
       <div className={S.searchButton}>
         <SearchForm.SearchButton onClick={onSearch} />
       </div>
