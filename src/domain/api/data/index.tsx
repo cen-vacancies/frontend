@@ -2,6 +2,7 @@ import { operations as ApiOperations, components } from '../../../domain/api/typ
 
 const apiUrl = 'https://cen.telegrafo.ru/api'
 const apiVacancies = `${apiUrl}/vacancies`
+const apiCvs = `${apiUrl}/cvs`
 
 export const vacancies = {
   searchVacancy,
@@ -15,15 +16,16 @@ export type FiltersType = {
   field_of_art: NonNullable<FiltersQuery['field_of_art']>[]
   'work_schedules[]': NonNullable<FiltersQuery['work_schedules[]']>
   preferred_salary: string
-  years_of_work_experience: string
+  years_of_work_experience?: string
+  min_years_of_work_experience?: string
 }
 
 async function searchVacancy(filters: FiltersType): Promise<components['schemas']['VacanciesQueryResponse']> {
   const query = new URLSearchParams()
   Object.keys(filters).forEach((key) => {
     const value = filters[key as keyof FiltersType]
-    if (typeof value === 'string') {
-      if (value !== '') {
+    if (typeof value === 'string' || value === undefined) {
+      if (value !== '' && value !== undefined) {
         query.set(key, value)
       }
       return
@@ -37,8 +39,32 @@ async function searchVacancy(filters: FiltersType): Promise<components['schemas'
   return await response.json()
 }
 
+export const cvs = {
+  searchCvs,
+}
+
+async function searchCvs(filters: FiltersType): Promise<components['schemas']['CVsQueryResponse']> {
+  const query = new URLSearchParams()
+  Object.keys(filters).forEach((key) => {
+    const value = filters[key as keyof FiltersType]
+    if (typeof value === 'string' || value === undefined) {
+      if (value !== '' && value !== undefined) {
+        query.set(key, value)
+      }
+      return
+    }
+    value.forEach((item) => {
+      query.append(key, item)
+    })
+  })
+
+  const response = await fetch(`${apiCvs}/search?${query.toString()}`, { method: 'GET' })
+  return await response.json()
+}
+
 const api = {
   vacancies,
+  cvs,
 }
 
 export default api
