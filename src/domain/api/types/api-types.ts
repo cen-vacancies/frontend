@@ -15,10 +15,12 @@ export interface paths {
   '/api/cvs/{cv_id}': {
     /** Get CV */
     get: operations['CenWeb.CVController.show']
+    /** Update CV */
+    put: operations['CenWeb.CVController.update']
     /** Delete CV */
     delete: operations['CenWeb.CVController.delete']
     /** Update CV */
-    patch: operations['CenWeb.CVController.update']
+    patch: operations['CenWeb.CVController.update (2)']
   }
   '/api/health/check': {
     /** Check health */
@@ -31,32 +33,34 @@ export interface paths {
   '/api/organizations/{organization_id}': {
     /** Get organization */
     get: operations['CenWeb.OrganizationController.show']
+    /** Update organization */
+    put: operations['CenWeb.OrganizationController.update']
     /** Delete organization */
     delete: operations['CenWeb.OrganizationController.delete']
     /** Update organization */
-    patch: operations['CenWeb.OrganizationController.update']
+    patch: operations['CenWeb.OrganizationController.update (2)']
   }
   '/api/organizations/{organization_id}/new_vacancy': {
     /** Create vacancy */
     post: operations['CenWeb.VacancyController.create']
   }
-  '/api/tokens': {
+  '/api/token': {
     /** Get access token */
     post: operations['CenWeb.TokenController.create']
   }
-  '/api/users': {
+  '/api/user': {
+    /** Get current user */
+    get: operations['CenWeb.UserController.show']
     /** Create user */
     post: operations['CenWeb.UserController.create']
-  }
-  '/api/users/me': {
-    /** Get user by ID */
-    get: operations['CenWeb.UserController.show']
     /** Delete user */
     delete: operations['CenWeb.UserController.delete']
   }
-  '/api/users/me/info': {
+  '/api/user/info': {
     /** Update user */
-    patch: operations['CenWeb.UserController.update_info']
+    put: operations['CenWeb.UserController.update_info']
+    /** Update user */
+    patch: operations['CenWeb.UserController.update_info (2)']
   }
   '/api/vacancies/search': {
     /** Search vacancies */
@@ -65,10 +69,12 @@ export interface paths {
   '/api/vacancies/{vacancy_id}': {
     /** Get vacancy */
     get: operations['CenWeb.VacancyController.show']
+    /** Update vacancy */
+    put: operations['CenWeb.VacancyController.update']
     /** Delete vacancy */
     delete: operations['CenWeb.VacancyController.delete']
     /** Update vacancy */
-    patch: operations['CenWeb.VacancyController.update']
+    patch: operations['CenWeb.VacancyController.update (2)']
   }
 }
 
@@ -138,7 +144,7 @@ export interface components {
         department: string | null
         educational_institution: string | null
         /** @enum {string} */
-        level: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+        level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
         specialization: string | null
         year_of_graduation: number | null
       }[]
@@ -253,7 +259,7 @@ export interface components {
           department: string | null
           educational_institution: string | null
           /** @enum {string} */
-          level: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
           specialization: string | null
           year_of_graduation: number | null
         }[]
@@ -342,7 +348,7 @@ export interface components {
           department: string | null
           educational_institution: string | null
           /** @enum {string} */
-          level: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
           specialization: string | null
           year_of_graduation: number | null
         }[]
@@ -423,7 +429,7 @@ export interface components {
           department: string | null
           educational_institution: string | null
           /** @enum {string} */
-          level: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
           specialization: string | null
           year_of_graduation: number | null
         }[]
@@ -491,7 +497,7 @@ export interface components {
      *   "vacancy": {
      *     "description": "Ищем очень хорошего работника!",
      *     "educations": [
-     *       "higher"
+     *       "bachelor"
      *     ],
      *     "employment_types": [
      *       "main"
@@ -510,7 +516,7 @@ export interface components {
     CreateVacancyRequest: {
       vacancy: {
         description: string
-        educations: ('none' | 'higher' | 'secondary' | 'secondary_vocational')[]
+        educations: ('none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor')[]
         employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
         /** @enum {string} */
         field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
@@ -730,7 +736,7 @@ export interface components {
           department: string | null
           educational_institution: string | null
           /** @enum {string} */
-          level: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
           specialization: string | null
           year_of_graduation: number | null
         }[]
@@ -814,7 +820,7 @@ export interface components {
      *   "vacancy": {
      *     "description": "Ищем очень хорошего работника!",
      *     "educations": [
-     *       "higher"
+     *       "bachelor"
      *     ],
      *     "employment_types": [
      *       "main"
@@ -833,7 +839,7 @@ export interface components {
     UpdateVacancyRequest: {
       vacancy: {
         description?: string
-        educations?: ('none' | 'higher' | 'secondary' | 'secondary_vocational')[]
+        educations?: ('none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor')[]
         employment_types?: ('main' | 'secondary' | 'practice' | 'internship')[]
         /** @enum {string} */
         field_of_art?: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
@@ -926,7 +932,7 @@ export interface components {
      *     {
      *       "description": "Ищем очень хорошего работника!",
      *       "educations": [
-     *         "higher"
+     *         "bachelor"
      *       ],
      *       "employment_types": [
      *         "main"
@@ -970,7 +976,7 @@ export interface components {
     VacanciesQueryResponse: {
       data: {
         description: string
-        educations: ('none' | 'higher' | 'secondary' | 'secondary_vocational')[]
+        educations: ('none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor')[]
         employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
         /** @enum {string} */
         field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
@@ -1053,7 +1059,7 @@ export interface components {
      * @example {
      *   "description": "Ищем очень хорошего работника!",
      *   "educations": [
-     *     "higher"
+     *     "bachelor"
      *   ],
      *   "employment_types": [
      *     "main"
@@ -1088,7 +1094,7 @@ export interface components {
      */
     Vacancy: {
       description: string
-      educations: ('none' | 'higher' | 'secondary' | 'secondary_vocational')[]
+      educations: ('none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor')[]
       employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
       /** @enum {string} */
       field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
@@ -1156,7 +1162,7 @@ export interface components {
      *   "data": {
      *     "description": "Ищем очень хорошего работника!",
      *     "educations": [
-     *       "higher"
+     *       "bachelor"
      *     ],
      *     "employment_types": [
      *       "main"
@@ -1196,7 +1202,7 @@ export interface components {
        * @example {
        *   "description": "Ищем очень хорошего работника!",
        *   "educations": [
-       *     "higher"
+       *     "bachelor"
        *   ],
        *   "employment_types": [
        *     "main"
@@ -1231,7 +1237,7 @@ export interface components {
        */
       data: {
         description: string
-        educations: ('none' | 'higher' | 'secondary' | 'secondary_vocational')[]
+        educations: ('none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor')[]
         employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
         /** @enum {string} */
         field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
@@ -1353,7 +1359,7 @@ export interface operations {
         /** @description Employment types */
         'work_schedules[]'?: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
         /** @description Education */
-        education?: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+        education?: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
         /** @description Field of art */
         field_of_art?: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
         /** @description Minimum years of work experience */
@@ -1405,6 +1411,50 @@ export interface operations {
       }
     }
   }
+  /** Update CV */
+  'CenWeb.CVController.update': {
+    parameters: {
+      path: {
+        /**
+         * @description CV ID
+         * @example 10132
+         */
+        cv_id: number
+      }
+    }
+    /** @description CV params */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['UpdateCVRequest']
+      }
+    }
+    responses: {
+      /** @description Requested CV */
+      201: {
+        content: {
+          'application/json': components['schemas']['CVResponse']
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description You are not the owner */
+      403: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description CV not found */
+      404: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+    }
+  }
   /** Delete CV */
   'CenWeb.CVController.delete': {
     parameters: {
@@ -1436,7 +1486,7 @@ export interface operations {
     }
   }
   /** Update CV */
-  'CenWeb.CVController.update': {
+  'CenWeb.CVController.update (2)': {
     parameters: {
       path: {
         /**
@@ -1557,6 +1607,50 @@ export interface operations {
       }
     }
   }
+  /** Update organization */
+  'CenWeb.OrganizationController.update': {
+    parameters: {
+      path: {
+        /**
+         * @description Organization ID
+         * @example 10132
+         */
+        organization_id: number
+      }
+    }
+    /** @description Organization params */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['UpdateOrganizationRequest']
+      }
+    }
+    responses: {
+      /** @description Requested organization */
+      201: {
+        content: {
+          'application/json': components['schemas']['OrganizationResponse']
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description You are not the owner */
+      403: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description Organization not found */
+      404: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+    }
+  }
   /** Delete organization */
   'CenWeb.OrganizationController.delete': {
     parameters: {
@@ -1588,7 +1682,7 @@ export interface operations {
     }
   }
   /** Update organization */
-  'CenWeb.OrganizationController.update': {
+  'CenWeb.OrganizationController.update (2)': {
     parameters: {
       path: {
         /**
@@ -1690,6 +1784,17 @@ export interface operations {
       }
     }
   }
+  /** Get current user */
+  'CenWeb.UserController.show': {
+    responses: {
+      /** @description Requested user */
+      200: {
+        content: {
+          'application/json': components['schemas']['UserResponse']
+        }
+      }
+    }
+  }
   /** Create user */
   'CenWeb.UserController.create': {
     /** @description User params */
@@ -1709,17 +1814,6 @@ export interface operations {
       422: {
         content: {
           'application/json': components['schemas']['ChangesetErrorsResponse']
-        }
-      }
-    }
-  }
-  /** Get user by ID */
-  'CenWeb.UserController.show': {
-    responses: {
-      /** @description Requested user */
-      200: {
-        content: {
-          'application/json': components['schemas']['UserResponse']
         }
       }
     }
@@ -1756,6 +1850,29 @@ export interface operations {
       }
     }
   }
+  /** Update user */
+  'CenWeb.UserController.update_info (2)': {
+    /** @description User params */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['UpdateUserInfoRequest']
+      }
+    }
+    responses: {
+      /** @description Updated user */
+      200: {
+        content: {
+          'application/json': components['schemas']['UserResponse']
+        }
+      }
+      /** @description Changeset errors */
+      422: {
+        content: {
+          'application/json': components['schemas']['ChangesetErrorsResponse']
+        }
+      }
+    }
+  }
   /** Search vacancies */
   'CenWeb.VacancyController.search': {
     parameters: {
@@ -1767,7 +1884,7 @@ export interface operations {
         /** @description Employment types */
         'work_schedules[]'?: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
         /** @description Education */
-        education?: 'none' | 'higher' | 'secondary' | 'secondary_vocational'
+        education?: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
         /** @description Field of art */
         field_of_art?: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
         /** @description Years of work experience */
@@ -1819,6 +1936,42 @@ export interface operations {
       }
     }
   }
+  /** Update vacancy */
+  'CenWeb.VacancyController.update': {
+    parameters: {
+      path: {
+        /**
+         * @description Vacancy ID
+         * @example 10132
+         */
+        vacancy_id: number
+      }
+    }
+    /** @description Vacancy params */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['UpdateVacancyRequest']
+      }
+    }
+    responses: {
+      /** @description Requested vacancy */
+      201: {
+        content: {
+          'application/json': components['schemas']['VacancyResponse']
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        content: never
+      }
+      /** @description Vacancy not found */
+      404: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+    }
+  }
   /** Delete vacancy */
   'CenWeb.VacancyController.delete': {
     parameters: {
@@ -1842,7 +1995,7 @@ export interface operations {
     }
   }
   /** Update vacancy */
-  'CenWeb.VacancyController.update': {
+  'CenWeb.VacancyController.update (2)': {
     parameters: {
       path: {
         /**
