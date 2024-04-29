@@ -53,19 +53,27 @@
     "options": [
       {
         "value": "none",
-        "title": "Не требуется"
+        "title": "Не указано"
       },
       {
-        "value": "higher",
-        "title": "Высшее"
+        "value": "secondary",
+        "title": "Среднее"
       },
       {
         "value": "secondary_vocational",
         "title": "Среднее специальное"
       },
       {
-        "value": "secondary",
-        "title": "Среднее"
+        "value": "bachelor",
+        "title": "Бакалавр"
+      },
+      {
+        "value": "master",
+        "title": "Магистратура"
+      },
+      {
+        "value": "doctor",
+        "title": "Научная степень"
       }
     ]
   },
