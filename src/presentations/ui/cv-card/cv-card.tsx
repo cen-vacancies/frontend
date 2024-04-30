@@ -3,6 +3,7 @@ import UItext from './i18n.json'
 import type { components } from '../../../domain/api/types/api-types.ts'
 
 import S from './cv-card.module.css'
+import { getWorkExp } from '../../helpers/get-work-exp.ts'
 
 type VacancyCardProps = Pick<
   components['schemas']['CV'],
@@ -18,17 +19,10 @@ function CvCard({ title, field_of_art, applicant, years_of_work_experience }: Va
         <br />
         {UItext.field_of_art[field_of_art]}
         <br />
-        {getExp(years_of_work_experience)}
+        {getWorkExp(years_of_work_experience)}
       </p>
     </div>
   )
-}
-
-function getExp(year: number) {
-  if (year <= 0) {
-    return 'Без опыта'
-  }
-  return `Опыт работы ${year} ${year % 10 === 1 ? 'года' : 'лет'}`
 }
 
 function getYears(birthDate: string | null) {

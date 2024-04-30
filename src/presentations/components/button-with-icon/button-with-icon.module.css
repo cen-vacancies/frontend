@@ -1,0 +1,23 @@
+.button {
+  cursor: pointer;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  padding: 4px 10px 4px 7px;
+
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  background-color: #a2c7e0;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 2px 2px 10px 0 #00000026;
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+}
