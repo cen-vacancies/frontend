@@ -39,9 +39,9 @@ function EmployerPage() {
 
   return (
     <Page>
-      <Page.Filters isVisible={isFilterVisible}>
+      <Page.Aside isVisible={isFilterVisible}>
         <Filters isEmployer filters={filters} setFilters={setFilters} onSearch={handleSearch} onReset={handleReset} />
-      </Page.Filters>
+      </Page.Aside>
       <Page.Content>
         <div className={S.root}>
           <SearchForm

@@ -1,11 +1,12 @@
 import { operations as ApiOperations, components } from '../../../domain/api/types/api-types.ts'
 
-const apiUrl = 'https://cen.telegrafo.ru/api'
+export const apiUrl = 'https://cen.telegrafo.ru/api'
 const apiVacancies = `${apiUrl}/vacancies`
 const apiCvs = `${apiUrl}/cvs`
 
 export const vacancies = {
   searchVacancy,
+  getVacancyById,
 }
 
 type FiltersQuery = NonNullable<ApiOperations['CenWeb.VacancyController.search']['parameters']['query']>
@@ -39,8 +40,17 @@ async function searchVacancy(filters: FiltersType): Promise<components['schemas'
   return await response.json()
 }
 
+async function getVacancyById(id?: string): Promise<components['schemas']['VacancyResponse'] | undefined> {
+  if (!id) {
+    return undefined
+  }
+  const response = await fetch(`${apiVacancies}/${id}`, { method: 'GET' })
+  return await response.json()
+}
+
 export const cvs = {
   searchCvs,
+  getCVById,
 }
 
 async function searchCvs(filters: FiltersType): Promise<components['schemas']['CVsQueryResponse']> {
@@ -59,6 +69,14 @@ async function searchCvs(filters: FiltersType): Promise<components['schemas']['C
   })
 
   const response = await fetch(`${apiCvs}/search?${query.toString()}`, { method: 'GET' })
+  return await response.json()
+}
+
+async function getCVById(id?: string): Promise<components['schemas']['CVResponse'] | undefined> {
+  if (!id) {
+    return undefined
+  }
+  const response = await fetch(`${apiCvs}/${id}`, { method: 'GET' })
   return await response.json()
 }
 
