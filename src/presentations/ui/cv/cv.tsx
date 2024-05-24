@@ -2,6 +2,7 @@ import { components } from '../../../domain/api/types/api-types.ts'
 
 import s from './cv.module.css'
 import { Link } from 'react-router-dom'
+import { ReactNode } from 'react'
 
 type Props = {
   data: components['schemas']['CV']
@@ -11,7 +12,19 @@ function CV({ data }: Props) {
   return (
     <article className={s.vacancy}>
       <h2 className={s.title}>{data.title}</h2>
-      <p className={s.paragraph}>{data.summary}</p>
+      <p className={s.paragraph}>
+        {data.summary.split('\n').map((item) => {
+          let res: ReactNode = item
+          if (item.startsWith('**')) res = <b>{item.replace(/\*\*/g, '')}</b>
+          else if (item.startsWith('*')) res = <i>{item.replace(/\*/g, '')}</i>
+          return (
+            <>
+              {res}
+              <br />
+            </>
+          )
+        })}
+      </p>
       <h2 className={s.title}>Тип занятости</h2>
       <p className={s.paragraph}>{getEmployement(data.employment_types)}</p>
       <h2 className={s.title}>График работы</h2>
@@ -20,6 +33,8 @@ function CV({ data }: Props) {
       <p className={s.paragraph}>{getEducation(data.educations)}</p>
       <h2 className={s.title}>Сфера искусства</h2>
       <p className={s.paragraph}>{textFieldArt[data.field_of_art]}</p>
+      <h2 className={s.title}>Опыт работы</h2>
+      <div className={s.exp}></div>
       <h2 className={s.title}>Контакты</h2>
       <p className={s.paragraph}>
         {data.applicant.phone}
