@@ -1,6 +1,6 @@
 import { operations as ApiOperations, components } from '../../../domain/api/types/api-types.ts'
 
-export const apiUrl = 'https://cen.telegrafo.ru/api'
+export const apiUrl = `${import.meta.env.VITE_API_URL}/api`
 const apiVacancies = `${apiUrl}/vacancies`
 const apiCvs = `${apiUrl}/cvs`
 

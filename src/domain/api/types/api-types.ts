@@ -26,19 +26,21 @@ export interface paths {
     /** Check health */
     get: operations['CenWeb.HealthCheckController.check']
   }
-  '/api/organizations': {
-    /** Create organization */
-    post: operations['CenWeb.OrganizationController.create']
-  }
-  '/api/organizations/{organization_id}': {
-    /** Get organization */
+  '/api/organization': {
+    /** Get current user's organization */
     get: operations['CenWeb.OrganizationController.show']
     /** Update organization */
     put: operations['CenWeb.OrganizationController.update']
+    /** Create organization */
+    post: operations['CenWeb.OrganizationController.create']
     /** Delete organization */
     delete: operations['CenWeb.OrganizationController.delete']
     /** Update organization */
     patch: operations['CenWeb.OrganizationController.update (2)']
+  }
+  '/api/organizations/{organization_id}': {
+    /** Get organization */
+    get: operations['CenWeb.OrganizationController.show_by_id']
   }
   '/api/organizations/{organization_id}/new_vacancy': {
     /** Create vacancy */
@@ -47,6 +49,10 @@ export interface paths {
   '/api/token': {
     /** Get access token */
     post: operations['CenWeb.TokenController.create']
+  }
+  '/api/uploads/image': {
+    /** Upload an image */
+    post: operations['CenWeb.UploadsController.upload_image']
   }
   '/api/user': {
     /** Get current user */
@@ -107,14 +113,23 @@ export interface components {
      *   ],
      *   "field_of_art": "music",
      *   "id": 521,
+     *   "jobs": [
+     *     {
+     *       "description": "Преподавал предмет",
+     *       "end_date": "2024-02-01",
+     *       "job_title": "Преподаватель",
+     *       "organization_name": "УрФУ",
+     *       "start_date": "2022-12-01"
+     *     }
+     *   ],
+     *   "photo": "/uploads/photo.png",
      *   "published": true,
      *   "reviewed": true,
      *   "summary": "Я очень хорошо играю на фортепиано.",
      *   "title": "Педагог по фортепиано",
      *   "work_schedules": [
      *     "full_time"
-     *   ],
-     *   "years_of_work_experience": 4
+     *   ]
      * }
      */
     CV: {
@@ -131,7 +146,7 @@ export interface components {
        */
       applicant: {
         /** Format: date */
-        birth_date: string | null
+        birth_date: string
         email: string
         fullname: string
         id: number
@@ -152,12 +167,27 @@ export interface components {
       /** @enum {string} */
       field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
       id: number
+      jobs: {
+        description: string
+        /**
+         * Format: date
+         * @description day should be ignored
+         */
+        end_date: string
+        job_title: string
+        organization_name: string
+        /**
+         * Format: date
+         * @description day should be ignored
+         */
+        start_date: string
+      }[]
+      photo: string
       published: boolean
       reviewed: boolean
       summary: string
       title: string
       work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-      years_of_work_experience: number
     }
     /**
      * CVResponse
@@ -185,14 +215,23 @@ export interface components {
      *     ],
      *     "field_of_art": "music",
      *     "id": 521,
+     *     "jobs": [
+     *       {
+     *         "description": "Преподавал предмет",
+     *         "end_date": "2024-02-01",
+     *         "job_title": "Преподаватель",
+     *         "organization_name": "УрФУ",
+     *         "start_date": "2022-12-01"
+     *       }
+     *     ],
+     *     "photo": "/uploads/photo.png",
      *     "published": true,
      *     "reviewed": true,
      *     "summary": "Я очень хорошо играю на фортепиано.",
      *     "title": "Педагог по фортепиано",
      *     "work_schedules": [
      *       "full_time"
-     *     ],
-     *     "years_of_work_experience": 4
+     *     ]
      *   }
      * }
      */
@@ -222,14 +261,23 @@ export interface components {
        *   ],
        *   "field_of_art": "music",
        *   "id": 521,
+       *   "jobs": [
+       *     {
+       *       "description": "Преподавал предмет",
+       *       "end_date": "2024-02-01",
+       *       "job_title": "Преподаватель",
+       *       "organization_name": "УрФУ",
+       *       "start_date": "2022-12-01"
+       *     }
+       *   ],
+       *   "photo": "/uploads/photo.png",
        *   "published": true,
        *   "reviewed": true,
        *   "summary": "Я очень хорошо играю на фортепиано.",
        *   "title": "Педагог по фортепиано",
        *   "work_schedules": [
        *     "full_time"
-       *   ],
-       *   "years_of_work_experience": 4
+       *   ]
        * }
        */
       data: {
@@ -246,7 +294,7 @@ export interface components {
          */
         applicant: {
           /** Format: date */
-          birth_date: string | null
+          birth_date: string
           email: string
           fullname: string
           id: number
@@ -267,12 +315,27 @@ export interface components {
         /** @enum {string} */
         field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
         id: number
+        jobs: {
+          description: string
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          end_date: string
+          job_title: string
+          organization_name: string
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          start_date: string
+        }[]
+        photo: string
         published: boolean
         reviewed: boolean
         summary: string
         title: string
         work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-        years_of_work_experience: number
       }
     }
     /**
@@ -302,14 +365,23 @@ export interface components {
      *       ],
      *       "field_of_art": "music",
      *       "id": 521,
+     *       "jobs": [
+     *         {
+     *           "description": "Преподавал предмет",
+     *           "end_date": "2024-02-01",
+     *           "job_title": "Преподаватель",
+     *           "organization_name": "УрФУ",
+     *           "start_date": "2022-12-01"
+     *         }
+     *       ],
+     *       "photo": "/uploads/photo.png",
      *       "published": true,
      *       "reviewed": true,
      *       "summary": "Я очень хорошо играю на фортепиано.",
      *       "title": "Педагог по фортепиано",
      *       "work_schedules": [
      *         "full_time"
-     *       ],
-     *       "years_of_work_experience": 4
+     *       ]
      *     }
      *   ],
      *   "page": {
@@ -335,7 +407,7 @@ export interface components {
          */
         applicant: {
           /** Format: date */
-          birth_date: string | null
+          birth_date: string
           email: string
           fullname: string
           id: number
@@ -356,12 +428,27 @@ export interface components {
         /** @enum {string} */
         field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
         id: number
+        jobs: {
+          description: string
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          end_date: string
+          job_title: string
+          organization_name: string
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          start_date: string
+        }[]
+        photo: string
         published: boolean
         reviewed: boolean
         summary: string
         title: string
         work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-        years_of_work_experience: number
       }[]
       /**
        * Page
@@ -412,14 +499,23 @@ export interface components {
      *       "main"
      *     ],
      *     "field_of_art": "music",
+     *     "jobs": [
+     *       {
+     *         "description": "Преподавал предмет",
+     *         "end_date": "2024-02-01",
+     *         "job_title": "Преподаватель",
+     *         "organization_name": "УрФУ",
+     *         "start_date": "2022-12-01"
+     *       }
+     *     ],
+     *     "photo": "/uploads/photo.png",
      *     "published": true,
      *     "reviewed": true,
      *     "summary": "Я очень хорошо играю на фортепиано.",
      *     "title": "Педагог по фортепиано",
      *     "work_schedules": [
      *       "full_time"
-     *     ],
-     *     "years_of_work_experience": 4
+     *     ]
      *   }
      * }
      */
@@ -436,12 +532,27 @@ export interface components {
         employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
         /** @enum {string} */
         field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        jobs: {
+          description: string
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          end_date: string
+          job_title: string
+          organization_name: string
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          start_date: string
+        }[]
+        photo?: string
         published?: boolean
         reviewed: boolean
         summary: string
         title: string
         work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-        years_of_work_experience?: number
       }
     }
     /**
@@ -449,20 +560,26 @@ export interface components {
      * @example {
      *   "organization": {
      *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *     "contacts": "+78005553535",
      *     "description": "applicant",
+     *     "email": "contact@urfu.ru",
      *     "logo": "/uploads/urfu.png",
-     *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина"
+     *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *     "phone": "+7001005044",
+     *     "social_link": "https://vk.com/ural.federal.university",
+     *     "website": "https://urfu.me"
      *   }
      * }
      */
     CreateOrganizationRequest: {
       organization: {
         address: string
-        contacts: string
         description: string
+        email: string
         logo?: string
         name: string
+        phone: string
+        social_link: string
+        website: string
       }
     }
     /**
@@ -481,7 +598,7 @@ export interface components {
     CreateUserRequest: {
       user: {
         /** Format: date */
-        birth_date?: string | null
+        birth_date: string
         email: string
         fullname: string
         password: string
@@ -553,11 +670,21 @@ export interface components {
       status: string
     }
     /**
+     * ImageUploadRequest
+     * @example {
+     *   "image": "image-data"
+     * }
+     */
+    ImageUploadRequest: {
+      /** Format: binary */
+      image: string
+    }
+    /**
      * Organization
      * @example {
      *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *   "contacts": "+78005553535",
      *   "description": "applicant",
+     *   "email": "contact@urfu.ru",
      *   "employer": {
      *     "birth_date": "2000-01-01",
      *     "email": "username@domain.org",
@@ -568,13 +695,16 @@ export interface components {
      *   },
      *   "id": "756",
      *   "logo": "/uploads/urfu.png",
-     *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина"
+     *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *   "phone": "+7001005044",
+     *   "social_link": "https://vk.com/ural.federal.university",
+     *   "website": "https://urfu.me"
      * }
      */
     Organization: {
       address: string
-      contacts: string
       description: string
+      email: string
       /**
        * User
        * @example {
@@ -588,7 +718,7 @@ export interface components {
        */
       employer: {
         /** Format: date */
-        birth_date: string | null
+        birth_date: string
         email: string
         fullname: string
         id: number
@@ -600,14 +730,17 @@ export interface components {
       id: number
       logo: string
       name: string
+      phone: string
+      social_link: string
+      website: string
     }
     /**
      * OrganizationResponse
      * @example {
      *   "data": {
      *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *     "contacts": "+78005553535",
      *     "description": "applicant",
+     *     "email": "contact@urfu.ru",
      *     "employer": {
      *       "birth_date": "2000-01-01",
      *       "email": "username@domain.org",
@@ -618,7 +751,10 @@ export interface components {
      *     },
      *     "id": "756",
      *     "logo": "/uploads/urfu.png",
-     *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина"
+     *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *     "phone": "+7001005044",
+     *     "social_link": "https://vk.com/ural.federal.university",
+     *     "website": "https://urfu.me"
      *   }
      * }
      */
@@ -627,8 +763,8 @@ export interface components {
        * Organization
        * @example {
        *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-       *   "contacts": "+78005553535",
        *   "description": "applicant",
+       *   "email": "contact@urfu.ru",
        *   "employer": {
        *     "birth_date": "2000-01-01",
        *     "email": "username@domain.org",
@@ -639,13 +775,16 @@ export interface components {
        *   },
        *   "id": "756",
        *   "logo": "/uploads/urfu.png",
-       *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина"
+       *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+       *   "phone": "+7001005044",
+       *   "social_link": "https://vk.com/ural.federal.university",
+       *   "website": "https://urfu.me"
        * }
        */
       data: {
         address: string
-        contacts: string
         description: string
+        email: string
         /**
          * User
          * @example {
@@ -659,7 +798,7 @@ export interface components {
          */
         employer: {
           /** Format: date */
-          birth_date: string | null
+          birth_date: string
           email: string
           fullname: string
           id: number
@@ -671,6 +810,9 @@ export interface components {
         id: number
         logo: string
         name: string
+        phone: string
+        social_link: string
+        website: string
       }
     }
     /**
@@ -719,14 +861,23 @@ export interface components {
      *       "main"
      *     ],
      *     "field_of_art": "music",
+     *     "jobs": [
+     *       {
+     *         "description": "Преподавал предмет",
+     *         "end_date": "2024-02-01",
+     *         "job_title": "Преподаватель",
+     *         "organization_name": "УрФУ",
+     *         "start_date": "2022-12-01"
+     *       }
+     *     ],
+     *     "photo": "/uploads/photo.png",
      *     "published": true,
      *     "reviewed": true,
      *     "summary": "Я очень хорошо играю на фортепиано.",
      *     "title": "Педагог по фортепиано",
      *     "work_schedules": [
      *       "full_time"
-     *     ],
-     *     "years_of_work_experience": 4
+     *     ]
      *   }
      * }
      */
@@ -743,12 +894,27 @@ export interface components {
         employment_types?: ('main' | 'secondary' | 'practice' | 'internship')[]
         /** @enum {string} */
         field_of_art?: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        jobs?: {
+          description: string
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          end_date: string
+          job_title: string
+          organization_name: string
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          start_date: string
+        }[]
+        photo?: string
         published?: boolean
         reviewed?: boolean
         summary?: string
         title?: string
         work_schedules?: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-        years_of_work_experience?: number
       }
     }
     /**
@@ -756,18 +922,21 @@ export interface components {
      * @example {
      *   "organization": {
      *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *     "contacts": "+78005553535",
      *     "description": "applicant",
+     *     "email": "contact@urfu.ru",
      *     "logo": "/uploads/urfu.png",
-     *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина"
+     *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *     "phone": "+7001005044",
+     *     "social_link": "https://vk.com/ural.federal.university",
+     *     "website": "https://urfu.me"
      *   }
      * }
      */
     UpdateOrganizationRequest: {
       organization: {
         address?: string
-        contacts?: string
         description?: string
+        email?: string
         /**
          * User
          * @example {
@@ -781,7 +950,7 @@ export interface components {
          */
         employer?: {
           /** Format: date */
-          birth_date: string | null
+          birth_date: string
           email: string
           fullname: string
           id: number
@@ -793,6 +962,9 @@ export interface components {
         id?: number
         logo?: string
         name?: string
+        phone?: string
+        social_link?: string
+        website?: string
       }
     }
     /**
@@ -808,7 +980,7 @@ export interface components {
     UpdateUserInfoRequest: {
       user: {
         /** Format: date */
-        birth_date?: string | null
+        birth_date?: string
         fullname?: string
         /** Format: phone */
         phone?: string
@@ -864,7 +1036,7 @@ export interface components {
      */
     User: {
       /** Format: date */
-      birth_date: string | null
+      birth_date: string
       email: string
       fullname: string
       id: number
@@ -915,7 +1087,7 @@ export interface components {
        */
       data: {
         /** Format: date */
-        birth_date: string | null
+        birth_date: string
         email: string
         fullname: string
         id: number
@@ -942,8 +1114,8 @@ export interface components {
      *       "min_years_of_work_experience": 5,
      *       "organization": {
      *         "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *         "contacts": "+78005553535",
      *         "description": "applicant",
+     *         "email": "contact@urfu.ru",
      *         "employer": {
      *           "birth_date": "2000-01-01",
      *           "email": "username@domain.org",
@@ -954,7 +1126,10 @@ export interface components {
      *         },
      *         "id": "756",
      *         "logo": "/uploads/urfu.png",
-     *         "name": "УрФУ имени первого Президента России Б.Н. Ельцина"
+     *         "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *         "phone": "+7001005044",
+     *         "social_link": "https://vk.com/ural.federal.university",
+     *         "website": "https://urfu.me"
      *       },
      *       "proposed_salary": "20000",
      *       "published": true,
@@ -987,8 +1162,8 @@ export interface components {
          * Organization
          * @example {
          *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-         *   "contacts": "+78005553535",
          *   "description": "applicant",
+         *   "email": "contact@urfu.ru",
          *   "employer": {
          *     "birth_date": "2000-01-01",
          *     "email": "username@domain.org",
@@ -999,13 +1174,16 @@ export interface components {
          *   },
          *   "id": "756",
          *   "logo": "/uploads/urfu.png",
-         *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина"
+         *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+         *   "phone": "+7001005044",
+         *   "social_link": "https://vk.com/ural.federal.university",
+         *   "website": "https://urfu.me"
          * }
          */
         organization: {
           address: string
-          contacts: string
           description: string
+          email: string
           /**
            * User
            * @example {
@@ -1019,7 +1197,7 @@ export interface components {
            */
           employer: {
             /** Format: date */
-            birth_date: string | null
+            birth_date: string
             email: string
             fullname: string
             id: number
@@ -1031,6 +1209,9 @@ export interface components {
           id: number
           logo: string
           name: string
+          phone: string
+          social_link: string
+          website: string
         }
         proposed_salary: number | null
         published: boolean
@@ -1069,8 +1250,8 @@ export interface components {
      *   "min_years_of_work_experience": 5,
      *   "organization": {
      *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *     "contacts": "+78005553535",
      *     "description": "applicant",
+     *     "email": "contact@urfu.ru",
      *     "employer": {
      *       "birth_date": "2000-01-01",
      *       "email": "username@domain.org",
@@ -1081,7 +1262,10 @@ export interface components {
      *     },
      *     "id": "756",
      *     "logo": "/uploads/urfu.png",
-     *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина"
+     *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *     "phone": "+7001005044",
+     *     "social_link": "https://vk.com/ural.federal.university",
+     *     "website": "https://urfu.me"
      *   },
      *   "proposed_salary": "20000",
      *   "published": true,
@@ -1105,8 +1289,8 @@ export interface components {
        * Organization
        * @example {
        *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-       *   "contacts": "+78005553535",
        *   "description": "applicant",
+       *   "email": "contact@urfu.ru",
        *   "employer": {
        *     "birth_date": "2000-01-01",
        *     "email": "username@domain.org",
@@ -1117,13 +1301,16 @@ export interface components {
        *   },
        *   "id": "756",
        *   "logo": "/uploads/urfu.png",
-       *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина"
+       *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+       *   "phone": "+7001005044",
+       *   "social_link": "https://vk.com/ural.federal.university",
+       *   "website": "https://urfu.me"
        * }
        */
       organization: {
         address: string
-        contacts: string
         description: string
+        email: string
         /**
          * User
          * @example {
@@ -1137,7 +1324,7 @@ export interface components {
          */
         employer: {
           /** Format: date */
-          birth_date: string | null
+          birth_date: string
           email: string
           fullname: string
           id: number
@@ -1149,6 +1336,9 @@ export interface components {
         id: number
         logo: string
         name: string
+        phone: string
+        social_link: string
+        website: string
       }
       proposed_salary: number | null
       published: boolean
@@ -1172,8 +1362,8 @@ export interface components {
      *     "min_years_of_work_experience": 5,
      *     "organization": {
      *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *       "contacts": "+78005553535",
      *       "description": "applicant",
+     *       "email": "contact@urfu.ru",
      *       "employer": {
      *         "birth_date": "2000-01-01",
      *         "email": "username@domain.org",
@@ -1184,7 +1374,10 @@ export interface components {
      *       },
      *       "id": "756",
      *       "logo": "/uploads/urfu.png",
-     *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина"
+     *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *       "phone": "+7001005044",
+     *       "social_link": "https://vk.com/ural.federal.university",
+     *       "website": "https://urfu.me"
      *     },
      *     "proposed_salary": "20000",
      *     "published": true,
@@ -1212,8 +1405,8 @@ export interface components {
        *   "min_years_of_work_experience": 5,
        *   "organization": {
        *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-       *     "contacts": "+78005553535",
        *     "description": "applicant",
+       *     "email": "contact@urfu.ru",
        *     "employer": {
        *       "birth_date": "2000-01-01",
        *       "email": "username@domain.org",
@@ -1224,7 +1417,10 @@ export interface components {
        *     },
        *     "id": "756",
        *     "logo": "/uploads/urfu.png",
-       *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина"
+       *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+       *     "phone": "+7001005044",
+       *     "social_link": "https://vk.com/ural.federal.university",
+       *     "website": "https://urfu.me"
        *   },
        *   "proposed_salary": "20000",
        *   "published": true,
@@ -1248,8 +1444,8 @@ export interface components {
          * Organization
          * @example {
          *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-         *   "contacts": "+78005553535",
          *   "description": "applicant",
+         *   "email": "contact@urfu.ru",
          *   "employer": {
          *     "birth_date": "2000-01-01",
          *     "email": "username@domain.org",
@@ -1260,13 +1456,16 @@ export interface components {
          *   },
          *   "id": "756",
          *   "logo": "/uploads/urfu.png",
-         *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина"
+         *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+         *   "phone": "+7001005044",
+         *   "social_link": "https://vk.com/ural.federal.university",
+         *   "website": "https://urfu.me"
          * }
          */
         organization: {
           address: string
-          contacts: string
           description: string
+          email: string
           /**
            * User
            * @example {
@@ -1280,7 +1479,7 @@ export interface components {
            */
           employer: {
             /** Format: date */
-            birth_date: string | null
+            birth_date: string
             email: string
             fullname: string
             id: number
@@ -1292,6 +1491,9 @@ export interface components {
           id: number
           logo: string
           name: string
+          phone: string
+          social_link: string
+          website: string
         }
         proposed_salary: number | null
         published: boolean
@@ -1540,6 +1742,64 @@ export interface operations {
       }
     }
   }
+  /** Get current user's organization */
+  'CenWeb.OrganizationController.show': {
+    responses: {
+      /** @description Requested organization */
+      201: {
+        content: {
+          'application/json': components['schemas']['OrganizationResponse']
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description Organization not found */
+      404: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+    }
+  }
+  /** Update organization */
+  'CenWeb.OrganizationController.update': {
+    /** @description Organization params */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['UpdateOrganizationRequest']
+      }
+    }
+    responses: {
+      /** @description Requested organization */
+      201: {
+        content: {
+          'application/json': components['schemas']['OrganizationResponse']
+        }
+      }
+      /** @description Unauthorized */
+      401: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description You are not the owner */
+      403: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description Organization not found */
+      404: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+    }
+  }
   /** Create organization */
   'CenWeb.OrganizationController.create': {
     /** @description Organization params */
@@ -1575,93 +1835,8 @@ export interface operations {
       }
     }
   }
-  /** Get organization */
-  'CenWeb.OrganizationController.show': {
-    parameters: {
-      path: {
-        /**
-         * @description Organization ID
-         * @example 10132
-         */
-        organization_id: number
-      }
-    }
-    responses: {
-      /** @description Requested organization */
-      201: {
-        content: {
-          'application/json': components['schemas']['OrganizationResponse']
-        }
-      }
-      /** @description Unauthorized */
-      401: {
-        content: {
-          'application/json': components['schemas']['GenericErrorResponse']
-        }
-      }
-      /** @description Organization not found */
-      404: {
-        content: {
-          'application/json': components['schemas']['GenericErrorResponse']
-        }
-      }
-    }
-  }
-  /** Update organization */
-  'CenWeb.OrganizationController.update': {
-    parameters: {
-      path: {
-        /**
-         * @description Organization ID
-         * @example 10132
-         */
-        organization_id: number
-      }
-    }
-    /** @description Organization params */
-    requestBody?: {
-      content: {
-        'application/json': components['schemas']['UpdateOrganizationRequest']
-      }
-    }
-    responses: {
-      /** @description Requested organization */
-      201: {
-        content: {
-          'application/json': components['schemas']['OrganizationResponse']
-        }
-      }
-      /** @description Unauthorized */
-      401: {
-        content: {
-          'application/json': components['schemas']['GenericErrorResponse']
-        }
-      }
-      /** @description You are not the owner */
-      403: {
-        content: {
-          'application/json': components['schemas']['GenericErrorResponse']
-        }
-      }
-      /** @description Organization not found */
-      404: {
-        content: {
-          'application/json': components['schemas']['GenericErrorResponse']
-        }
-      }
-    }
-  }
   /** Delete organization */
   'CenWeb.OrganizationController.delete': {
-    parameters: {
-      path: {
-        /**
-         * @description Organization ID
-         * @example 10132
-         */
-        organization_id: number
-      }
-    }
     responses: {
       /** @description Organization deleted */
       204: {
@@ -1683,15 +1858,6 @@ export interface operations {
   }
   /** Update organization */
   'CenWeb.OrganizationController.update (2)': {
-    parameters: {
-      path: {
-        /**
-         * @description Organization ID
-         * @example 10132
-         */
-        organization_id: number
-      }
-    }
     /** @description Organization params */
     requestBody?: {
       content: {
@@ -1713,6 +1879,38 @@ export interface operations {
       }
       /** @description You are not the owner */
       403: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description Organization not found */
+      404: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+    }
+  }
+  /** Get organization */
+  'CenWeb.OrganizationController.show_by_id': {
+    parameters: {
+      path: {
+        /**
+         * @description Organization ID
+         * @example 10132
+         */
+        organization_id: number
+      }
+    }
+    responses: {
+      /** @description Requested organization */
+      201: {
+        content: {
+          'application/json': components['schemas']['OrganizationResponse']
+        }
+      }
+      /** @description Unauthorized */
+      401: {
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
@@ -1780,6 +1978,40 @@ export interface operations {
       401: {
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+    }
+  }
+  /** Upload an image */
+  'CenWeb.UploadsController.upload_image': {
+    /** @description The message */
+    requestBody?: {
+      content: {
+        'multipart/form-data': components['schemas']['ImageUploadRequest']
+      }
+    }
+    responses: {
+      /** @description Image uploaded */
+      201: {
+        headers: {
+          /**
+           * @description Path to uploaded image
+           * @example /path/to/image
+           */
+          location?: unknown
+        }
+        content: never
+      }
+      /** @description Unauthorized */
+      401: {
+        content: {
+          'application/json': components['schemas']['GenericErrorResponse']
+        }
+      }
+      /** @description Changeset errors */
+      422: {
+        content: {
+          'application/json': components['schemas']['ChangesetErrorsResponse']
         }
       }
     }

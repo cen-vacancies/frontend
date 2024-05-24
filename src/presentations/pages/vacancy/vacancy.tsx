@@ -13,7 +13,7 @@ function VacancyPage() {
     refetchOnWindowFocus: false,
   })
 
-  const organizationImage = data?.data.organization.logo && `${apiUrl}/${data.data.organization.logo}`
+  const organizationImage = data?.data.organization.logo && `${apiUrl}${data.data.organization.logo}`
 
   return (
     <Page>

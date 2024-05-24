@@ -1,17 +1,13 @@
 import UItext from './i18n.json'
 import { Link } from 'react-router-dom'
-import { getWorkExp } from '../../helpers/get-work-exp.ts'
 
 import type { components } from '../../../domain/api/types/api-types.ts'
 
 import S from './cv-card.module.css'
 
-type VacancyCardProps = Pick<
-  components['schemas']['CV'],
-  'title' | 'applicant' | 'educations' | 'field_of_art' | 'years_of_work_experience' | 'id'
->
+type VacancyCardProps = Pick<components['schemas']['CV'], 'title' | 'applicant' | 'educations' | 'field_of_art' | 'id'>
 
-function CvCard({ title, field_of_art, applicant, years_of_work_experience, id }: VacancyCardProps) {
+function CvCard({ title, field_of_art, applicant, id }: VacancyCardProps) {
   return (
     <div className={S.vacancyCard}>
       <Link to={`/cv/${id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -22,7 +18,6 @@ function CvCard({ title, field_of_art, applicant, years_of_work_experience, id }
         <br />
         {UItext.field_of_art[field_of_art]}
         <br />
-        {getWorkExp(years_of_work_experience)}
       </p>
     </div>
   )

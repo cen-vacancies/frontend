@@ -20,8 +20,6 @@ function CV({ data }: Props) {
       <p className={s.paragraph}>{getEducation(data.educations)}</p>
       <h2 className={s.title}>Сфера искусства</h2>
       <p className={s.paragraph}>{textFieldArt[data.field_of_art]}</p>
-      <h2 className={s.title}>Опыт работы</h2>
-      <p className={s.paragraph}>{getExp(data.years_of_work_experience)}</p>
       <h2 className={s.title}>Контакты</h2>
       <p className={s.paragraph}>
         {data.applicant.phone}

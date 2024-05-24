@@ -30,7 +30,7 @@ function Vacancy({ data }: Props) {
       <p className={s.paragraph}>{getExp(data.min_years_of_work_experience)}</p>
       <h2 className={s.title}>Контакты</h2>
       <p className={s.paragraph}>
-        {data.organization.contacts}
+        {data.organization.employer.phone}
         <br />
         {data.organization.employer.email}
       </p>
