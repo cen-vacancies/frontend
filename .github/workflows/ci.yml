@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        with:
+          node-version: 20
       - name: Install Dependencies
         run: npm ci
       - name: Build Project
@@ -29,6 +31,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        with:
+          node-version: 20
       - name: Install Dependencies
         run: npm ci
       - name: Run Linter
