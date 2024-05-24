@@ -5,6 +5,7 @@ import Page from '../../ui/page/page.tsx'
 import CV from '../../ui/cv/cv.tsx'
 import ButtonWithIcon from '../../components/button-with-icon/button-with-icon.tsx'
 import s from './cv.module.css'
+import { IMAGE_URL } from '../../../constants/constants.ts'
 
 function CVPage() {
   const { id } = useParams()
@@ -12,6 +13,8 @@ function CVPage() {
   const { data } = useQuery(['cv', id], () => cvs.getCVById(id), {
     refetchOnWindowFocus: false,
   })
+
+  const imageLink = data?.data.photo ? `${IMAGE_URL}${data.data.photo}` : undefined
 
   return (
     <Page>
@@ -27,7 +30,7 @@ function CVPage() {
         </div>
       </Page.Content>
       <Page.Aside>
-        <CV.Name title={data?.data.applicant.fullname} />
+        <CV.Name src={imageLink} title={data?.data.applicant.fullname} />
       </Page.Aside>
     </Page>
   )
