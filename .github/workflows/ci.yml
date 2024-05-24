@@ -1,5 +1,8 @@
 name: CI Pipeline
 
+env:
+  VITE_API_URL: ${{ secrets.API_URL }}
+  VITE_IMAGE_URL: ${{ secrets.IMAGE_URL }}
 on:
   workflow_call:
   push:
