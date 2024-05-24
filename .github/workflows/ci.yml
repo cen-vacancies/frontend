@@ -5,9 +5,6 @@ env:
   VITE_IMAGE_URL: ${{ secrets.IMAGE_URL }}
 on:
   workflow_call:
-  push:
-  pull_request:
-    branches: ["main"]
 
 jobs:
   build:
