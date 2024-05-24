@@ -1,10 +1,11 @@
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
-import { apiUrl, vacancies } from '../../../domain/api/data'
+import { vacancies } from '../../../domain/api/data'
 import Page from '../../ui/page/page.tsx'
 import Vacancy from '../../ui/vacancy/vacancy.tsx'
 import s from './vacancy.module.css'
 import ButtonWithIcon from '../../components/button-with-icon/button-with-icon.tsx'
+import { IMAGE_URL } from '../../../constants/constants.ts'
 
 function VacancyPage() {
   const { id } = useParams()
@@ -13,7 +14,7 @@ function VacancyPage() {
     refetchOnWindowFocus: false,
   })
 
-  const organizationImage = data?.data.organization.logo && `${apiUrl}${data.data.organization.logo}`
+  const organizationImage = data?.data.organization.logo && `${IMAGE_URL}${data.data.organization.logo}`
 
   return (
     <Page>
