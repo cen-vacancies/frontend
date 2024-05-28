@@ -5,6 +5,7 @@ import EmployerPage from './presentations/pages/employer/employer'
 import VacancyPage from './presentations/pages/vacancy/vacancy.tsx'
 import CVPage from './presentations/pages/cv/cv.tsx'
 import LoginPage from './presentations/pages/login/login.tsx'
+import RegisterPage from './presentations/pages/register/register.tsx'
 
 const queryClient = new QueryClient()
 
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage />,
+  },
+  {
+    path: '/register',
+    element: <RegisterPage />,
   },
 ])
 
