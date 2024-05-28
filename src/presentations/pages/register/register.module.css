@@ -1,0 +1,74 @@
+@import url('../../components/breakpoints-tokens/breakpoints-tokens.css');
+
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 35px;
+
+  width: 100%;
+  max-width: 620px;
+  margin-top: 15px;
+  margin-right: auto;
+}
+
+@media (--desktop-min-width) {
+  margin-top: 100px;
+  margin-left: 50px;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 25px;
+  text-align: left;
+}
+
+.helpMessage {
+  display: flex;
+  gap: 3px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #acacac;
+  text-align: left;
+}
+
+.link {
+  color: #acacac;
+}
+
+.link:hover {
+  color: #999999;
+}
+
+.searchButton {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+  height: 40px;
+  padding: 0 10px;
+
+  font-size: 24px;
+  line-height: 24px;
+  color: #fff;
+
+  appearance: none;
+  background-color: rgb(var(--main-fill));
+  border: none;
+  border-radius: 10px;
+  box-shadow:
+    -14px 10px 25px 0 #a3a3a329,
+    0 4px 4px 0 #00000040;
+}
+
+@media (--desktop-min-width) {
+  .searchButton {
+    height: 50px;
+  }
+}
