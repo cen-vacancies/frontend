@@ -80,6 +80,21 @@ async function getCVById(id?: string): Promise<components['schemas']['CVResponse
   return await response.json()
 }
 
+export const user = {
+  login,
+}
+
+async function login(email: string, password: string): Promise<components['schemas']['TokenResponse']> {
+  const response = await fetch(`${apiUrl}/token`, {
+    method: 'POST',
+    body: JSON.stringify({ user: { email, password } }),
+  })
+  const res = (await response.json()) as components['schemas']['TokenResponse']
+  localStorage.setItem('token', res.data.token)
+
+  return res
+}
+
 const api = {
   vacancies,
   cvs,

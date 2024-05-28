@@ -14,3 +14,14 @@
 .input:focus {
   outline: none;
 }
+
+.label {
+  display: inline-flex;
+
+  margin-bottom: 15px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
+}

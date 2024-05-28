@@ -22,8 +22,12 @@ Page.Aside = ({ children, isVisible = false }: { children?: ReactNode; isVisible
   )
 }
 
-Page.Content = ({ children }: { children?: ReactNode }) => {
-  return <div className={S.mainContent}>{children}</div>
+Page.Content = ({ children, align = 'center' }: { children?: ReactNode; align?: 'center' | 'left' }) => {
+  return (
+    <div className={S.mainContent} data-align={align}>
+      {children}
+    </div>
+  )
 }
 
 export default Page

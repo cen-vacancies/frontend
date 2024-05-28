@@ -4,6 +4,7 @@ import MainPage from './presentations/pages/main/main'
 import EmployerPage from './presentations/pages/employer/employer'
 import VacancyPage from './presentations/pages/vacancy/vacancy.tsx'
 import CVPage from './presentations/pages/cv/cv.tsx'
+import LoginPage from './presentations/pages/login/login.tsx'
 
 const queryClient = new QueryClient()
 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: '/cv',
     element: <Navigate to='/' />,
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
   },
 ])
 
