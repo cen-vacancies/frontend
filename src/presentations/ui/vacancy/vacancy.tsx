@@ -11,7 +11,14 @@ function Vacancy({ data }: Props) {
   return (
     <article className={s.vacancy}>
       <h2 className={s.title}>{data.title}</h2>
-      <p className={s.paragraph}>{data.description}</p>
+      <p className={s.paragraph}>
+        {data.description.split('\n').map((item) => (
+          <>
+            {item}
+            <br />
+          </>
+        ))}
+      </p>
       {data.proposed_salary && (
         <>
           <h2 className={s.title}>Зарплата</h2>
