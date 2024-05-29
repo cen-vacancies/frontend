@@ -38,10 +38,6 @@
   margin: 0;
 }
 
-.paragraph b {
-  font-weight: 600;
-}
-
 .paragraph:not(:last-child) {
   margin-bottom: 25px;
 }

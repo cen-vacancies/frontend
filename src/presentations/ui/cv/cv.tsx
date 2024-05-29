@@ -2,7 +2,6 @@ import { components } from '../../../domain/api/types/api-types.ts'
 
 import s from './cv.module.css'
 import { Link } from 'react-router-dom'
-import { ReactNode } from 'react'
 
 type Props = {
   data: components['schemas']['CV']
@@ -13,17 +12,12 @@ function CV({ data }: Props) {
     <article className={s.vacancy}>
       <h2 className={s.title}>{data.title}</h2>
       <p className={s.paragraph}>
-        {data.summary.split('\n').map((item) => {
-          let res: ReactNode = item
-          if (item.startsWith('**')) res = <b>{item.replace(/\*\*/g, '')}</b>
-          else if (item.startsWith('*')) res = <i>{item.replace(/\*/g, '')}</i>
-          return (
-            <>
-              {res}
-              <br />
-            </>
-          )
-        })}
+        {data.summary.split('\n').map((item) => (
+          <>
+            {item}
+            <br />
+          </>
+        ))}
       </p>
       <h2 className={s.title}>Тип занятости</h2>
       <p className={s.paragraph}>{getEmployement(data.employment_types)}</p>
