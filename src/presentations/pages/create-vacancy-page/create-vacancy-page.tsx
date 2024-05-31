@@ -1,5 +1,6 @@
 import { Form, Input, Button, Select, Checkbox, Space, message, ConfigProvider, Typography, InputNumber } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { ErrorHandler } from '../../helpers/error-handler.ts'
 import Page from '../../ui/page/page'
 import { components } from '../../../domain/api/types/api-types.ts'
 import { vacancies } from '../../../domain/api/data'
@@ -18,10 +19,10 @@ function CreateVacancyPage() {
     try {
       await vacancies.createVacancy(values)
       navigate('/')
-    } catch (e) {
+    } catch (e: unknown) {
       messageApi.open({
         type: 'error',
-        content: 'Сохранение не удалось, попробуйте снова',
+        content: ErrorHandler(e),
       })
     }
   }

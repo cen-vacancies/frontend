@@ -4,6 +4,14 @@ export const apiUrl = `${import.meta.env.VITE_API_URL}/api`
 const apiVacancies = `${apiUrl}/vacancies`
 const apiCvs = `${apiUrl}/cvs`
 
+const getToken = () => {
+  const token = localStorage.getItem('token')
+  if (!token) {
+    throw new Error('Unauthorized')
+  }
+  return `Bearer ${token}`
+}
+
 export const vacancies = {
   searchVacancy,
   getVacancyById,
@@ -54,6 +62,7 @@ async function createVacancy(data: components['schemas']['CreateVacancyRequest']
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: getToken(),
     },
     body: JSON.stringify({ vacancy: data }),
   })
@@ -95,14 +104,17 @@ async function getCVById(id?: string): Promise<components['schemas']['CVResponse
 }
 
 async function createCv(data: components['schemas']['CreateCVRequest']['cv']) {
-  const response = await fetch(`${apiCvs}/create`, {
+  const response = await fetch(`${apiCvs}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: getToken(),
     },
-    body: JSON.stringify({ cv: data }),
+    body: JSON.stringify({ cv: { ...data, reviewed: true } }),
   })
-
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
   return await response.json()
 }
 
