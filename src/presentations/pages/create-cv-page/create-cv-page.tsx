@@ -1,12 +1,12 @@
 import { ReactNode } from 'react'
-import { Form, Input, Button, Select, Checkbox, Space, message, ConfigProvider, Typography } from 'antd'
+import { Form, Input, Button, Select, Checkbox, Space, message, ConfigProvider, Typography, InputNumber } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import Page from '../../ui/page/page'
 import { components } from '../../../domain/api/types/api-types.ts'
 import { cvs } from '../../../domain/api/data'
 import plusIcon from './assets/plus-circle-fill.svg'
 import minusIcon from './assets/minus-circle-fill.svg'
-import s from '../login/login.module.css'
+import s from './create-cv-page.module.css'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -70,7 +70,7 @@ function CreateCVPage() {
         <Page.Content align='left'>
           {contextHolder}
           <Form form={form} className={s.container} layout='vertical' onFinish={onSubmit}>
-            <span className={s.heading}>Создание резюме</span>
+            <span className={s.heading}>Резюме</span>
             <Title level={5}>Какую работу ищете?*</Title>
             <Form.Item name='title' rules={[{ required: true, message: 'Обязательное поле' }]}>
               <Input placeholder='Должность' />
@@ -178,7 +178,7 @@ function CreateCVPage() {
                         label='Год окончания*'
                         rules={[{ required: true, message: 'Обязательное поле' }]}
                       >
-                        <Input type='number' />
+                        <InputNumber style={{ width: '100%' }} min={0} />
                       </Form.Item>
                     </Space>
                   ))}
@@ -215,7 +215,7 @@ function CreateCVPage() {
                         <Input />
                       </Form.Item>
                       <Form.Item {...restField} name={[name, 'description']} label='Обязанности, достижения'>
-                        <TextArea rows={2} />
+                        <TextArea style={{ minHeight: '110px' }} autoSize />
                       </Form.Item>
                       <Form.Item
                         {...restField}

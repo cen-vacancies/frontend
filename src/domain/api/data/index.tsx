@@ -7,6 +7,7 @@ const apiCvs = `${apiUrl}/cvs`
 export const vacancies = {
   searchVacancy,
   getVacancyById,
+  createVacancy,
 }
 
 type FiltersQuery = NonNullable<ApiOperations['CenWeb.VacancyController.search']['parameters']['query']>
@@ -45,6 +46,18 @@ async function getVacancyById(id?: string): Promise<components['schemas']['Vacan
     return undefined
   }
   const response = await fetch(`${apiVacancies}/${id}`, { method: 'GET' })
+  return await response.json()
+}
+
+async function createVacancy(data: components['schemas']['CreateVacancyRequest']['vacancy']) {
+  const response = await fetch(`${apiVacancies}/create`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ vacancy: data }),
+  })
+
   return await response.json()
 }
 
