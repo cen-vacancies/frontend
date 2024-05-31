@@ -4,6 +4,7 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  gap: 35px;
 
   width: 100%;
   max-width: 620px;
@@ -70,32 +71,4 @@
   .searchButton {
     height: 50px;
   }
-}
-
-.addFieldButton {
-  cursor: pointer;
-
-  display: inline-flex;
-  align-items: center;
-
-  width: fit-content;
-  height: 44px;
-  margin: 0;
-  padding: 0;
-
-  font-size: 16px;
-
-  background: transparent;
-  border: none;
-}
-
-.addFieldButton:hover {
-  opacity: 0.8;
-}
-
-.buttonIcon {
-  display: inline-flex;
-  width: 20px;
-  height: 20px;
-  margin-right: 15px;
 }
