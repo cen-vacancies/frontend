@@ -9,7 +9,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 }
 function Input(props: InputProps) {
   return (
-    <div style={{ overflow: 'hidden' }}>
+    <div style={{ overflow: 'hidden', width: '100%' }}>
       {props.label && <label className={S.label}>{props.label}</label>}
       <input
         style={{ height: props.height ?? 50, width: props.width }}
