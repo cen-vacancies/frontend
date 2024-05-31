@@ -51,6 +51,7 @@ async function getVacancyById(id?: string): Promise<components['schemas']['Vacan
 export const cvs = {
   searchCvs,
   getCVById,
+  createCv,
 }
 
 async function searchCvs(filters: FiltersType): Promise<components['schemas']['CVsQueryResponse']> {
@@ -77,6 +78,18 @@ async function getCVById(id?: string): Promise<components['schemas']['CVResponse
     return undefined
   }
   const response = await fetch(`${apiCvs}/${id}`, { method: 'GET' })
+  return await response.json()
+}
+
+async function createCv(data: components['schemas']['CreateCVRequest']['cv']) {
+  const response = await fetch(`${apiCvs}/create`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ cv: data }),
+  })
+
   return await response.json()
 }
 
