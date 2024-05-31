@@ -3,8 +3,9 @@ import { operations as ApiOperations, components } from '../../../domain/api/typ
 export const apiUrl = `${import.meta.env.VITE_API_URL}/api`
 const apiVacancies = `${apiUrl}/vacancies`
 const apiCvs = `${apiUrl}/cvs`
+const apiOrganization = `${apiUrl}/organization`
 
-const getToken = () => {
+export const getToken = () => {
   const token = localStorage.getItem('token')
   if (!token) {
     throw new Error('Unauthorized')
@@ -151,9 +152,42 @@ async function register(
   return await response.json()
 }
 
+export const organisations = {
+  createOrganization,
+}
+
+async function createOrganization(data: components['schemas']['CreateOrganizationRequest']['organization']) {
+  const response = await fetch(`${apiOrganization}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ organization: data }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
 const api = {
   vacancies,
   cvs,
 }
 
+export async function upload(file: File) {
+  const formData = new FormData()
+  formData.append('image', file)
+
+  const response = await fetch(`${apiUrl}/uploads/image`, {
+    method: 'POST',
+    headers: {
+      Authorization: getToken(),
+    },
+    body: formData,
+  })
+
+  return await response.json()
+}
 export default api

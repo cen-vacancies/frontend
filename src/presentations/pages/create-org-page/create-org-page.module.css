@@ -1,0 +1,24 @@
+@import url('../../components/breakpoints-tokens/breakpoints-tokens.css');
+
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 620px;
+  margin-top: 15px;
+  margin-right: auto;
+}
+
+@media (--desktop-min-width) {
+  margin-top: 100px;
+  margin-left: 50px;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 25px;
+  text-align: left;
+}

@@ -9,6 +9,7 @@ import LoginPage from './presentations/pages/login/login.tsx'
 import RegisterPage from './presentations/pages/register/register.tsx'
 import CreateCVPage from './presentations/pages/create-cv-page/create-cv-page.tsx'
 import CreateVacancyPage from './presentations/pages/create-vacancy-page/create-vacancy-page.tsx'
+import CreateOrgPage from './presentations/pages/create-org-page/create-org-page.tsx'
 
 const queryClient = new QueryClient()
 
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
     element: <Navigate to='/' />,
   },
   {
+    path: '/organization/create',
+    element: <CreateOrgPage />,
+  },
+  {
     path: '/login',
     element: <LoginPage />,
   },
@@ -67,6 +72,11 @@ function App() {
           borderRadius: 10,
 
           colorBgContainer: '#FFFFFF',
+        },
+        components: {
+          Upload: {
+            colorFillAlter: '#FFFFFF',
+          },
         },
       }}
     >
