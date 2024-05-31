@@ -1,0 +1,66 @@
+@import url('../../components/breakpoints-tokens/breakpoints-tokens.css');
+
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 620px;
+  margin-top: 15px;
+  margin-right: auto;
+}
+
+@media (--desktop-min-width) {
+  margin-top: 100px;
+  margin-left: 50px;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 25px;
+  text-align: left;
+}
+
+.addFieldButton {
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+
+  width: fit-content;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+
+  font-size: 16px;
+
+  background: transparent;
+  border: none;
+}
+
+.addFieldButton:hover {
+  opacity: 0.8;
+}
+
+.buttonIcon {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+}
+
+.experienceRow {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  width: 160px;
+}
+
+.sallaryRow {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  width: 250px;
+}

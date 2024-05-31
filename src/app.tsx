@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { ConfigProvider } from 'antd'
 import MainPage from './presentations/pages/main/main'
 import EmployerPage from './presentations/pages/employer/employer'
 import VacancyPage from './presentations/pages/vacancy/vacancy.tsx'
@@ -7,7 +8,7 @@ import CVPage from './presentations/pages/cv/cv.tsx'
 import LoginPage from './presentations/pages/login/login.tsx'
 import RegisterPage from './presentations/pages/register/register.tsx'
 import CreateCVPage from './presentations/pages/create-cv-page/create-cv-page.tsx'
-import { ConfigProvider } from 'antd'
+import CreateVacancyPage from './presentations/pages/create-vacancy-page/create-vacancy-page.tsx'
 
 const queryClient = new QueryClient()
 
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: '/employer',
     element: <EmployerPage />,
+  },
+  {
+    path: '/vacancy/create',
+    element: <CreateVacancyPage />,
   },
   {
     path: '/vacancy/:id',
