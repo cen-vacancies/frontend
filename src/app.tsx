@@ -6,6 +6,8 @@ import VacancyPage from './presentations/pages/vacancy/vacancy.tsx'
 import CVPage from './presentations/pages/cv/cv.tsx'
 import LoginPage from './presentations/pages/login/login.tsx'
 import RegisterPage from './presentations/pages/register/register.tsx'
+import CreateCVPage from './presentations/pages/create-cv-page/create-cv-page.tsx'
+import { ConfigProvider } from 'antd'
 
 const queryClient = new QueryClient()
 
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
     element: <Navigate to='/' />,
   },
   {
+    path: '/cv/create',
+    element: <CreateCVPage />,
+  },
+  {
     path: '/cv/:id',
     element: <CVPage />,
   },
@@ -46,9 +52,23 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <ConfigProvider
+      theme={{
+        token: {
+          fontFamily: 'Helvetica Neue',
+          colorPrimary: '#A2C7E0',
+          colorBorder: '#A2C7E0',
+          colorPrimaryBorderHover: '#A2C7E0',
+          borderRadius: 10,
+
+          colorBgContainer: '#FFFFFF',
+        },
+      }}
+    >
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </ConfigProvider>
   )
 }
 
