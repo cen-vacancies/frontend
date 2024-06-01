@@ -1,14 +1,92 @@
 @import url('../../components/breakpoints-tokens/breakpoints-tokens.css');
 
-.root {
+.container {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
+  flex-wrap: wrap;
+  gap: 95px;
+
+  width: fit-content;
+  max-width: 100%;
+}
+
+.text {
+  width: 770px;
+  max-width: 100%;
+}
+
+.heading,
+.subHeading {
+  margin-top: 0;
+  margin-bottom: 0;
+
+  font-family: 'Helvetica Neue', serif;
+  font-size: 40px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 130%;
+  color: #a2c7e0;
+  text-transform: uppercase;
 }
 
 @media (--desktop-min-width) {
-  .root {
-    gap: 35px;
+  .heading,
+  .subHeading {
+    font-size: 70px;
   }
+}
+
+.subHeading {
+  margin-top: 18px;
+  font-weight: 400;
+  color: #000;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.card {
+  padding: 30px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  box-shadow:
+    15px -10px 20px rgba(202, 202, 202, 0.3),
+    -14px 10px 25px rgba(163, 163, 163, 0.16);
+}
+
+.cardHeading {
+  margin: 0 0 20px;
+
+  font-family: 'Helvetica Neue', serif;
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 130%;
+  color: #3e3e3e;
+  text-transform: uppercase;
+}
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  margin: 0;
+  padding: 0;
+}
+
+.cardListItem {
+  font-family: 'Helvetica Neue', serif;
+  font-size: 17px;
+  font-weight: 200;
+  font-style: normal;
+  line-height: 110%;
+  color: #1f1f1f;
+  list-style-type: square;
+}
+
+.cardListItem::marker {
+  color: #a2c7e0;
 }

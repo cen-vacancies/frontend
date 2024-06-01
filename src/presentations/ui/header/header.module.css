@@ -1,3 +1,5 @@
+@import url('../../components/breakpoints-tokens/breakpoints-tokens.css');
+
 .root {
   display: flex;
   flex-direction: row;
@@ -5,14 +7,15 @@
   justify-content: space-between;
 
   width: 100%;
-  padding: 25px 35px;
+  height: 80px;
+  padding: 15px 35px;
 
   background-color: rgb(var(--header-background-color));
 }
 
 .logo {
-  width: 90px;
-  height: 20px;
+  width: 140px;
+  height: 30px;
 }
 
 .buttons {
@@ -36,4 +39,52 @@
   opacity: 0.8;
   background-color: transparent;
   border: none;
+}
+
+.register {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 50px;
+  padding: 10px 25px;
+
+  font-size: 24px;
+  line-height: 24px;
+  color: #fff;
+
+  appearance: none;
+  background-color: rgb(var(--main-fill));
+  border: none;
+  border-radius: 10px;
+}
+
+.login {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 50px;
+  padding: 10px 15px;
+
+  font-size: 18px;
+  line-height: 24px;
+  color: rgb(var(--main-fill));
+
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid rgb(var(--main-fill));
+  border-radius: 10px;
+}
+
+@media (--desktop-min-width) {
+  .register,
+  .login {
+    padding: 10px 25px;
+    font-size: 24px;
+  }
 }

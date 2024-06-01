@@ -1,57 +1,47 @@
-import { useState } from 'react'
-import { useQuery } from 'react-query'
 import Page from '../../ui/page/page.tsx'
-import SearchForm from '../../ui/search-form/search-form.tsx'
-import VacancyCard from '../../ui/vacancy-card/vacancy-card.tsx'
-import Filters from '../../ui/filters/filters.tsx'
-import { FiltersType, vacancies } from '../../../domain/api/data'
+import s from './main.module.css'
 
-import S from './main.module.css'
-
-const filtersInitial = {
-  text: '',
-  'employment_types[]': [],
-  education: [],
-  field_of_art: [],
-  'work_schedules[]': [],
-  preferred_salary: '',
-  years_of_work_experience: '',
-  min_years_of_work_experience: '',
+function Card({ heading, list }: { heading: string; list: string[] }) {
+  return (
+    <div className={s.card}>
+      <h3 className={s.cardHeading}>{heading}</h3>
+      <ul className={s.cardList}>
+        {list.map((item) => (
+          <li className={s.cardListItem}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  )
 }
 
 function MainPage() {
-  const [isFilterVisible, setIsFilterVisible] = useState(false)
-  const [filters, setFilters] = useState<FiltersType>(filtersInitial)
-
-  const { data, refetch } = useQuery(['vacancy'], () => vacancies.searchVacancy(filters), {
-    refetchOnWindowFocus: false,
-  })
-
-  const handleSearch = () => {
-    refetch()
-    setIsFilterVisible(false)
-  }
-
-  const handleReset = () => {
-    setFilters(filtersInitial)
-  }
-
   return (
     <Page>
-      <Page.Aside isVisible={isFilterVisible}>
-        <Filters filters={filters} setFilters={setFilters} onSearch={handleSearch} onReset={handleReset} />
-      </Page.Aside>
-      <Page.Content>
-        <div className={S.root}>
-          <SearchForm
-            header={'Какую работу вы ищете?'}
-            placeholder={'Должность'}
-            value={filters.text}
-            onChange={(val) => setFilters((prev) => ({ ...prev, text: val }))}
-            onSearch={handleSearch}
-            onFilterClick={() => setIsFilterVisible((prev) => !prev)}
-          />
-          {data?.data.map((item) => <VacancyCard key={item.title} {...item} />)}
+      <Page.Content fullsize>
+        <div className={s.container}>
+          <div className={s.text}>
+            <h1 className={s.heading}>творческий образовательный навигатор: </h1>
+            <h1 className={s.subHeading}>Вакансии</h1>
+          </div>
+          <div className={s.cards}>
+            <Card
+              heading='Для соискателей'
+              list={[
+                'Удобный поиск работы и практики',
+                'Актуальные вакансии',
+                'Создание резюме',
+                'Связь с работодателями',
+              ]}
+            />
+            <Card
+              heading='Для работодателей'
+              list={[
+                'Бесплатное размещение вакансий',
+                'Удобный поиск соискателей и практикантов',
+                'Связь с соискателями',
+              ]}
+            />
+          </div>
         </div>
       </Page.Content>
     </Page>
