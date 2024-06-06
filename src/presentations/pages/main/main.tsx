@@ -1,5 +1,8 @@
 import Page from '../../ui/page/page.tsx'
 import s from './main.module.css'
+import { useNavigate } from 'react-router-dom'
+import { useContext, useEffect } from 'react'
+import { UserContext } from '../../../context/user-context.tsx'
 
 function Card({ heading, list }: { heading: string; list: string[] }) {
   return (
@@ -15,6 +18,18 @@ function Card({ heading, list }: { heading: string; list: string[] }) {
 }
 
 function MainPage() {
+  const navigate = useNavigate()
+  const { user } = useContext(UserContext)
+  const isAuth = !!user
+  useEffect(() => {
+    if (!isAuth) return
+    if (user?.role === 'employer') {
+      navigate('/employer')
+    } else {
+      navigate('/applicant')
+    }
+  }, [isAuth, navigate, user?.role])
+
   return (
     <Page>
       <Page.Content fullsize>

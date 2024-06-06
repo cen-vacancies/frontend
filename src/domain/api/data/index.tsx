@@ -122,6 +122,17 @@ async function createCv(data: components['schemas']['CreateCVRequest']['cv']) {
 export const user = {
   login,
   register,
+  me,
+}
+
+async function me(): Promise<components['schemas']['UserResponse']> {
+  const response = await fetch(`${apiUrl}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+  return await response.json()
 }
 
 async function login(email: string, password: string): Promise<components['schemas']['TokenResponse']> {

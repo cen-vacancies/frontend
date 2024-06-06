@@ -11,6 +11,7 @@ import CreateCVPage from './presentations/pages/create-cv-page/create-cv-page.ts
 import CreateVacancyPage from './presentations/pages/create-vacancy-page/create-vacancy-page.tsx'
 import CreateOrgPage from './presentations/pages/create-org-page/create-org-page.tsx'
 import MainPage from './presentations/pages/main/main.tsx'
+import UserContextProvider from './context/user-context.tsx'
 
 const queryClient = new QueryClient()
 
@@ -85,9 +86,11 @@ function App() {
         },
       }}
     >
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <UserContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </UserContextProvider>
     </ConfigProvider>
   )
 }
