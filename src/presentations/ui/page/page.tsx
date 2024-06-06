@@ -22,9 +22,17 @@ Page.Aside = ({ children, isVisible = false }: { children?: ReactNode; isVisible
   )
 }
 
-Page.Content = ({ children, align = 'center' }: { children?: ReactNode; align?: 'center' | 'left' }) => {
+Page.Content = ({
+  children,
+  align = 'center',
+  fullsize,
+}: {
+  children?: ReactNode
+  align?: 'center' | 'left'
+  fullsize?: boolean
+}) => {
   return (
-    <div className={S.mainContent} data-align={align}>
+    <div className={S.mainContent} data-align={align} data-fullsize={fullsize}>
       {children}
     </div>
   )

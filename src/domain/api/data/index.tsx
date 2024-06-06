@@ -122,6 +122,17 @@ async function createCv(data: components['schemas']['CreateCVRequest']['cv']) {
 export const user = {
   login,
   register,
+  me,
+}
+
+async function me(): Promise<components['schemas']['UserResponse']> {
+  const response = await fetch(`${apiUrl}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+  return await response.json()
 }
 
 async function login(email: string, password: string): Promise<components['schemas']['TokenResponse']> {
@@ -153,7 +164,18 @@ async function register(
 }
 
 export const organisations = {
+  currentOrganization,
   createOrganization,
+}
+
+async function currentOrganization(): Promise<components['schemas']['OrganizationResponse']> {
+  const response = await fetch(`${apiUrl}/organization`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+  return await response.json()
 }
 
 async function createOrganization(data: components['schemas']['CreateOrganizationRequest']['organization']) {
@@ -188,6 +210,6 @@ export async function upload(file: File) {
     body: formData,
   })
 
-  return await response.json()
+  return response.headers.get('location')
 }
 export default api

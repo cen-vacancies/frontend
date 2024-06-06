@@ -84,3 +84,8 @@ body {
     margin: 0 auto 0 50px;
   }
 }
+
+.mainContent[data-fullsize='true'] {
+  justify-content: center;
+  max-width: 100%;
+}
