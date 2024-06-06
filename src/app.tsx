@@ -12,6 +12,7 @@ import CreateVacancyPage from './presentations/pages/create-vacancy-page/create-
 import CreateOrgPage from './presentations/pages/create-org-page/create-org-page.tsx'
 import MainPage from './presentations/pages/main/main.tsx'
 import UserContextProvider from './context/user-context.tsx'
+import CvListPage from './presentations/pages/cv-list/cv-list.tsx'
 
 const queryClient = new QueryClient()
 
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: '/cv/create',
     element: <CreateCVPage />,
+  },
+  {
+    path: '/cv/list',
+    element: <CvListPage />,
   },
   {
     path: '/cv/:id',

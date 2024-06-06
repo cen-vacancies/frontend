@@ -164,7 +164,18 @@ async function register(
 }
 
 export const organisations = {
+  currentOrganization,
   createOrganization,
+}
+
+async function currentOrganization(): Promise<components['schemas']['OrganizationResponse']> {
+  const response = await fetch(`${apiUrl}/organization`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+  return await response.json()
 }
 
 async function createOrganization(data: components['schemas']['CreateOrganizationRequest']['organization']) {
@@ -199,6 +210,6 @@ export async function upload(file: File) {
     body: formData,
   })
 
-  return await response.json()
+  return response.headers.get('location')
 }
 export default api

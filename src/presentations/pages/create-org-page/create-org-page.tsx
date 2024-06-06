@@ -5,8 +5,9 @@ import Page from '../../ui/page/page'
 import { components } from '../../../domain/api/types/api-types.ts'
 import { organisations, upload } from '../../../domain/api/data'
 import s from './create-org-page.module.css'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { RcFile } from 'antd/es/upload'
+import { UserContext } from '../../../context/user-context.tsx'
 
 const { TextArea } = Input
 const { Title } = Typography
@@ -16,11 +17,12 @@ function CreateVacancyPage() {
   const navigate = useNavigate()
   const [imageUrl, setImageUrl] = useState<string>()
   const [form] = Form.useForm<components['schemas']['CreateOrganizationRequest']['organization']>()
-
+  const { fetchOrganization } = useContext(UserContext)
   const onSubmit = async (values: components['schemas']['CreateOrganizationRequest']['organization']) => {
     try {
-      await organisations.createOrganization(values)
-      navigate('/')
+      await organisations.createOrganization({ ...values, logo: imageUrl })
+      fetchOrganization()
+      navigate('/employer')
     } catch (e: unknown) {
       messageApi.open({
         type: 'error',
@@ -29,10 +31,10 @@ function CreateVacancyPage() {
     }
   }
 
-  async function uploadRequest({ file, filename }: { file: string | Blob | RcFile; filename?: string }) {
+  async function uploadRequest({ file }: { file: string | Blob | RcFile; filename?: string }) {
     try {
-      await upload(file as File)
-      setImageUrl(`${imageUrl}/${filename}`)
+      const url = await upload(file as File)
+      if (url) setImageUrl(url)
     } catch (e) {
       messageApi.open({
         type: 'error',

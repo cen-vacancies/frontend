@@ -89,3 +89,11 @@
     font-size: 24px;
   }
 }
+
+.navLink {
+  color: #000;
+}
+
+.navLink:hover {
+  color: #000;
+}
