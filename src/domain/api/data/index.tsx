@@ -59,7 +59,7 @@ async function getVacancyById(id?: string): Promise<components['schemas']['Vacan
 }
 
 async function createVacancy(data: components['schemas']['CreateVacancyRequest']['vacancy']) {
-  const response = await fetch(`${apiVacancies}/create`, {
+  const response = await fetch(`${apiVacancies}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -67,7 +67,9 @@ async function createVacancy(data: components['schemas']['CreateVacancyRequest']
     },
     body: JSON.stringify({ vacancy: data }),
   })
-
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
   return await response.json()
 }
 

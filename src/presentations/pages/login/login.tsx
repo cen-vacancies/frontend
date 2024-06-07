@@ -1,14 +1,16 @@
 import Page from '../../ui/page/page.tsx'
 import Input from '../../components/input/input.tsx'
 import s from './login.module.css'
-import { FormEvent } from 'react'
+import { FormEvent, useContext } from 'react'
 import { user } from '../../../domain/api/data'
 import { message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
+import { UserContext } from '../../../context/user-context.tsx'
 
 function LoginPage() {
   const [messageApi, contextHolder] = message.useMessage()
   const navigate = useNavigate()
+  const { fetchUser } = useContext(UserContext)
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     const form = e.target as HTMLFormElement
@@ -19,6 +21,7 @@ function LoginPage() {
 
     try {
       await user.login(form.email.value, form.password.value)
+      fetchUser()
       navigate('/')
     } catch (e) {
       messageApi.open({

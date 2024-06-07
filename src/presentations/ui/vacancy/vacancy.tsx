@@ -30,7 +30,7 @@ function Vacancy({ data }: Props) {
       <h2 className={s.title}>График работы</h2>
       <p className={s.paragraph}>{getSchedule(data.work_schedules)}</p>
       <h2 className={s.title}>Образование</h2>
-      <p className={s.paragraph}>{getEducation(data.educations)}</p>
+      <p className={s.paragraph}>{getEducation(data.education)}</p>
       <h2 className={s.title}>Сфера искусства</h2>
       <p className={s.paragraph}>{textFieldArt[data.field_of_art]}</p>
       <h2 className={s.title}>Опыт работы</h2>
@@ -100,7 +100,7 @@ function getSchedule(items: components['schemas']['Vacancy']['work_schedules']) 
   return items.map((item) => text[item]).join(', ')
 }
 
-function getEducation(items: components['schemas']['Vacancy']['educations']) {
+function getEducation(item: components['schemas']['Vacancy']['education']) {
   const text = {
     none: 'не указано',
     secondary: 'среднее',
@@ -110,7 +110,7 @@ function getEducation(items: components['schemas']['Vacancy']['educations']) {
     doctor: 'научная степень',
   }
 
-  return items.map((item) => text[item]).join(', ')
+  return text[item]
 }
 
 const textFieldArt = {

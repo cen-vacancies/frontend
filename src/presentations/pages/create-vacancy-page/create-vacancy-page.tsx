@@ -107,8 +107,8 @@ function CreateVacancyPage() {
               </Form.Item>
             </Form.Item>
 
-            <Form.Item label='Образование*' rules={[{ required: true, message: 'Обязательное поле' }]}>
-              <Select defaultValue='none'>
+            <Form.Item name='education' label='Образование*' rules={[{ required: true, message: 'Обязательное поле' }]}>
+              <Select>
                 <Option value='none'>Не важно</Option>
                 <Option value='secondary'>Среднее</Option>
                 <Option value='secondary_vocational'>Среднее специальное</Option>
