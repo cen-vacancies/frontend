@@ -97,12 +97,6 @@
   }
 }
 
-.buttonsApplicant {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
 .orgName {
   @extend .heading-one;
   margin: 0;
