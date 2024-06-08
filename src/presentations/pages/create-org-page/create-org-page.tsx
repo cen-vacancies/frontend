@@ -35,7 +35,7 @@ function CreateVacancyPage() {
   async function uploadRequest({ file }: { file: string | Blob | RcFile; filename?: string }) {
     try {
       const url = await upload(file as File)
-      if (url) setImageUrl(`${IMAGE_URL}${url}`)
+      if (url) setImageUrl(url)
     } catch (e) {
       messageApi.open({
         type: 'error',
@@ -92,7 +92,11 @@ function CreateVacancyPage() {
                 customRequest={uploadRequest}
                 style={{ border: 'solid' }}
               >
-                {imageUrl ? <img src={imageUrl} alt='avatar' style={{ width: '100%' }} /> : <>Загрузить фото</>}
+                {imageUrl ? (
+                  <img src={`${IMAGE_URL}${imageUrl}`} alt='avatar' style={{ width: '100%' }} />
+                ) : (
+                  <>Загрузить фото</>
+                )}
               </Upload>
             </Form.Item>
 
