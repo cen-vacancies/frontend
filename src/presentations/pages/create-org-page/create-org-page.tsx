@@ -8,6 +8,7 @@ import s from './create-org-page.module.css'
 import { useContext, useState } from 'react'
 import { RcFile } from 'antd/es/upload'
 import { UserContext } from '../../../context/user-context.tsx'
+import { IMAGE_URL } from '../../../constants/constants.ts'
 
 const { TextArea } = Input
 const { Title } = Typography
@@ -34,7 +35,7 @@ function CreateVacancyPage() {
   async function uploadRequest({ file }: { file: string | Blob | RcFile; filename?: string }) {
     try {
       const url = await upload(file as File)
-      if (url) setImageUrl(url)
+      if (url) setImageUrl(`${IMAGE_URL}${url}`)
     } catch (e) {
       messageApi.open({
         type: 'error',
