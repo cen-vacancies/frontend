@@ -1,0 +1,35 @@
+@import url('../breakpoints-tokens/breakpoints-tokens.css');
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 50px;
+  padding: 10px 25px;
+
+  font-size: 18px;
+  line-height: 24px;
+  color: rgb(var(--main-fill));
+
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid rgb(var(--main-fill));
+  border-radius: 10px;
+}
+
+.button[data-fill='true'] {
+  color: #fff;
+  background-color: rgba(162, 199, 224, 1);
+}
+
+.button:not(:disabled) {
+  cursor: pointer;
+}
+
+@media (--desktop-min-width) {
+  .button {
+    padding: 15px 30px;
+    font-size: 20px;
+  }
+}

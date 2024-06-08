@@ -2,6 +2,11 @@ import { components } from '../../../domain/api/types/api-types.ts'
 
 import s from './vacancy.module.css'
 import { Link } from 'react-router-dom'
+import ButtonColor from '../../components/button-color/button-color.tsx'
+import { useContext, useEffect, useState } from 'react'
+import { UserContext } from '../../../context/user-context.tsx'
+import { Button, Modal, Radio } from 'antd'
+import { cvs, interest } from '../../../domain/api/data'
 
 type Props = {
   data: components['schemas']['Vacancy']
@@ -51,9 +56,71 @@ type OrgProps = {
   id?: number
 }
 Vacancy.Organization = ({ src, title, id }: OrgProps) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [isModalCvOpen, setIsModalCvOpen] = useState(false)
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [cvsList, setCvsList] = useState<components['schemas']['CVsQueryResponse']['data']>()
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [selectedCv, setSelectedCv] = useState<number>()
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { user } = useContext(UserContext)
+  const isApplicant = user?.role === 'applicant'
+
+  const sendInterestToVacancy = () => {
+    if (selectedCv !== undefined && id !== undefined) {
+      interest
+        .sendInterestToVacancy(selectedCv, id)
+        .then(() => {
+          setIsModalCvOpen(false)
+        })
+        .catch((e) => console.error(e))
+    }
+  }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (!isApplicant) {
+      cvs
+        .getCurrentCVS()
+        .then((res) => setCvsList(res.data))
+        .catch((e) => console.error(e))
+    }
+  }, [isApplicant])
   return (
     <div className={s.organization}>
-      <img className={s.image} src={src} />
+      <Modal
+        title='ВЫБЕРИТЕ РЕЗЮМЕ'
+        open={isModalCvOpen}
+        onCancel={() => setIsModalCvOpen(false)}
+        footer={() => (
+          <Button type='primary' onClick={sendInterestToVacancy}>
+            Отправить
+          </Button>
+        )}
+      >
+        {cvsList && cvsList.length > 0 ? (
+          <Radio.Group
+            options={cvsList.map((item) => ({ value: item.id, label: item.title }))}
+            onChange={({ target: { value } }) => setSelectedCv(value)}
+            value={selectedCv}
+          />
+        ) : (
+          'Резюме еще нет'
+        )}
+      </Modal>
+      <div className={s.topBlock}>
+        <img className={s.image} src={src} />
+        {isApplicant && (
+          <div className={s.buttonsApplicant}>
+            <ButtonColor color='fill' width={160} onClick={() => setIsModalCvOpen(true)}>
+              Откликнуться
+            </ButtonColor>
+            <ButtonColor disabled width={160}>
+              Написать
+            </ButtonColor>
+          </div>
+        )}
+      </div>
       <Link to={id ? `/organization/${id}` : ''} style={{ textDecoration: 'none', color: 'inherit' }}>
         <h1 className={s.orgName}>{title}</h1>
       </Link>
