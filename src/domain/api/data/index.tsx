@@ -17,6 +17,7 @@ export const vacancies = {
   searchVacancy,
   getVacancyById,
   createVacancy,
+  getVacancies,
 }
 
 type FiltersQuery = NonNullable<ApiOperations['CenWeb.VacancyController.search']['parameters']['query']>
@@ -66,6 +67,19 @@ async function createVacancy(data: components['schemas']['CreateVacancyRequest']
       Authorization: getToken(),
     },
     body: JSON.stringify({ vacancy: data }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function getVacancies(): Promise<components['schemas']['VacanciesQueryResponse']> {
+  const response = await fetch(`${apiUrl}/user/vacancies`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
   })
   if (!response.ok) {
     throw new Error('request not success')
@@ -209,11 +223,6 @@ async function createOrganization(data: components['schemas']['CreateOrganizatio
   return await response.json()
 }
 
-const api = {
-  vacancies,
-  cvs,
-}
-
 export async function upload(file: File) {
   const formData = new FormData()
   formData.append('image', file)
@@ -271,4 +280,3 @@ async function getInterests(typeInt: 'sended' | 'recieved'): Promise<components[
   }
   return await response.json()
 }
-export default api

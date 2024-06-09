@@ -14,6 +14,7 @@ import MainPage from './presentations/pages/main/main.tsx'
 import UserContextProvider from './context/user-context.tsx'
 import CvListPage from './presentations/pages/cv-list/cv-list.tsx'
 import Responses from './presentations/pages/responses/responses.tsx'
+import VacancyListPage from './presentations/pages/vacancy-list/vacancy-list.tsx'
 
 const queryClient = new QueryClient()
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: '/vacancy',
     element: <Navigate to='/' />,
+  },
+  {
+    path: '/vacancy/list',
+    element: <VacancyListPage />,
   },
   {
     path: '/cv/create',

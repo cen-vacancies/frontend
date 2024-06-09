@@ -54,12 +54,11 @@ const employerConfigVacancy: MenuProps['items'] = [
   },
   {
     key: '2',
-    label: <Link to={'/responses/approved'}>Мои вакансии</Link>,
-    disabled: true,
+    label: <Link to={'/vacancy/list'}>Мои вакансии</Link>,
   },
   {
     key: '3',
-    label: <Link to={'/responses/archive'}>Архив</Link>,
+    label: <Link to={'/vacancy/archive'}>Архив</Link>,
     disabled: true,
   },
 ]
