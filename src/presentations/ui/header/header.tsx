@@ -66,17 +66,15 @@ const employerConfigVacancy: MenuProps['items'] = [
 const employerConfigRespo: MenuProps['items'] = [
   {
     key: '1',
-    label: <Link to={'/responses/active'}>Отклики</Link>,
-    disabled: true,
+    label: <Link to={'/employer/responses/received'}>Отклики</Link>,
   },
   {
     key: '2',
-    label: <Link to={'/responses/approved'}>Приглашенные</Link>,
-    disabled: true,
+    label: <Link to={'/employer/responses/send'}>Приглашенные</Link>,
   },
   {
     key: '3',
-    label: <Link to={'/responses/archive'}>Архив</Link>,
+    label: <Link to={'/employer/responses/archive'}>Архив</Link>,
     disabled: true,
   },
 ]

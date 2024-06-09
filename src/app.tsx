@@ -15,6 +15,7 @@ import UserContextProvider from './context/user-context.tsx'
 import CvListPage from './presentations/pages/cv-list/cv-list.tsx'
 import Responses from './presentations/pages/responses/responses.tsx'
 import VacancyListPage from './presentations/pages/vacancy-list/vacancy-list.tsx'
+import EmployerResponses from './presentations/pages/employer-responses/employer-responses.tsx'
 
 const queryClient = new QueryClient()
 
@@ -82,6 +83,14 @@ const router = createBrowserRouter([
   {
     path: '/responses/received',
     element: <Responses type={'recieved'} />,
+  },
+  {
+    path: '/employer/responses/send',
+    element: <EmployerResponses type={'sended'} />,
+  },
+  {
+    path: '/employer/responses/received',
+    element: <EmployerResponses type={'recieved'} />,
   },
 ])
 
