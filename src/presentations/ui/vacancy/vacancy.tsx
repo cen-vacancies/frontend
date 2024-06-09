@@ -2,6 +2,7 @@ import { components } from '../../../domain/api/types/api-types.ts'
 
 import s from './vacancy.module.css'
 import { Link } from 'react-router-dom'
+import { ReactNode } from 'react'
 
 type Props = {
   data: components['schemas']['Vacancy']
@@ -30,7 +31,7 @@ function Vacancy({ data }: Props) {
       <h2 className={s.title}>График работы</h2>
       <p className={s.paragraph}>{getSchedule(data.work_schedules)}</p>
       <h2 className={s.title}>Образование</h2>
-      <p className={s.paragraph}>{getEducation(data.educations)}</p>
+      <p className={s.paragraph}>{getEducation(data.education)}</p>
       <h2 className={s.title}>Сфера искусства</h2>
       <p className={s.paragraph}>{textFieldArt[data.field_of_art]}</p>
       <h2 className={s.title}>Опыт работы</h2>
@@ -49,11 +50,15 @@ type OrgProps = {
   src?: string
   title?: string
   id?: number
+  children?: ReactNode
 }
-Vacancy.Organization = ({ src, title, id }: OrgProps) => {
+Vacancy.Organization = ({ src, title, id, children }: OrgProps) => {
   return (
     <div className={s.organization}>
-      <img className={s.image} src={src} />
+      <div className={s.topBlock}>
+        <img className={s.image} src={src} />
+        {children}
+      </div>
       <Link to={id ? `/organization/${id}` : ''} style={{ textDecoration: 'none', color: 'inherit' }}>
         <h1 className={s.orgName}>{title}</h1>
       </Link>
@@ -100,7 +105,7 @@ function getSchedule(items: components['schemas']['Vacancy']['work_schedules']) 
   return items.map((item) => text[item]).join(', ')
 }
 
-function getEducation(items: components['schemas']['Vacancy']['educations']) {
+function getEducation(item: components['schemas']['Vacancy']['education']) {
   const text = {
     none: 'не указано',
     secondary: 'среднее',
@@ -110,7 +115,7 @@ function getEducation(items: components['schemas']['Vacancy']['educations']) {
     doctor: 'научная степень',
   }
 
-  return items.map((item) => text[item]).join(', ')
+  return text[item]
 }
 
 const textFieldArt = {

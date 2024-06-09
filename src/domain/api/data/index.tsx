@@ -59,7 +59,7 @@ async function getVacancyById(id?: string): Promise<components['schemas']['Vacan
 }
 
 async function createVacancy(data: components['schemas']['CreateVacancyRequest']['vacancy']) {
-  const response = await fetch(`${apiVacancies}/create`, {
+  const response = await fetch(`${apiVacancies}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -67,7 +67,9 @@ async function createVacancy(data: components['schemas']['CreateVacancyRequest']
     },
     body: JSON.stringify({ vacancy: data }),
   })
-
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
   return await response.json()
 }
 
@@ -75,6 +77,7 @@ export const cvs = {
   searchCvs,
   getCVById,
   createCv,
+  getCurrentCVS,
 }
 
 async function searchCvs(filters: FiltersType): Promise<components['schemas']['CVsQueryResponse']> {
@@ -112,6 +115,19 @@ async function createCv(data: components['schemas']['CreateCVRequest']['cv']) {
       Authorization: getToken(),
     },
     body: JSON.stringify({ cv: { ...data, reviewed: true } }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function getCurrentCVS(): Promise<components['schemas']['CVsQueryResponse']> {
+  const response = await fetch(`${apiUrl}/user/cvs`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
   })
   if (!response.ok) {
     throw new Error('request not success')
@@ -211,5 +227,48 @@ export async function upload(file: File) {
   })
 
   return response.headers.get('location')
+}
+
+export const interest = {
+  sendInterestToVacancy,
+  getInterests,
+}
+
+async function sendInterestToVacancy(cv_id: number, vacancy_id: number) {
+  const response = await fetch(`${apiUrl}/send_interest`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ cv_id, vacancy_id } as components['schemas']['SendInterestRequest']),
+  })
+
+  const data = await response.json()
+  if (data?.errors?.cv_id?.[0] === 'has already been taken') {
+    throw new Error('has already been taken')
+  }
+
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return data
+}
+
+async function getInterests(typeInt: 'sended' | 'recieved'): Promise<components['schemas']['InterestsListResponse']> {
+  const params = new URLSearchParams()
+  params.set('type', typeInt)
+
+  const response = await fetch(`${apiUrl}/interests?${params.toString()}`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
 }
 export default api

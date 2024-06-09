@@ -32,3 +32,9 @@
     justify-content: flex-start;
   }
 }
+
+.buttonsApplicant {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

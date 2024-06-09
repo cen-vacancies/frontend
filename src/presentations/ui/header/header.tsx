@@ -23,11 +23,10 @@ const applicantConfigCv: MenuProps['items'] = [
   {
     key: '2',
     label: <Link to={'/cv/list'}>Мои резюме</Link>,
-    disabled: true,
   },
   {
     key: '3',
-    label: <Link to={'/cv/archive'}>Мои резюме</Link>,
+    label: <Link to={'/cv/archive'}>Архив</Link>,
     disabled: true,
   },
 ]
@@ -35,13 +34,11 @@ const applicantConfigCv: MenuProps['items'] = [
 const applicantConfigRespo: MenuProps['items'] = [
   {
     key: '1',
-    label: <Link to={'/responses/active'}>Отклики</Link>,
-    disabled: true,
+    label: <Link to={'/responses/send'}>Отклики</Link>,
   },
   {
     key: '2',
-    label: <Link to={'/responses/approved'}>Приглашения</Link>,
-    disabled: true,
+    label: <Link to={'/responses/received'}>Приглашения</Link>,
   },
   {
     key: '3',

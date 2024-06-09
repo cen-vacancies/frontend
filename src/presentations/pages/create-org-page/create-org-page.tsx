@@ -8,6 +8,7 @@ import s from './create-org-page.module.css'
 import { useContext, useState } from 'react'
 import { RcFile } from 'antd/es/upload'
 import { UserContext } from '../../../context/user-context.tsx'
+import { IMAGE_URL } from '../../../constants/constants.ts'
 
 const { TextArea } = Input
 const { Title } = Typography
@@ -91,7 +92,11 @@ function CreateVacancyPage() {
                 customRequest={uploadRequest}
                 style={{ border: 'solid' }}
               >
-                {imageUrl ? <img src={imageUrl} alt='avatar' style={{ width: '100%' }} /> : <>Загрузить фото</>}
+                {imageUrl ? (
+                  <img src={`${IMAGE_URL}${imageUrl}`} alt='avatar' style={{ width: '100%' }} />
+                ) : (
+                  <>Загрузить фото</>
+                )}
               </Upload>
             </Form.Item>
 
