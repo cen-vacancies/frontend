@@ -1,5 +1,5 @@
 export function ErrorHandler(e: unknown) {
-  let content = 'Сохранение не удалось, попробуйте снова'
+  let content = 'Не удалось выполнить запрос, попробуйте снова'
   if ((e as Error).message === 'Unauthorized') {
     content = 'Нужно авторизоваться'
   }

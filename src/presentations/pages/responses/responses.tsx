@@ -32,7 +32,7 @@ function Responses({ type }: Props) {
       {contextHolder}
       {interests && interests.length > 0
         ? interests.map((item) => (
-            <PageWithCards.Card title={item.vacancy.title}>
+            <PageWithCards.Card to={`/vacancy/${item.id}`} title={item.vacancy.title}>
               <div className={s.cardContent}>
                 {item.vacancy.proposed_salary && (
                   <span>{item.vacancy.proposed_salary.toLocaleString('ru')} &#8381;</span>
