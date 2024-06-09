@@ -13,6 +13,7 @@ import CreateOrgPage from './presentations/pages/create-org-page/create-org-page
 import MainPage from './presentations/pages/main/main.tsx'
 import UserContextProvider from './context/user-context.tsx'
 import CvListPage from './presentations/pages/cv-list/cv-list.tsx'
+import Responses from './presentations/pages/responses/responses.tsx'
 
 const queryClient = new QueryClient()
 
@@ -68,6 +69,14 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <RegisterPage />,
+  },
+  {
+    path: '/responses/send',
+    element: <Responses type={'sended'} />,
+  },
+  {
+    path: '/responses/received',
+    element: <Responses type={'recieved'} />,
   },
 ])
 

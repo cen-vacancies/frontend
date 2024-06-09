@@ -69,7 +69,12 @@ function ApplicantControls({ orgId }: ApplicantControlsProps) {
         .then(() => {
           setIsModalCvOpen(false)
         })
-        .catch((e) => console.error(e))
+        .catch((e) =>
+          messageApi.open({
+            type: 'error',
+            content: ErrorHandler(e),
+          }),
+        )
     }
   }
 

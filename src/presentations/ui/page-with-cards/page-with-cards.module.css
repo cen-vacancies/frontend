@@ -1,0 +1,42 @@
+.heading {
+  position: absolute;
+
+  font-size: 30px;
+  font-weight: 550;
+  line-height: 30px;
+  color: #3e3e3e;
+  text-transform: uppercase;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+
+  width: 100%;
+  margin-top: 75px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+
+  width: 100%;
+  padding: 30px;
+
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow:
+    inset 16px -13px 20px rgba(255, 255, 255, 0.02),
+    inset -3px 4px 8px rgba(0, 0, 0, 0.09);
+}
+
+.cardHeading {
+  font-size: 20px;
+  font-weight: 550;
+  font-style: normal;
+  line-height: 20px;
+  color: #3e3e3e;
+  text-transform: uppercase;
+}

@@ -35,13 +35,11 @@ const applicantConfigCv: MenuProps['items'] = [
 const applicantConfigRespo: MenuProps['items'] = [
   {
     key: '1',
-    label: <Link to={'/responses/active'}>Отклики</Link>,
-    disabled: true,
+    label: <Link to={'/responses/send'}>Отклики</Link>,
   },
   {
     key: '2',
-    label: <Link to={'/responses/approved'}>Приглашения</Link>,
-    disabled: true,
+    label: <Link to={'/responses/received'}>Приглашения</Link>,
   },
   {
     key: '3',

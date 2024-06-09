@@ -231,6 +231,7 @@ export async function upload(file: File) {
 
 export const interest = {
   sendInterestToVacancy,
+  getInterests,
 }
 
 async function sendInterestToVacancy(cv_id: number, vacancy_id: number) {
@@ -241,6 +242,28 @@ async function sendInterestToVacancy(cv_id: number, vacancy_id: number) {
       Authorization: getToken(),
     },
     body: JSON.stringify({ cv_id, vacancy_id } as components['schemas']['SendInterestRequest']),
+  })
+
+  const data = await response.json()
+  if (data?.errors?.cv_id?.[0] === 'has already been taken') {
+    throw new Error('has already been taken')
+  }
+
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return data
+}
+
+async function getInterests(typeInt: 'sended' | 'recieved'): Promise<components['schemas']['InterestsListResponse']> {
+  const params = new URLSearchParams()
+  params.set('type', typeInt)
+
+  const response = await fetch(`${apiUrl}/interests?${params.toString()}`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
   })
 
   if (!response.ok) {
