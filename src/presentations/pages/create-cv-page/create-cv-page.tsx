@@ -1,6 +1,6 @@
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { Form, Input, Button, Select, Checkbox, Space, message, ConfigProvider, Typography, InputNumber } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { ErrorHandler } from '../../helpers/error-handler.ts'
 import Page from '../../ui/page/page'
 import { components } from '../../../domain/api/types/api-types.ts'
@@ -30,15 +30,31 @@ const AddFieldButton = ({
   )
 }
 
-function CreateCVPage() {
+type Props = {
+  isEdit?: boolean
+}
+
+function CreateCVPage({ isEdit }: Props) {
+  const { id } = useParams()
   const [messageApi, contextHolder] = message.useMessage()
   const navigate = useNavigate()
   const [form] = Form.useForm<components['schemas']['CreateCVRequest']['cv']>()
-
+  useEffect(() => {
+    if (!isEdit) return
+    cvs
+      .getCVById(id)
+      .then((data) => {
+        if (data?.data) {
+          form.setFieldsValue(data?.data)
+        }
+      })
+      .catch(ErrorHandler)
+  }, [form, id, isEdit])
   const onSubmit = async (values: components['schemas']['CreateCVRequest']['cv']) => {
     try {
-      await cvs.createCv(values)
-      navigate('/')
+      const data = isEdit ? id && (await cvs.updateCv(id, values)) : await cvs.createCv(values)
+      if (!data) return
+      navigate(`/cv/${data.data.id}`)
     } catch (e: unknown) {
       messageApi.open({
         type: 'error',

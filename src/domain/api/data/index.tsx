@@ -112,6 +112,7 @@ export const cvs = {
   searchCvs,
   getCVById,
   createCv,
+  updateCv,
   getCurrentCVS,
 }
 
@@ -142,9 +143,29 @@ async function getCVById(id?: string): Promise<components['schemas']['CVResponse
   return await response.json()
 }
 
-async function createCv(data: components['schemas']['CreateCVRequest']['cv']) {
+async function createCv(
+  data: components['schemas']['CreateCVRequest']['cv'],
+): Promise<components['schemas']['CVResponse']> {
   const response = await fetch(`${apiCvs}`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ cv: { ...data, reviewed: true } }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function updateCv(
+  id: string,
+  data: components['schemas']['UpdateCVRequest']['cv'],
+): Promise<components['schemas']['CVResponse']> {
+  const response = await fetch(`${apiCvs}/${id}`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       Authorization: getToken(),

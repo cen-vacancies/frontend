@@ -66,6 +66,10 @@ const router = createBrowserRouter([
     element: <CVPage />,
   },
   {
+    path: '/cv/:id/edit',
+    element: <CreateCVPage isEdit />,
+  },
+  {
     path: '/cv',
     element: <Navigate to='/' />,
   },
