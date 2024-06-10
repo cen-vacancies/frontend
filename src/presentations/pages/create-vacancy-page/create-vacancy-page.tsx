@@ -1,24 +1,41 @@
 import { Form, Input, Button, Select, Checkbox, Space, message, ConfigProvider, Typography, InputNumber } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { ErrorHandler } from '../../helpers/error-handler.ts'
 import Page from '../../ui/page/page'
 import { components } from '../../../domain/api/types/api-types.ts'
 import { vacancies } from '../../../domain/api/data'
 import s from './create-vacancy-page.module.css'
+import { useEffect } from 'react'
 
 const { TextArea } = Input
 const { Option } = Select
 const { Title } = Typography
 
-function CreateVacancyPage() {
+type Props = {
+  isEdit?: boolean
+}
+function CreateVacancyPage({ isEdit }: Props) {
   const [messageApi, contextHolder] = message.useMessage()
   const navigate = useNavigate()
+  const { id } = useParams()
   const [form] = Form.useForm<components['schemas']['CreateVacancyRequest']['vacancy']>()
+  useEffect(() => {
+    if (!isEdit) return
+    vacancies
+      .getVacancyById(id)
+      .then((data) => {
+        if (data?.data) {
+          form.setFieldsValue(data?.data)
+        }
+      })
+      .catch(ErrorHandler)
+  }, [form, id, isEdit])
 
   const onSubmit = async (values: components['schemas']['CreateVacancyRequest']['vacancy']) => {
     try {
-      await vacancies.createVacancy(values)
-      navigate('/')
+      const data = isEdit ? id && (await vacancies.updateVacancy(id, values)) : await vacancies.createVacancy(values)
+      if (!data) return
+      navigate(`/vacancy/${data.data.id}`)
     } catch (e: unknown) {
       messageApi.open({
         type: 'error',

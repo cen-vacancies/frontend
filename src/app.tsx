@@ -42,6 +42,10 @@ const router = createBrowserRouter([
     element: <VacancyPage />,
   },
   {
+    path: '/vacancy/:id/edit',
+    element: <CreateVacancyPage isEdit />,
+  },
+  {
     path: '/vacancy',
     element: <Navigate to='/' />,
   },
@@ -62,6 +66,10 @@ const router = createBrowserRouter([
     element: <CVPage />,
   },
   {
+    path: '/cv/:id/edit',
+    element: <CreateCVPage isEdit />,
+  },
+  {
     path: '/cv',
     element: <Navigate to='/' />,
   },
@@ -72,6 +80,10 @@ const router = createBrowserRouter([
   {
     path: '/organization/:id',
     element: <OrganizationPage />,
+  },
+  {
+    path: '/organization/:id/edit',
+    element: <CreateOrgPage isEdit />,
   },
   {
     path: '/login',

@@ -17,6 +17,7 @@ export const vacancies = {
   searchVacancy,
   getVacancyById,
   createVacancy,
+  updateVacancy,
   getVacancies,
 }
 
@@ -59,9 +60,29 @@ async function getVacancyById(id?: string): Promise<components['schemas']['Vacan
   return await response.json()
 }
 
-async function createVacancy(data: components['schemas']['CreateVacancyRequest']['vacancy']) {
+async function createVacancy(
+  data: components['schemas']['CreateVacancyRequest']['vacancy'],
+): Promise<components['schemas']['VacancyResponse']> {
   const response = await fetch(`${apiVacancies}`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ vacancy: data }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function updateVacancy(
+  id: string,
+  data: components['schemas']['UpdateVacancyRequest']['vacancy'],
+): Promise<components['schemas']['VacancyResponse']> {
+  const response = await fetch(`${apiVacancies}/${id}`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       Authorization: getToken(),
@@ -91,6 +112,7 @@ export const cvs = {
   searchCvs,
   getCVById,
   createCv,
+  updateCv,
   getCurrentCVS,
 }
 
@@ -121,9 +143,29 @@ async function getCVById(id?: string): Promise<components['schemas']['CVResponse
   return await response.json()
 }
 
-async function createCv(data: components['schemas']['CreateCVRequest']['cv']) {
+async function createCv(
+  data: components['schemas']['CreateCVRequest']['cv'],
+): Promise<components['schemas']['CVResponse']> {
   const response = await fetch(`${apiCvs}`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ cv: { ...data, reviewed: true } }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function updateCv(
+  id: string,
+  data: components['schemas']['UpdateCVRequest']['cv'],
+): Promise<components['schemas']['CVResponse']> {
+  const response = await fetch(`${apiCvs}/${id}`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       Authorization: getToken(),
@@ -196,6 +238,7 @@ async function register(
 export const organisations = {
   currentOrganization,
   createOrganization,
+  updateOrganization,
   getOrganizationById,
 }
 
@@ -209,9 +252,28 @@ async function currentOrganization(): Promise<components['schemas']['Organizatio
   return await response.json()
 }
 
-async function createOrganization(data: components['schemas']['CreateOrganizationRequest']['organization']) {
+async function createOrganization(
+  data: components['schemas']['CreateOrganizationRequest']['organization'],
+): Promise<components['schemas']['OrganizationResponse']> {
   const response = await fetch(`${apiOrganization}`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ organization: data }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function updateOrganization(
+  data: components['schemas']['UpdateOrganizationRequest']['organization'],
+): Promise<components['schemas']['OrganizationResponse']> {
+  const response = await fetch(`${apiOrganization}`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       Authorization: getToken(),
