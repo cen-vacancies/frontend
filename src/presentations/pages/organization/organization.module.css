@@ -1,0 +1,134 @@
+@import url('../../components/breakpoints-tokens/breakpoints-tokens.css');
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 75px;
+  width: 100%;
+}
+
+.topBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+
+  @media (--desktop-min-width) {
+    display: none;
+  }
+}
+
+.organizationContent {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  width: 100%;
+
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 20px;
+}
+
+.organizationHeading {
+  margin: 0;
+
+  font-size: 30px;
+  font-weight: 550;
+  font-style: normal;
+  line-height: 30px;
+  color: #3e3e3e;
+  text-transform: uppercase;
+}
+
+.card,
+.vacancyCard {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  width: 100%;
+  padding: 30px;
+
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow:
+    inset 16px -13px 20px rgba(255, 255, 255, 0.02),
+    inset -3px 4px 8px rgba(0, 0, 0, 0.09);
+}
+
+.subtitle {
+  margin: 0 0 20px;
+
+  font-size: 24px;
+  font-weight: 550;
+  font-style: normal;
+  line-height: 24px;
+  color: #3e3e3e;
+  text-transform: uppercase;
+}
+
+@media (--desktop-min-width) {
+  .organizationContent {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .organizationHeading {
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    line-height: 20px;
+  }
+}
+
+.vacancy {
+  width: 100%;
+  max-width: 720px;
+}
+
+.vacancyList {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.vacancyCard {
+  gap: 35px;
+  color: #3e3e3e;
+  text-decoration: none;
+}
+
+.vacancyTitle {
+  font-size: 20px;
+  font-weight: 550;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+
+.vacancyCardContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.image {
+  width: 140px;
+  height: 140px;
+
+  background-color: #ffffff;
+  border: 2px solid #a2c7e066;
+  border-radius: 10px;
+  box-shadow: 2.24px 2.24px 5.59px 0 #00000017;
+}
+
+@media (--desktop-min-width) {
+  .image {
+    width: 170px;
+    height: 170px;
+  }
+}

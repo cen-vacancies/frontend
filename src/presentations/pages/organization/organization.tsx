@@ -1,127 +1,108 @@
-import { useQuery } from 'react-query'
-import { useParams } from 'react-router-dom'
-import { cvs, interest, vacancies } from '../../../domain/api/data'
+import { Link, useParams } from 'react-router-dom'
+import s from './organization.module.css'
 import Page from '../../ui/page/page.tsx'
-import Vacancy from '../../ui/vacancy/vacancy.tsx'
-import s from './vacancy.module.css'
-import ButtonWithIcon from '../../components/button-with-icon/button-with-icon.tsx'
-import { IMAGE_URL } from '../../../constants/constants.ts'
-import ButtonColor from '../../components/button-color/button-color.tsx'
 import { useContext, useEffect, useState } from 'react'
 import { components } from '../../../domain/api/types/api-types.ts'
-import { UserContext } from '../../../context/user-context.tsx'
-import { Button, message, Modal, Radio } from 'antd'
+import { organisations, vacancies } from '../../../domain/api/data'
 import { ErrorHandler } from '../../helpers/error-handler.ts'
+import { message, Space } from 'antd'
+import ButtonWithIcon from '../../components/button-with-icon/button-with-icon.tsx'
+import { IMAGE_URL } from '../../../constants/constants.ts'
+import { UserContext } from '../../../context/user-context.tsx'
 
-function VacancyPage() {
+function OrganizationPage() {
   const { id } = useParams()
-
-  const { user } = useContext(UserContext)
-  const { data } = useQuery(['vacancy', id], () => vacancies.getVacancyById(id), {
-    refetchOnWindowFocus: false,
-  })
-
-  const shouldShowApplicantControls = user?.role === 'applicant' && data?.data.organization.id !== undefined
-  const organizationImage = data?.data.organization.logo && `${IMAGE_URL}${data.data.organization.logo}`
-
-  return (
-    <Page>
-      <Page.Content>
-        <div className={s.content}>
-          <div className={s.hideOnDesktop}>
-            <Vacancy.Organization
-              id={data?.data.organization.id}
-              title={data?.data.organization.name}
-              src={organizationImage}
-            />
-          </div>
-          <div className={s.main}>{data?.data && <Vacancy data={data.data} />}</div>
-          <div className={s.footer}>
-            <ButtonWithIcon linkTo={'/'}>Назад к вакансиям</ButtonWithIcon>
-          </div>
-        </div>
-      </Page.Content>
-      <Page.Aside>
-        <Vacancy.Organization
-          id={data?.data.organization.id}
-          title={data?.data.organization.name}
-          src={organizationImage}
-        >
-          {shouldShowApplicantControls && <ApplicantControls orgId={data?.data.organization.id} />}
-        </Vacancy.Organization>
-      </Page.Aside>
-    </Page>
-  )
-}
-
-type ApplicantControlsProps = {
-  orgId: number
-}
-function ApplicantControls({ orgId }: ApplicantControlsProps) {
+  const { organization } = useContext(UserContext)
+  const [organizationData, setOrganizationData] = useState<components['schemas']['OrganizationResponse']['data']>()
+  const [vacancyData, setVacancyData] = useState<components['schemas']['VacanciesQueryResponse']['data']>([])
   const [messageApi, contextHolder] = message.useMessage()
-  const [isModalCvOpen, setIsModalCvOpen] = useState(false)
-  const [cvsList, setCvsList] = useState<components['schemas']['CVsQueryResponse']['data']>()
-  const [selectedCv, setSelectedCv] = useState<number>()
-  const sendInterestToVacancy = () => {
-    if (selectedCv !== undefined) {
-      interest
-        .sendInterestToVacancy(selectedCv, orgId)
-        .then(() => {
-          setIsModalCvOpen(false)
-        })
-        .catch((e) =>
-          messageApi.open({
-            type: 'error',
-            content: ErrorHandler(e),
-          }),
-        )
-    }
-  }
+
+  const organizationImage = organizationData?.logo && `${IMAGE_URL}${organizationData.logo}`
 
   useEffect(() => {
-    cvs
-      .getCurrentCVS()
-      .then((res) => setCvsList(res.data))
+    vacancies
+      .getVacancies()
+      .then((items) => {
+        setVacancyData(items.data)
+      })
       .catch((e) => {
+        console.error(e)
+      })
+  }, [])
+
+  useEffect(() => {
+    if (!id) return
+    organisations
+      .getOrganizationById(id)
+      .then((res) => setOrganizationData(res.data))
+      .catch((e) => {
+        console.error(e)
         messageApi.open({
           type: 'error',
           content: ErrorHandler(e),
         })
       })
-  }, [messageApi])
+  }, [id, messageApi])
   return (
-    <>
+    <Page>
       {contextHolder}
-      <Modal
-        title='ВЫБЕРИТЕ РЕЗЮМЕ'
-        open={isModalCvOpen}
-        onCancel={() => setIsModalCvOpen(false)}
-        footer={() => (
-          <Button type='primary' onClick={sendInterestToVacancy}>
-            Отправить
-          </Button>
-        )}
-      >
-        {cvsList && cvsList.length > 0 ? (
-          <Radio.Group
-            options={cvsList.map((item) => ({ value: item.id, label: item.title }))}
-            onChange={({ target: { value } }) => setSelectedCv(value)}
-            value={selectedCv}
-          />
-        ) : (
-          'Резюме еще нет'
-        )}
-      </Modal>
-      <div className={s.buttonsApplicant}>
-        <ButtonColor color='fill' width={160} onClick={() => setIsModalCvOpen(true)}>
-          Откликнуться
-        </ButtonColor>
-        <ButtonColor disabled width={160}>
-          Написать
-        </ButtonColor>
-      </div>
-    </>
+      <Page.Content>
+        <div className={s.root}>
+          <div className={s.topBlock}>
+            <img src={organizationImage} className={s.image} />
+            {organization?.id && organization.id.toString() === id && (
+              <ButtonWithIcon linkTo={`/organization/${id}/edit`}>Редактировать</ButtonWithIcon>
+            )}
+          </div>
+          <div className={s.organizationContent}>
+            <h1 className={s.organizationHeading}>{organizationData?.name}</h1>
+            <div className={s.card}>
+              {organizationData?.description.split('\n').map((item) => (
+                <>
+                  {item}
+                  <br />
+                </>
+              ))}
+              <div>
+                <h3 className={s.subtitle}>Контакты</h3>
+                <span>{organizationData?.phone}</span>
+              </div>
+              <div>
+                <h3 className={s.subtitle}>Адресс</h3>
+                <span>{organizationData?.address}</span>
+              </div>
+            </div>
+          </div>
+          {vacancyData && vacancyData.length > 0 && (
+            <div className={s.vacancy}>
+              <h1 className={s.organizationHeading} style={{ marginBottom: '50px' }}>
+                Вакансии
+              </h1>
+              <div className={s.vacancyList}>
+                {vacancyData.map((item) => (
+                  <Link to={`/vacancy/${item.id}`} className={s.vacancyCard}>
+                    <span className={s.vacancyTitle}>{item.title}</span>
+                    <div className={s.vacancyCardContent}>
+                      {item.proposed_salary && <span>{item.proposed_salary.toLocaleString('ru')} &#8381;</span>}
+                      <span>{item.organization.name}</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </Page.Content>
+      <Page.Aside>
+        <Space direction={'vertical'} size={50}>
+          {organization?.id && organization.id.toString() === id && (
+            <ButtonWithIcon linkTo={`/organization/${id}/edit`}>Редактировать</ButtonWithIcon>
+          )}
+          <img src={organizationImage} className={s.image} />
+        </Space>
+      </Page.Aside>
+    </Page>
   )
 }
 
-export default VacancyPage
+export default OrganizationPage

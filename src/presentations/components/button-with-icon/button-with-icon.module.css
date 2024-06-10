@@ -18,6 +18,10 @@
   box-shadow: 2px 2px 10px 0 #00000026;
 }
 
+.button:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .icon {
   width: 28px;
   height: 28px;
