@@ -1,0 +1,10 @@
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 20px;
+  color: #1f1f1f;
+}

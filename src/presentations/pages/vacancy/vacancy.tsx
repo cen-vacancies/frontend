@@ -47,7 +47,7 @@ function VacancyPage() {
           title={data?.data.organization.name}
           src={organizationImage}
         >
-          {shouldShowApplicantControls && <ApplicantControls orgId={data?.data.organization.id} />}
+          {shouldShowApplicantControls && <ApplicantControls vacancyId={id as string} />}
         </Vacancy.Organization>
       </Page.Aside>
     </Page>
@@ -55,9 +55,9 @@ function VacancyPage() {
 }
 
 type ApplicantControlsProps = {
-  orgId: number
+  vacancyId: string
 }
-function ApplicantControls({ orgId }: ApplicantControlsProps) {
+function ApplicantControls({ vacancyId }: ApplicantControlsProps) {
   const [messageApi, contextHolder] = message.useMessage()
   const [isModalCvOpen, setIsModalCvOpen] = useState(false)
   const [cvsList, setCvsList] = useState<components['schemas']['CVsQueryResponse']['data']>()
@@ -65,7 +65,7 @@ function ApplicantControls({ orgId }: ApplicantControlsProps) {
   const sendInterestToVacancy = () => {
     if (selectedCv !== undefined) {
       interest
-        .sendInterestToVacancy(selectedCv, orgId)
+        .sendInterestToVacancy(selectedCv, Number(vacancyId))
         .then(() => {
           setIsModalCvOpen(false)
         })
