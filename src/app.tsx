@@ -42,6 +42,10 @@ const router = createBrowserRouter([
     element: <VacancyPage />,
   },
   {
+    path: '/vacancy/:id/edit',
+    element: <CreateVacancyPage isEdit />,
+  },
+  {
     path: '/vacancy',
     element: <Navigate to='/' />,
   },

@@ -17,6 +17,7 @@ export const vacancies = {
   searchVacancy,
   getVacancyById,
   createVacancy,
+  updateVacancy,
   getVacancies,
 }
 
@@ -59,9 +60,29 @@ async function getVacancyById(id?: string): Promise<components['schemas']['Vacan
   return await response.json()
 }
 
-async function createVacancy(data: components['schemas']['CreateVacancyRequest']['vacancy']) {
+async function createVacancy(
+  data: components['schemas']['CreateVacancyRequest']['vacancy'],
+): Promise<components['schemas']['VacancyResponse']> {
   const response = await fetch(`${apiVacancies}`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ vacancy: data }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function updateVacancy(
+  id: string,
+  data: components['schemas']['UpdateVacancyRequest']['vacancy'],
+): Promise<components['schemas']['VacancyResponse']> {
+  const response = await fetch(`${apiVacancies}/${id}`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       Authorization: getToken(),
