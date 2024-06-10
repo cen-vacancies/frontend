@@ -5,7 +5,7 @@ import Page from '../../ui/page/page'
 import { components } from '../../../domain/api/types/api-types.ts'
 import { organisations, upload } from '../../../domain/api/data'
 import s from './create-org-page.module.css'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { RcFile } from 'antd/es/upload'
 import { UserContext } from '../../../context/user-context.tsx'
 import { IMAGE_URL } from '../../../constants/constants.ts'
@@ -13,17 +13,28 @@ import { IMAGE_URL } from '../../../constants/constants.ts'
 const { TextArea } = Input
 const { Title } = Typography
 
-function CreateVacancyPage() {
+type Props = {
+  isEdit?: boolean
+}
+
+function CreateVacancyPage({ isEdit }: Props) {
   const [messageApi, contextHolder] = message.useMessage()
   const navigate = useNavigate()
   const [imageUrl, setImageUrl] = useState<string>()
   const [form] = Form.useForm<components['schemas']['CreateOrganizationRequest']['organization']>()
-  const { fetchOrganization } = useContext(UserContext)
+  const { fetchOrganization, organization } = useContext(UserContext)
+  useEffect(() => {
+    if (!isEdit || !organization || form.getFieldValue('name')) return
+    form.setFieldsValue(organization)
+    setImageUrl(organization.logo)
+  }, [form, isEdit, organization])
   const onSubmit = async (values: components['schemas']['CreateOrganizationRequest']['organization']) => {
     try {
-      await organisations.createOrganization({ ...values, logo: imageUrl })
+      const data = isEdit
+        ? await organisations.updateOrganization({ ...values, logo: imageUrl })
+        : await organisations.createOrganization({ ...values, logo: imageUrl })
       fetchOrganization()
-      navigate('/employer')
+      navigate(`/organization/${data.data.id}`)
     } catch (e: unknown) {
       messageApi.open({
         type: 'error',
@@ -92,11 +103,7 @@ function CreateVacancyPage() {
                 customRequest={uploadRequest}
                 style={{ border: 'solid' }}
               >
-                {imageUrl ? (
-                  <img src={`${IMAGE_URL}${imageUrl}`} alt='avatar' style={{ width: '100%' }} />
-                ) : (
-                  <>Загрузить фото</>
-                )}
+                {imageUrl && <img src={`${IMAGE_URL}${imageUrl}`} alt='avatar' style={{ width: '100%' }} />}
               </Upload>
             </Form.Item>
 

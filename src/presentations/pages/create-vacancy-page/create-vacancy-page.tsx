@@ -20,6 +20,7 @@ function CreateVacancyPage({ isEdit }: Props) {
   const { id } = useParams()
   const [form] = Form.useForm<components['schemas']['CreateVacancyRequest']['vacancy']>()
   useEffect(() => {
+    if (!isEdit) return
     vacancies
       .getVacancyById(id)
       .then((data) => {
@@ -28,12 +29,12 @@ function CreateVacancyPage({ isEdit }: Props) {
         }
       })
       .catch(ErrorHandler)
-  }, [form, id])
+  }, [form, id, isEdit])
 
   const onSubmit = async (values: components['schemas']['CreateVacancyRequest']['vacancy']) => {
-    if (!id) return
     try {
-      const data = isEdit ? await vacancies.updateVacancy(id, values) : await vacancies.createVacancy(values)
+      const data = isEdit ? id && (await vacancies.updateVacancy(id, values)) : await vacancies.createVacancy(values)
+      if (!data) return
       navigate(`/vacancy/${data.data.id}`)
     } catch (e: unknown) {
       messageApi.open({

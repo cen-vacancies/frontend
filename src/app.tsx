@@ -78,6 +78,10 @@ const router = createBrowserRouter([
     element: <OrganizationPage />,
   },
   {
+    path: '/organization/:id/edit',
+    element: <CreateOrgPage isEdit />,
+  },
+  {
     path: '/login',
     element: <LoginPage />,
   },

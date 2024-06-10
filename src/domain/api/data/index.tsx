@@ -217,6 +217,7 @@ async function register(
 export const organisations = {
   currentOrganization,
   createOrganization,
+  updateOrganization,
   getOrganizationById,
 }
 
@@ -230,9 +231,28 @@ async function currentOrganization(): Promise<components['schemas']['Organizatio
   return await response.json()
 }
 
-async function createOrganization(data: components['schemas']['CreateOrganizationRequest']['organization']) {
+async function createOrganization(
+  data: components['schemas']['CreateOrganizationRequest']['organization'],
+): Promise<components['schemas']['OrganizationResponse']> {
   const response = await fetch(`${apiOrganization}`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ organization: data }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function updateOrganization(
+  data: components['schemas']['UpdateOrganizationRequest']['organization'],
+): Promise<components['schemas']['OrganizationResponse']> {
+  const response = await fetch(`${apiOrganization}`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       Authorization: getToken(),
