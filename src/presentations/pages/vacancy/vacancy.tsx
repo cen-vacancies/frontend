@@ -33,7 +33,9 @@ function VacancyPage() {
               id={data?.data.organization.id}
               title={data?.data.organization.name}
               src={organizationImage}
-            />
+            >
+              {shouldShowApplicantControls && <ApplicantControls vacancyId={id as string} />}
+            </Vacancy.Organization>
           </div>
           <div className={s.main}>{data?.data && <Vacancy data={data.data} />}</div>
           <div className={s.footer}>
@@ -104,6 +106,7 @@ function ApplicantControls({ vacancyId }: ApplicantControlsProps) {
       >
         {cvsList && cvsList.length > 0 ? (
           <Radio.Group
+            style={{ display: 'flex', flexDirection: 'column', gap: 10 }}
             options={cvsList.map((item) => ({ value: item.id, label: item.title }))}
             onChange={({ target: { value } }) => setSelectedCv(value)}
             value={selectedCv}

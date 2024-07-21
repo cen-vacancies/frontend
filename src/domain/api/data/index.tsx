@@ -1,16 +1,22 @@
+import { Channel, Socket } from 'phoenix'
 import { operations as ApiOperations, components } from '../../../domain/api/types/api-types.ts'
 
 export const apiUrl = `${import.meta.env.VITE_API_URL}/api`
 const apiVacancies = `${apiUrl}/vacancies`
 const apiCvs = `${apiUrl}/cvs`
 const apiOrganization = `${apiUrl}/organization`
+const apiChats = `${apiUrl}/chats`
 
-export const getToken = () => {
+const getRawToken = () => {
   const token = localStorage.getItem('token')
   if (!token) {
     throw new Error('Unauthorized')
   }
-  return `Bearer ${token}`
+  return token
+}
+
+export const getToken = () => {
+  return `Bearer ${getRawToken()}`
 }
 
 export const vacancies = {
@@ -355,4 +361,77 @@ async function getInterests(typeInt: 'sended' | 'recieved'): Promise<components[
     throw new Error('request not success')
   }
   return await response.json()
+}
+
+async function getChats(): Promise<components['schemas']['ChatsListResponse']> {
+  const response = await fetch(apiChats, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+type ChatSocketProps = {
+  cv_id: number
+  vacancy_id: number
+  onInit: (messages: Array<components['schemas']['MessageResponse']>) => void
+  onNewMessage: (message: components['schemas']['MessageResponse']) => void
+}
+const chatSocket = ({ cv_id, vacancy_id, onNewMessage, onInit }: ChatSocketProps) => {
+  const socket = new Socket(`${apiUrl}/socket`, {
+    params: { token: getRawToken() },
+  })
+  let channel: Channel
+
+  const connect = () => {
+    channel = socket.channel(`chat:${cv_id}:${vacancy_id}`)
+    channel.join().receive('ok', onInit).receive('error', console.log)
+
+    channel.on('new_message', onNewMessage)
+    socket.onError(console.error)
+
+    socket.connect()
+  }
+
+  const disconnect = () => {
+    if (channel) {
+      socket.remove(channel)
+    }
+    socket.disconnect()
+  }
+
+  return {
+    connect,
+    disconnect,
+  }
+}
+
+async function sendMessage(
+  text: string,
+  cv_id: number,
+  vacancy_id: number,
+): Promise<components['schemas']['MessageResponse']> {
+  const response = await fetch(`${apiChats}/send_message`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ cv_id, text, vacancy_id }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+export const chats = {
+  getChats,
+  chatSocket,
+  sendMessage,
 }

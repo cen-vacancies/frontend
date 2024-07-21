@@ -7,13 +7,14 @@ import profileImage from '../../../assets/profile.png'
 import burgerImage from '../../../assets/burger.svg'
 
 import S from './header.module.css'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { UserContext } from '../../../context/user-context.tsx'
 import { Dropdown, MenuProps, Space } from 'antd'
 import cv from './assets/cv.svg'
 import respo from './assets/respo.svg'
 import work from './assets/work.svg'
 import vacancyIcon from './assets/vacancy.svg'
+import Chat from '../chat/chat.tsx'
 
 const applicantConfigCv: MenuProps['items'] = [
   {
@@ -81,6 +82,7 @@ const employerConfigRespo: MenuProps['items'] = [
 
 function Header() {
   const { pathname } = useLocation()
+  const [isChatOpen, setIsChatOpen] = useState(false)
   const navigate = useNavigate()
   const { user, organization } = useContext(UserContext)
 
@@ -144,7 +146,7 @@ function Header() {
       <div className={S.buttons}>
         {!isRegisterBlock && (
           <>
-            <ImageLink src={messagesImage} to={'#'} />
+            <ImageLink src={messagesImage} onClick={() => setIsChatOpen(true)} />
             <ImageLink src={profileImage} to={'#'} />
             <button className={S.burgerButton}>
               <img src={burgerImage} />
@@ -162,6 +164,7 @@ function Header() {
           </>
         )}
       </div>
+      {isChatOpen && <Chat onClose={() => setIsChatOpen(false)} />}
     </div>
   )
 }

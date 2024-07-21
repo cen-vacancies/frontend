@@ -4,33 +4,135 @@
  */
 
 export interface paths {
+  '/api/chats': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get all user's chats */
+    get: operations['CenWeb.ChatController.index']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/chats/send_message': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Send message */
+    post: operations['CenWeb.ChatController.send_message']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/cvs': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
     /** Create CV */
     post: operations['CenWeb.CVController.create']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
   }
   '/api/cvs/search': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** Search CVs */
     get: operations['CenWeb.CVController.search']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
   }
   '/api/cvs/{cv_id}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** Get CV */
     get: operations['CenWeb.CVController.show']
     /** Update CV */
     put: operations['CenWeb.CVController.update']
+    post?: never
     /** Delete CV */
     delete: operations['CenWeb.CVController.delete']
+    options?: never
+    head?: never
     /** Update CV */
     patch: operations['CenWeb.CVController.update (2)']
+    trace?: never
   }
   '/api/health/check': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** Check health */
     get: operations['CenWeb.HealthCheckController.check']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
   }
   '/api/interests': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** Send interest to vacancy or CV */
     get: operations['CenWeb.InterestController.index']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
   }
   '/api/organization': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** Get current user's organization */
     get: operations['CenWeb.OrganizationController.show']
     /** Update organization */
@@ -39,1354 +141,321 @@ export interface paths {
     post: operations['CenWeb.OrganizationController.create']
     /** Delete organization */
     delete: operations['CenWeb.OrganizationController.delete']
+    options?: never
+    head?: never
     /** Update organization */
     patch: operations['CenWeb.OrganizationController.update (2)']
+    trace?: never
   }
   '/api/organizations/{organization_id}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** Get organization */
     get: operations['CenWeb.OrganizationController.show_by_id']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
   }
   '/api/send_interest': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
     /** Send interest to vacancy or CV */
     post: operations['CenWeb.InterestController.send_interest']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
   }
   '/api/token': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
     /** Get access token */
     post: operations['CenWeb.TokenController.create']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
   }
   '/api/uploads/image': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
     /** Upload an image */
     post: operations['CenWeb.UploadsController.upload_image']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
   }
   '/api/user': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** Get current user */
     get: operations['CenWeb.UserController.show']
+    put?: never
     /** Create user */
     post: operations['CenWeb.UserController.create']
     /** Delete user */
     delete: operations['CenWeb.UserController.delete']
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
   }
   '/api/user/cvs': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** Get user's CVs */
     get: operations['CenWeb.CVController.user_index']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/user/email': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    /** Update user's email */
+    put: operations['CenWeb.UserController.update_email']
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    /** Update user's email */
+    patch: operations['CenWeb.UserController.update_email (2)']
+    trace?: never
   }
   '/api/user/info': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
     /** Update user */
     put: operations['CenWeb.UserController.update_info']
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
     /** Update user */
     patch: operations['CenWeb.UserController.update_info (2)']
+    trace?: never
+  }
+  '/api/user/password': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    /** Update user's password */
+    put: operations['CenWeb.UserController.update_password']
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    /** Update user's password */
+    patch: operations['CenWeb.UserController.update_password (2)']
+    trace?: never
   }
   '/api/user/vacancies': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** Get user's vacancies */
     get: operations['CenWeb.VacancyController.user_index']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
   }
   '/api/vacancies': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
     /** Create vacancy */
     post: operations['CenWeb.VacancyController.create']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
   }
   '/api/vacancies/search': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** Search vacancies */
     get: operations['CenWeb.VacancyController.search']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
   }
   '/api/vacancies/{vacancy_id}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** Get vacancy */
     get: operations['CenWeb.VacancyController.show']
     /** Update vacancy */
     put: operations['CenWeb.VacancyController.update']
+    post?: never
     /** Delete vacancy */
     delete: operations['CenWeb.VacancyController.delete']
+    options?: never
+    head?: never
     /** Update vacancy */
     patch: operations['CenWeb.VacancyController.update (2)']
+    trace?: never
   }
 }
-
 export type webhooks = Record<string, never>
-
 export interface components {
   schemas: {
     /**
-     * CV
+     * UpdateOrganizationRequest
      * @example {
-     *   "applicant": {
-     *     "birth_date": "2000-01-01",
-     *     "email": "username@domain.org",
-     *     "fullname": "Иванов Иван Иванович",
-     *     "id": "756",
-     *     "phone": "+78001234567",
-     *     "role": "applicant"
-     *   },
-     *   "educations": [
-     *     {
-     *       "department": null,
-     *       "educational_institution": "УрФУ",
-     *       "level": "secondary",
-     *       "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
-     *       "year_of_graduation": 2024
-     *     }
-     *   ],
-     *   "employment_types": [
-     *     "main"
-     *   ],
-     *   "field_of_art": "music",
-     *   "id": 521,
-     *   "jobs": [
-     *     {
-     *       "description": "Преподавал предмет",
-     *       "end_date": "2024-02-01",
-     *       "job_title": "Преподаватель",
-     *       "organization_name": "УрФУ",
-     *       "start_date": "2022-12-01"
-     *     }
-     *   ],
-     *   "photo": "/uploads/photo.png",
-     *   "published": true,
-     *   "reviewed": true,
-     *   "summary": "Я очень хорошо играю на фортепиано.",
-     *   "title": "Педагог по фортепиано",
-     *   "work_schedules": [
-     *     "full_time"
-     *   ]
-     * }
-     */
-    CV: {
-      /**
-       * User
-       * @example {
-       *   "birth_date": "2000-01-01",
-       *   "email": "username@domain.org",
-       *   "fullname": "Иванов Иван Иванович",
-       *   "id": "756",
-       *   "phone": "+78001234567",
-       *   "role": "applicant"
-       * }
-       */
-      applicant: {
-        /** Format: date */
-        birth_date: string
-        email: string
-        fullname: string
-        id: number
-        /** Format: phone */
-        phone: string
-        /** @enum {string} */
-        role: 'admin' | 'applicant' | 'employer'
-      }
-      educations: {
-        department: string | null
-        educational_institution: string | null
-        /** @enum {string} */
-        level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
-        specialization: string | null
-        year_of_graduation: number | null
-      }[]
-      employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
-      /** @enum {string} */
-      field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
-      id: number
-      jobs: {
-        description: string
-        /**
-         * Format: date
-         * @description day should be ignored
-         */
-        end_date: string
-        job_title: string
-        organization_name: string
-        /**
-         * Format: date
-         * @description day should be ignored
-         */
-        start_date: string
-      }[]
-      photo: string
-      published: boolean
-      reviewed: boolean
-      summary: string
-      title: string
-      work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-    }
-    /**
-     * CVResponse
-     * @example {
-     *   "data": {
-     *     "applicant": {
-     *       "birth_date": "2000-01-01",
-     *       "email": "username@domain.org",
-     *       "fullname": "Иванов Иван Иванович",
-     *       "id": "756",
-     *       "phone": "+78001234567",
-     *       "role": "applicant"
-     *     },
-     *     "educations": [
-     *       {
-     *         "department": null,
-     *         "educational_institution": "УрФУ",
-     *         "level": "secondary",
-     *         "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
-     *         "year_of_graduation": 2024
-     *       }
-     *     ],
-     *     "employment_types": [
-     *       "main"
-     *     ],
-     *     "field_of_art": "music",
-     *     "id": 521,
-     *     "jobs": [
-     *       {
-     *         "description": "Преподавал предмет",
-     *         "end_date": "2024-02-01",
-     *         "job_title": "Преподаватель",
-     *         "organization_name": "УрФУ",
-     *         "start_date": "2022-12-01"
-     *       }
-     *     ],
-     *     "photo": "/uploads/photo.png",
-     *     "published": true,
-     *     "reviewed": true,
-     *     "summary": "Я очень хорошо играю на фортепиано.",
-     *     "title": "Педагог по фортепиано",
-     *     "work_schedules": [
-     *       "full_time"
-     *     ]
-     *   }
-     * }
-     */
-    CVResponse: {
-      /**
-       * CV
-       * @example {
-       *   "applicant": {
-       *     "birth_date": "2000-01-01",
-       *     "email": "username@domain.org",
-       *     "fullname": "Иванов Иван Иванович",
-       *     "id": "756",
-       *     "phone": "+78001234567",
-       *     "role": "applicant"
-       *   },
-       *   "educations": [
-       *     {
-       *       "department": null,
-       *       "educational_institution": "УрФУ",
-       *       "level": "secondary",
-       *       "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
-       *       "year_of_graduation": 2024
-       *     }
-       *   ],
-       *   "employment_types": [
-       *     "main"
-       *   ],
-       *   "field_of_art": "music",
-       *   "id": 521,
-       *   "jobs": [
-       *     {
-       *       "description": "Преподавал предмет",
-       *       "end_date": "2024-02-01",
-       *       "job_title": "Преподаватель",
-       *       "organization_name": "УрФУ",
-       *       "start_date": "2022-12-01"
-       *     }
-       *   ],
-       *   "photo": "/uploads/photo.png",
-       *   "published": true,
-       *   "reviewed": true,
-       *   "summary": "Я очень хорошо играю на фортепиано.",
-       *   "title": "Педагог по фортепиано",
-       *   "work_schedules": [
-       *     "full_time"
-       *   ]
-       * }
-       */
-      data: {
-        /**
-         * User
-         * @example {
-         *   "birth_date": "2000-01-01",
-         *   "email": "username@domain.org",
-         *   "fullname": "Иванов Иван Иванович",
-         *   "id": "756",
-         *   "phone": "+78001234567",
-         *   "role": "applicant"
-         * }
-         */
-        applicant: {
-          /** Format: date */
-          birth_date: string
-          email: string
-          fullname: string
-          id: number
-          /** Format: phone */
-          phone: string
-          /** @enum {string} */
-          role: 'admin' | 'applicant' | 'employer'
-        }
-        educations: {
-          department: string | null
-          educational_institution: string | null
-          /** @enum {string} */
-          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
-          specialization: string | null
-          year_of_graduation: number | null
-        }[]
-        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
-        /** @enum {string} */
-        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
-        id: number
-        jobs: {
-          description: string
-          /**
-           * Format: date
-           * @description day should be ignored
-           */
-          end_date: string
-          job_title: string
-          organization_name: string
-          /**
-           * Format: date
-           * @description day should be ignored
-           */
-          start_date: string
-        }[]
-        photo: string
-        published: boolean
-        reviewed: boolean
-        summary: string
-        title: string
-        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-      }
-    }
-    /**
-     * CVsQueryResponse
-     * @example {
-     *   "data": [
-     *     {
-     *       "applicant": {
-     *         "birth_date": "2000-01-01",
-     *         "email": "username@domain.org",
-     *         "fullname": "Иванов Иван Иванович",
-     *         "id": "756",
-     *         "phone": "+78001234567",
-     *         "role": "applicant"
-     *       },
-     *       "educations": [
-     *         {
-     *           "department": null,
-     *           "educational_institution": "УрФУ",
-     *           "level": "secondary",
-     *           "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
-     *           "year_of_graduation": 2024
-     *         }
-     *       ],
-     *       "employment_types": [
-     *         "main"
-     *       ],
-     *       "field_of_art": "music",
-     *       "id": 521,
-     *       "jobs": [
-     *         {
-     *           "description": "Преподавал предмет",
-     *           "end_date": "2024-02-01",
-     *           "job_title": "Преподаватель",
-     *           "organization_name": "УрФУ",
-     *           "start_date": "2022-12-01"
-     *         }
-     *       ],
-     *       "photo": "/uploads/photo.png",
-     *       "published": true,
-     *       "reviewed": true,
-     *       "summary": "Я очень хорошо играю на фортепиано.",
-     *       "title": "Педагог по фортепиано",
-     *       "work_schedules": [
-     *         "full_time"
-     *       ]
-     *     }
-     *   ],
-     *   "page": {
-     *     "page_number": 1,
-     *     "page_size": 10,
-     *     "total_entries": 23,
-     *     "total_pages": 3
-     *   }
-     * }
-     */
-    CVsQueryResponse: {
-      data: {
-        /**
-         * User
-         * @example {
-         *   "birth_date": "2000-01-01",
-         *   "email": "username@domain.org",
-         *   "fullname": "Иванов Иван Иванович",
-         *   "id": "756",
-         *   "phone": "+78001234567",
-         *   "role": "applicant"
-         * }
-         */
-        applicant: {
-          /** Format: date */
-          birth_date: string
-          email: string
-          fullname: string
-          id: number
-          /** Format: phone */
-          phone: string
-          /** @enum {string} */
-          role: 'admin' | 'applicant' | 'employer'
-        }
-        educations: {
-          department: string | null
-          educational_institution: string | null
-          /** @enum {string} */
-          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
-          specialization: string | null
-          year_of_graduation: number | null
-        }[]
-        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
-        /** @enum {string} */
-        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
-        id: number
-        jobs: {
-          description: string
-          /**
-           * Format: date
-           * @description day should be ignored
-           */
-          end_date: string
-          job_title: string
-          organization_name: string
-          /**
-           * Format: date
-           * @description day should be ignored
-           */
-          start_date: string
-        }[]
-        photo: string
-        published: boolean
-        reviewed: boolean
-        summary: string
-        title: string
-        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-      }[]
-      /**
-       * Page
-       * @example {
-       *   "page_number": 1,
-       *   "page_size": 10,
-       *   "total_entries": 23,
-       *   "total_pages": 3
-       * }
-       */
-      page: {
-        page_number: number
-        page_size: number
-        total_entries: number
-        total_pages: number
-      }
-    }
-    /**
-     * ChangesetErrorsResponse
-     * @example {
-     *   "errors": {
-     *     "password": [
-     *       "too short"
-     *     ]
-     *   }
-     * }
-     */
-    ChangesetErrorsResponse: {
-      /** @description Errors map. Keys are fields and values are array of errors */
-      errors: {
-        [key: string]: unknown
-      }
-    }
-    /**
-     * CreateCVRequest
-     * @example {
-     *   "cv": {
-     *     "educations": [
-     *       {
-     *         "department": null,
-     *         "educational_institution": "УрФУ",
-     *         "level": "secondary",
-     *         "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
-     *         "year_of_graduation": 2024
-     *       }
-     *     ],
-     *     "employment_types": [
-     *       "main"
-     *     ],
-     *     "field_of_art": "music",
-     *     "jobs": [
-     *       {
-     *         "description": "Преподавал предмет",
-     *         "end_date": "2024-02-01",
-     *         "job_title": "Преподаватель",
-     *         "organization_name": "УрФУ",
-     *         "start_date": "2022-12-01"
-     *       }
-     *     ],
-     *     "photo": "/uploads/photo.png",
-     *     "published": true,
-     *     "reviewed": true,
-     *     "summary": "Я очень хорошо играю на фортепиано.",
-     *     "title": "Педагог по фортепиано",
-     *     "work_schedules": [
-     *       "full_time"
-     *     ]
-     *   }
-     * }
-     */
-    CreateCVRequest: {
-      cv: {
-        educations: {
-          department: string | null
-          educational_institution: string | null
-          /** @enum {string} */
-          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
-          specialization: string | null
-          year_of_graduation: number | null
-        }[]
-        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
-        /** @enum {string} */
-        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
-        jobs: {
-          description: string
-          /**
-           * Format: date
-           * @description day should be ignored
-           */
-          end_date: string
-          job_title: string
-          organization_name: string
-          /**
-           * Format: date
-           * @description day should be ignored
-           */
-          start_date: string
-        }[]
-        photo?: string
-        published?: boolean
-        reviewed: boolean
-        summary: string
-        title: string
-        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-      }
-    }
-    /**
-     * CreateOrganizationRequest
-     * @example {
-     *   "organization": {
-     *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *     "description": "applicant",
-     *     "email": "contact@urfu.ru",
-     *     "logo": "/uploads/urfu.png",
-     *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-     *     "phone": "+7001005044",
-     *     "social_link": "https://vk.com/ural.federal.university",
-     *     "website": "https://urfu.me"
-     *   }
-     * }
-     */
-    CreateOrganizationRequest: {
-      organization: {
-        address: string
-        description: string
-        email: string
-        logo?: string
-        name: string
-        phone: string
-        social_link: string
-        website: string
-      }
-    }
-    /**
-     * CreateUserRequest
-     * @example {
-     *   "user": {
-     *     "birth_date": "2000-01-01",
-     *     "email": "username@domain.org",
-     *     "fullname": "Иванов Иван Иванович",
-     *     "password": "123456qwerty",
-     *     "phone": "+78001234567",
-     *     "role": "applicant"
-     *   }
-     * }
-     */
-    CreateUserRequest: {
-      user: {
-        /** Format: date */
-        birth_date: string
-        email: string
-        fullname: string
-        password: string
-        /** Format: phone */
-        phone: string
-        /** @enum {string} */
-        role: 'applicant' | 'employer'
-      }
-    }
-    /**
-     * CreateVacancyRequest
-     * @example {
-     *   "vacancy": {
-     *     "description": "Ищем очень хорошего работника!",
-     *     "education": "bachelor",
-     *     "employment_types": [
-     *       "main"
-     *     ],
-     *     "field_of_art": "other",
-     *     "min_years_of_work_experience": 5,
-     *     "proposed_salary": "20000",
-     *     "published": true,
-     *     "title": "Работник",
-     *     "work_schedules": [
-     *       "full_time"
-     *     ]
-     *   }
-     * }
-     */
-    CreateVacancyRequest: {
-      vacancy: {
-        description: string
-        /** @enum {string} */
-        education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
-        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
-        /** @enum {string} */
-        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
-        /** @default 0 */
-        min_years_of_work_experience?: number
-        proposed_salary?: number | null
-        published?: boolean
-        title: string
-        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-      }
-    }
-    /**
-     * GenericErrorResponse
-     * @example {
-     *   "errors": {
-     *     "detail": "Some error occurred"
-     *   }
-     * }
-     */
-    GenericErrorResponse: {
-      errors: {
-        /** @description Error reason */
-        detail: string
-      }
-    }
-    /**
-     * HealthCheckResponse
-     * @example {
-     *   "status": "ok"
-     * }
-     */
-    HealthCheckResponse: {
-      /** @description API status */
-      status: string
-    }
-    /**
-     * ImageUploadRequest
-     * @example {
-     *   "image": "image-data"
-     * }
-     */
-    ImageUploadRequest: {
-      /** Format: binary */
-      image: string
-    }
-    /**
-     * Interest
-     * @example {
-     *   "cv": {
-     *     "applicant": {
-     *       "birth_date": "2000-01-01",
-     *       "email": "username@domain.org",
-     *       "fullname": "Иванов Иван Иванович",
-     *       "id": "756",
-     *       "phone": "+78001234567",
-     *       "role": "applicant"
-     *     },
-     *     "educations": [
-     *       {
-     *         "department": null,
-     *         "educational_institution": "УрФУ",
-     *         "level": "secondary",
-     *         "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
-     *         "year_of_graduation": 2024
-     *       }
-     *     ],
-     *     "employment_types": [
-     *       "main"
-     *     ],
-     *     "field_of_art": "music",
-     *     "id": 521,
-     *     "jobs": [
-     *       {
-     *         "description": "Преподавал предмет",
-     *         "end_date": "2024-02-01",
-     *         "job_title": "Преподаватель",
-     *         "organization_name": "УрФУ",
-     *         "start_date": "2022-12-01"
-     *       }
-     *     ],
-     *     "photo": "/uploads/photo.png",
-     *     "published": true,
-     *     "reviewed": true,
-     *     "summary": "Я очень хорошо играю на фортепиано.",
-     *     "title": "Педагог по фортепиано",
-     *     "work_schedules": [
-     *       "full_time"
-     *     ]
-     *   },
-     *   "from": "employer",
-     *   "id": 756,
-     *   "vacancy": {
-     *     "description": "Ищем очень хорошего работника!",
-     *     "education": "bachelor",
-     *     "employment_types": [
-     *       "main"
-     *     ],
-     *     "field_of_art": "other",
-     *     "id": "756",
-     *     "min_years_of_work_experience": 5,
-     *     "organization": {
-     *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *       "description": "applicant",
-     *       "email": "contact@urfu.ru",
-     *       "employer": {
-     *         "birth_date": "2000-01-01",
-     *         "email": "username@domain.org",
-     *         "fullname": "Иванов Иван Иванович",
-     *         "id": "756",
-     *         "phone": "+78001234567",
-     *         "role": "applicant"
-     *       },
-     *       "id": "756",
-     *       "logo": "/uploads/urfu.png",
-     *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-     *       "phone": "+7001005044",
-     *       "social_link": "https://vk.com/ural.federal.university",
-     *       "website": "https://urfu.me"
-     *     },
-     *     "proposed_salary": "20000",
-     *     "published": true,
-     *     "reviewed": true,
-     *     "title": "Работник",
-     *     "work_schedules": [
-     *       "full_time"
-     *     ]
-     *   }
-     * }
-     */
-    Interest: {
-      /**
-       * CV
-       * @example {
-       *   "applicant": {
-       *     "birth_date": "2000-01-01",
-       *     "email": "username@domain.org",
-       *     "fullname": "Иванов Иван Иванович",
-       *     "id": "756",
-       *     "phone": "+78001234567",
-       *     "role": "applicant"
-       *   },
-       *   "educations": [
-       *     {
-       *       "department": null,
-       *       "educational_institution": "УрФУ",
-       *       "level": "secondary",
-       *       "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
-       *       "year_of_graduation": 2024
-       *     }
-       *   ],
-       *   "employment_types": [
-       *     "main"
-       *   ],
-       *   "field_of_art": "music",
-       *   "id": 521,
-       *   "jobs": [
-       *     {
-       *       "description": "Преподавал предмет",
-       *       "end_date": "2024-02-01",
-       *       "job_title": "Преподаватель",
-       *       "organization_name": "УрФУ",
-       *       "start_date": "2022-12-01"
-       *     }
-       *   ],
-       *   "photo": "/uploads/photo.png",
-       *   "published": true,
-       *   "reviewed": true,
-       *   "summary": "Я очень хорошо играю на фортепиано.",
-       *   "title": "Педагог по фортепиано",
-       *   "work_schedules": [
-       *     "full_time"
-       *   ]
-       * }
-       */
-      cv: {
-        /**
-         * User
-         * @example {
-         *   "birth_date": "2000-01-01",
-         *   "email": "username@domain.org",
-         *   "fullname": "Иванов Иван Иванович",
-         *   "id": "756",
-         *   "phone": "+78001234567",
-         *   "role": "applicant"
-         * }
-         */
-        applicant: {
-          /** Format: date */
-          birth_date: string
-          email: string
-          fullname: string
-          id: number
-          /** Format: phone */
-          phone: string
-          /** @enum {string} */
-          role: 'admin' | 'applicant' | 'employer'
-        }
-        educations: {
-          department: string | null
-          educational_institution: string | null
-          /** @enum {string} */
-          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
-          specialization: string | null
-          year_of_graduation: number | null
-        }[]
-        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
-        /** @enum {string} */
-        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
-        id: number
-        jobs: {
-          description: string
-          /**
-           * Format: date
-           * @description day should be ignored
-           */
-          end_date: string
-          job_title: string
-          organization_name: string
-          /**
-           * Format: date
-           * @description day should be ignored
-           */
-          start_date: string
-        }[]
-        photo: string
-        published: boolean
-        reviewed: boolean
-        summary: string
-        title: string
-        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-      }
-      /** @enum {string} */
-      from: 'employer' | 'applicant'
-      id: number
-      /**
-       * Vacancy
-       * @example {
-       *   "description": "Ищем очень хорошего работника!",
-       *   "education": "bachelor",
-       *   "employment_types": [
-       *     "main"
-       *   ],
-       *   "field_of_art": "other",
-       *   "id": "756",
-       *   "min_years_of_work_experience": 5,
-       *   "organization": {
-       *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-       *     "description": "applicant",
-       *     "email": "contact@urfu.ru",
-       *     "employer": {
-       *       "birth_date": "2000-01-01",
-       *       "email": "username@domain.org",
-       *       "fullname": "Иванов Иван Иванович",
-       *       "id": "756",
-       *       "phone": "+78001234567",
-       *       "role": "applicant"
-       *     },
-       *     "id": "756",
-       *     "logo": "/uploads/urfu.png",
-       *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-       *     "phone": "+7001005044",
-       *     "social_link": "https://vk.com/ural.federal.university",
-       *     "website": "https://urfu.me"
-       *   },
-       *   "proposed_salary": "20000",
-       *   "published": true,
-       *   "reviewed": true,
-       *   "title": "Работник",
-       *   "work_schedules": [
-       *     "full_time"
-       *   ]
-       * }
-       */
-      vacancy: {
-        description: string
-        /** @enum {string} */
-        education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
-        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
-        /** @enum {string} */
-        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
-        id: number
-        /** @default 0 */
-        min_years_of_work_experience: number
-        /**
-         * Organization
-         * @example {
-         *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-         *   "description": "applicant",
-         *   "email": "contact@urfu.ru",
-         *   "employer": {
-         *     "birth_date": "2000-01-01",
-         *     "email": "username@domain.org",
-         *     "fullname": "Иванов Иван Иванович",
-         *     "id": "756",
-         *     "phone": "+78001234567",
-         *     "role": "applicant"
-         *   },
-         *   "id": "756",
-         *   "logo": "/uploads/urfu.png",
-         *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-         *   "phone": "+7001005044",
-         *   "social_link": "https://vk.com/ural.federal.university",
-         *   "website": "https://urfu.me"
-         * }
-         */
-        organization: {
-          address: string
-          description: string
-          email: string
-          /**
-           * User
-           * @example {
-           *   "birth_date": "2000-01-01",
-           *   "email": "username@domain.org",
-           *   "fullname": "Иванов Иван Иванович",
-           *   "id": "756",
-           *   "phone": "+78001234567",
-           *   "role": "applicant"
-           * }
-           */
-          employer: {
-            /** Format: date */
-            birth_date: string
-            email: string
-            fullname: string
-            id: number
-            /** Format: phone */
-            phone: string
-            /** @enum {string} */
-            role: 'admin' | 'applicant' | 'employer'
-          }
-          id: number
-          logo: string
-          name: string
-          phone: string
-          social_link: string
-          website: string
-        }
-        proposed_salary: number | null
-        published: boolean
-        reviewed: boolean
-        title: string
-        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-      }
-    }
-    /**
-     * InterestResponse
-     * @example {
-     *   "data": {
-     *     "cv": {
-     *       "applicant": {
-     *         "birth_date": "2000-01-01",
-     *         "email": "username@domain.org",
-     *         "fullname": "Иванов Иван Иванович",
-     *         "id": "756",
-     *         "phone": "+78001234567",
-     *         "role": "applicant"
-     *       },
-     *       "educations": [
-     *         {
-     *           "department": null,
-     *           "educational_institution": "УрФУ",
-     *           "level": "secondary",
-     *           "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
-     *           "year_of_graduation": 2024
-     *         }
-     *       ],
-     *       "employment_types": [
-     *         "main"
-     *       ],
-     *       "field_of_art": "music",
-     *       "id": 521,
-     *       "jobs": [
-     *         {
-     *           "description": "Преподавал предмет",
-     *           "end_date": "2024-02-01",
-     *           "job_title": "Преподаватель",
-     *           "organization_name": "УрФУ",
-     *           "start_date": "2022-12-01"
-     *         }
-     *       ],
-     *       "photo": "/uploads/photo.png",
-     *       "published": true,
-     *       "reviewed": true,
-     *       "summary": "Я очень хорошо играю на фортепиано.",
-     *       "title": "Педагог по фортепиано",
-     *       "work_schedules": [
-     *         "full_time"
-     *       ]
-     *     },
-     *     "from": "employer",
-     *     "id": 756,
-     *     "vacancy": {
-     *       "description": "Ищем очень хорошего работника!",
-     *       "education": "bachelor",
-     *       "employment_types": [
-     *         "main"
-     *       ],
-     *       "field_of_art": "other",
-     *       "id": "756",
-     *       "min_years_of_work_experience": 5,
      *       "organization": {
      *         "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
      *         "description": "applicant",
      *         "email": "contact@urfu.ru",
-     *         "employer": {
-     *           "birth_date": "2000-01-01",
-     *           "email": "username@domain.org",
-     *           "fullname": "Иванов Иван Иванович",
-     *           "id": "756",
-     *           "phone": "+78001234567",
-     *           "role": "applicant"
-     *         },
-     *         "id": "756",
      *         "logo": "/uploads/urfu.png",
      *         "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
      *         "phone": "+7001005044",
      *         "social_link": "https://vk.com/ural.federal.university",
      *         "website": "https://urfu.me"
-     *       },
-     *       "proposed_salary": "20000",
-     *       "published": true,
-     *       "reviewed": true,
-     *       "title": "Работник",
-     *       "work_schedules": [
-     *         "full_time"
-     *       ]
+     *       }
      *     }
-     *   }
-     * }
      */
-    InterestResponse: {
-      /**
-       * Interest
-       * @example {
-       *   "cv": {
-       *     "applicant": {
-       *       "birth_date": "2000-01-01",
-       *       "email": "username@domain.org",
-       *       "fullname": "Иванов Иван Иванович",
-       *       "id": "756",
-       *       "phone": "+78001234567",
-       *       "role": "applicant"
-       *     },
-       *     "educations": [
-       *       {
-       *         "department": null,
-       *         "educational_institution": "УрФУ",
-       *         "level": "secondary",
-       *         "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
-       *         "year_of_graduation": 2024
-       *       }
-       *     ],
-       *     "employment_types": [
-       *       "main"
-       *     ],
-       *     "field_of_art": "music",
-       *     "id": 521,
-       *     "jobs": [
-       *       {
-       *         "description": "Преподавал предмет",
-       *         "end_date": "2024-02-01",
-       *         "job_title": "Преподаватель",
-       *         "organization_name": "УрФУ",
-       *         "start_date": "2022-12-01"
-       *       }
-       *     ],
-       *     "photo": "/uploads/photo.png",
-       *     "published": true,
-       *     "reviewed": true,
-       *     "summary": "Я очень хорошо играю на фортепиано.",
-       *     "title": "Педагог по фортепиано",
-       *     "work_schedules": [
-       *       "full_time"
-       *     ]
-       *   },
-       *   "from": "employer",
-       *   "id": 756,
-       *   "vacancy": {
-       *     "description": "Ищем очень хорошего работника!",
-       *     "education": "bachelor",
-       *     "employment_types": [
-       *       "main"
-       *     ],
-       *     "field_of_art": "other",
-       *     "id": "756",
-       *     "min_years_of_work_experience": 5,
-       *     "organization": {
-       *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-       *       "description": "applicant",
-       *       "email": "contact@urfu.ru",
-       *       "employer": {
-       *         "birth_date": "2000-01-01",
-       *         "email": "username@domain.org",
-       *         "fullname": "Иванов Иван Иванович",
-       *         "id": "756",
-       *         "phone": "+78001234567",
-       *         "role": "applicant"
-       *       },
-       *       "id": "756",
-       *       "logo": "/uploads/urfu.png",
-       *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-       *       "phone": "+7001005044",
-       *       "social_link": "https://vk.com/ural.federal.university",
-       *       "website": "https://urfu.me"
-       *     },
-       *     "proposed_salary": "20000",
-       *     "published": true,
-       *     "reviewed": true,
-       *     "title": "Работник",
-       *     "work_schedules": [
-       *       "full_time"
-       *     ]
-       *   }
-       * }
-       */
-      data: {
+    UpdateOrganizationRequest: {
+      organization: {
+        address?: string
+        description?: string
+        email?: string
         /**
-         * CV
+         * User
          * @example {
-         *   "applicant": {
-         *     "birth_date": "2000-01-01",
-         *     "email": "username@domain.org",
-         *     "fullname": "Иванов Иван Иванович",
-         *     "id": "756",
-         *     "phone": "+78001234567",
-         *     "role": "applicant"
-         *   },
-         *   "educations": [
-         *     {
-         *       "department": null,
-         *       "educational_institution": "УрФУ",
-         *       "level": "secondary",
-         *       "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
-         *       "year_of_graduation": 2024
-         *     }
-         *   ],
-         *   "employment_types": [
-         *     "main"
-         *   ],
-         *   "field_of_art": "music",
-         *   "id": 521,
-         *   "jobs": [
-         *     {
-         *       "description": "Преподавал предмет",
-         *       "end_date": "2024-02-01",
-         *       "job_title": "Преподаватель",
-         *       "organization_name": "УрФУ",
-         *       "start_date": "2022-12-01"
-         *     }
-         *   ],
-         *   "photo": "/uploads/photo.png",
-         *   "published": true,
-         *   "reviewed": true,
-         *   "summary": "Я очень хорошо играю на фортепиано.",
-         *   "title": "Педагог по фортепиано",
-         *   "work_schedules": [
-         *     "full_time"
-         *   ]
-         * }
-         */
-        cv: {
-          /**
-           * User
-           * @example {
-           *   "birth_date": "2000-01-01",
-           *   "email": "username@domain.org",
-           *   "fullname": "Иванов Иван Иванович",
-           *   "id": "756",
-           *   "phone": "+78001234567",
-           *   "role": "applicant"
-           * }
-           */
-          applicant: {
-            /** Format: date */
-            birth_date: string
-            email: string
-            fullname: string
-            id: number
-            /** Format: phone */
-            phone: string
-            /** @enum {string} */
-            role: 'admin' | 'applicant' | 'employer'
-          }
-          educations: {
-            department: string | null
-            educational_institution: string | null
-            /** @enum {string} */
-            level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
-            specialization: string | null
-            year_of_graduation: number | null
-          }[]
-          employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
-          /** @enum {string} */
-          field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
-          id: number
-          jobs: {
-            description: string
-            /**
-             * Format: date
-             * @description day should be ignored
-             */
-            end_date: string
-            job_title: string
-            organization_name: string
-            /**
-             * Format: date
-             * @description day should be ignored
-             */
-            start_date: string
-          }[]
-          photo: string
-          published: boolean
-          reviewed: boolean
-          summary: string
-          title: string
-          work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-        }
-        /** @enum {string} */
-        from: 'employer' | 'applicant'
-        id: number
-        /**
-         * Vacancy
-         * @example {
-         *   "description": "Ищем очень хорошего работника!",
-         *   "education": "bachelor",
-         *   "employment_types": [
-         *     "main"
-         *   ],
-         *   "field_of_art": "other",
-         *   "id": "756",
-         *   "min_years_of_work_experience": 5,
-         *   "organization": {
-         *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-         *     "description": "applicant",
-         *     "email": "contact@urfu.ru",
-         *     "employer": {
          *       "birth_date": "2000-01-01",
          *       "email": "username@domain.org",
          *       "fullname": "Иванов Иван Иванович",
          *       "id": "756",
          *       "phone": "+78001234567",
          *       "role": "applicant"
-         *     },
-         *     "id": "756",
-         *     "logo": "/uploads/urfu.png",
-         *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-         *     "phone": "+7001005044",
-         *     "social_link": "https://vk.com/ural.federal.university",
-         *     "website": "https://urfu.me"
-         *   },
-         *   "proposed_salary": "20000",
-         *   "published": true,
-         *   "reviewed": true,
-         *   "title": "Работник",
-         *   "work_schedules": [
-         *     "full_time"
-         *   ]
-         * }
+         *     }
          */
-        vacancy: {
-          description: string
-          /** @enum {string} */
-          education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
-          employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
-          /** @enum {string} */
-          field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        employer?: {
+          /** Format: date */
+          birth_date: string
+          /** @description User email
+           *
+           *     - Must be no longer than 160 characters
+           *     - Must have the @ sign and no spaces
+           *     - Must be unique
+           *
+           *     Same email can't be used to create accounts with different roles.
+           *      */
+          email: string
+          fullname: string
           id: number
-          /** @default 0 */
-          min_years_of_work_experience: number
           /**
-           * Organization
-           * @example {
-           *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-           *   "description": "applicant",
-           *   "email": "contact@urfu.ru",
-           *   "employer": {
-           *     "birth_date": "2000-01-01",
-           *     "email": "username@domain.org",
-           *     "fullname": "Иванов Иван Иванович",
-           *     "id": "756",
-           *     "phone": "+78001234567",
-           *     "role": "applicant"
-           *   },
-           *   "id": "756",
-           *   "logo": "/uploads/urfu.png",
-           *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-           *   "phone": "+7001005044",
-           *   "social_link": "https://vk.com/ural.federal.university",
-           *   "website": "https://urfu.me"
-           * }
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
            */
-          organization: {
-            address: string
-            description: string
-            email: string
-            /**
-             * User
-             * @example {
-             *   "birth_date": "2000-01-01",
-             *   "email": "username@domain.org",
-             *   "fullname": "Иванов Иван Иванович",
-             *   "id": "756",
-             *   "phone": "+78001234567",
-             *   "role": "applicant"
-             * }
-             */
-            employer: {
-              /** Format: date */
-              birth_date: string
-              email: string
-              fullname: string
-              id: number
-              /** Format: phone */
-              phone: string
-              /** @enum {string} */
-              role: 'admin' | 'applicant' | 'employer'
-            }
-            id: number
-            logo: string
-            name: string
-            phone: string
-            social_link: string
-            website: string
-          }
-          proposed_salary: number | null
-          published: boolean
-          reviewed: boolean
-          title: string
-          work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+          phone: string
+          /** @enum {string} */
+          role: 'admin' | 'applicant' | 'employer'
         }
+        id?: number
+        logo?: string
+        name?: string
+        /**
+         * @description Phone number
+         *
+         *     - Must contain 12 characters
+         *     - Must begin with "+7"
+         *
+         * @example +79001234567
+         */
+        phone?: string
+        social_link?: string
+        website?: string
       }
     }
     /**
-     * InterestsListResponse
+     * Interest
      * @example {
-     *   "data": [
-     *     {
      *       "cv": {
      *         "applicant": {
      *           "birth_date": "2000-01-01",
@@ -1467,74 +536,1014 @@ export interface components {
      *         ]
      *       }
      *     }
-     *   ]
-     * }
      */
-    InterestsListResponse: {
+    Interest: {
+      /**
+       * CV
+       * @example {
+       *       "applicant": {
+       *         "birth_date": "2000-01-01",
+       *         "email": "username@domain.org",
+       *         "fullname": "Иванов Иван Иванович",
+       *         "id": "756",
+       *         "phone": "+78001234567",
+       *         "role": "applicant"
+       *       },
+       *       "educations": [
+       *         {
+       *           "department": null,
+       *           "educational_institution": "УрФУ",
+       *           "level": "secondary",
+       *           "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+       *           "year_of_graduation": 2024
+       *         }
+       *       ],
+       *       "employment_types": [
+       *         "main"
+       *       ],
+       *       "field_of_art": "music",
+       *       "id": 521,
+       *       "jobs": [
+       *         {
+       *           "description": "Преподавал предмет",
+       *           "end_date": "2024-02-01",
+       *           "job_title": "Преподаватель",
+       *           "organization_name": "УрФУ",
+       *           "start_date": "2022-12-01"
+       *         }
+       *       ],
+       *       "photo": "/uploads/photo.png",
+       *       "published": true,
+       *       "reviewed": true,
+       *       "summary": "Я очень хорошо играю на фортепиано.",
+       *       "title": "Педагог по фортепиано",
+       *       "work_schedules": [
+       *         "full_time"
+       *       ]
+       *     }
+       */
+      cv: {
+        /**
+         * User
+         * @example {
+         *       "birth_date": "2000-01-01",
+         *       "email": "username@domain.org",
+         *       "fullname": "Иванов Иван Иванович",
+         *       "id": "756",
+         *       "phone": "+78001234567",
+         *       "role": "applicant"
+         *     }
+         */
+        applicant: {
+          /** Format: date */
+          birth_date: string
+          /** @description User email
+           *
+           *     - Must be no longer than 160 characters
+           *     - Must have the @ sign and no spaces
+           *     - Must be unique
+           *
+           *     Same email can't be used to create accounts with different roles.
+           *      */
+          email: string
+          fullname: string
+          id: number
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
+          phone: string
+          /** @enum {string} */
+          role: 'admin' | 'applicant' | 'employer'
+        }
+        educations: {
+          department: string | null
+          educational_institution: string | null
+          /** @enum {string} */
+          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+          specialization: string | null
+          year_of_graduation: number | null
+        }[]
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        id: number
+        jobs: {
+          description?: string | null
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          end_date: string
+          job_title?: string | null
+          organization_name?: string | null
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          start_date: string
+        }[]
+        photo: string
+        published: boolean
+        reviewed: boolean
+        summary: string
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      }
+      /** @enum {string} */
+      from: 'employer' | 'applicant'
+      id: number
+      /**
+       * Vacancy
+       * @example {
+       *       "description": "Ищем очень хорошего работника!",
+       *       "education": "bachelor",
+       *       "employment_types": [
+       *         "main"
+       *       ],
+       *       "field_of_art": "other",
+       *       "id": "756",
+       *       "min_years_of_work_experience": 5,
+       *       "organization": {
+       *         "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+       *         "description": "applicant",
+       *         "email": "contact@urfu.ru",
+       *         "employer": {
+       *           "birth_date": "2000-01-01",
+       *           "email": "username@domain.org",
+       *           "fullname": "Иванов Иван Иванович",
+       *           "id": "756",
+       *           "phone": "+78001234567",
+       *           "role": "applicant"
+       *         },
+       *         "id": "756",
+       *         "logo": "/uploads/urfu.png",
+       *         "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+       *         "phone": "+7001005044",
+       *         "social_link": "https://vk.com/ural.federal.university",
+       *         "website": "https://urfu.me"
+       *       },
+       *       "proposed_salary": "20000",
+       *       "published": true,
+       *       "reviewed": true,
+       *       "title": "Работник",
+       *       "work_schedules": [
+       *         "full_time"
+       *       ]
+       *     }
+       */
+      vacancy: {
+        description: string
+        /** @enum {string} */
+        education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        id: number
+        min_years_of_work_experience: number
+        /**
+         * Organization
+         * @example {
+         *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+         *       "description": "applicant",
+         *       "email": "contact@urfu.ru",
+         *       "employer": {
+         *         "birth_date": "2000-01-01",
+         *         "email": "username@domain.org",
+         *         "fullname": "Иванов Иван Иванович",
+         *         "id": "756",
+         *         "phone": "+78001234567",
+         *         "role": "applicant"
+         *       },
+         *       "id": "756",
+         *       "logo": "/uploads/urfu.png",
+         *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+         *       "phone": "+7001005044",
+         *       "social_link": "https://vk.com/ural.federal.university",
+         *       "website": "https://urfu.me"
+         *     }
+         */
+        organization: {
+          address: string
+          description: string
+          email: string
+          /**
+           * User
+           * @example {
+           *       "birth_date": "2000-01-01",
+           *       "email": "username@domain.org",
+           *       "fullname": "Иванов Иван Иванович",
+           *       "id": "756",
+           *       "phone": "+78001234567",
+           *       "role": "applicant"
+           *     }
+           */
+          employer: {
+            /** Format: date */
+            birth_date: string
+            /** @description User email
+             *
+             *     - Must be no longer than 160 characters
+             *     - Must have the @ sign and no spaces
+             *     - Must be unique
+             *
+             *     Same email can't be used to create accounts with different roles.
+             *      */
+            email: string
+            fullname: string
+            id: number
+            /**
+             * @description Phone number
+             *
+             *     - Must contain 12 characters
+             *     - Must begin with "+7"
+             *
+             * @example +79001234567
+             */
+            phone: string
+            /** @enum {string} */
+            role: 'admin' | 'applicant' | 'employer'
+          }
+          id: number
+          logo: string
+          name: string
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
+          phone: string
+          social_link: string
+          website: string
+        }
+        proposed_salary: number | null
+        published: boolean
+        reviewed: boolean
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      }
+    }
+    /**
+     * HealthCheckResponse
+     * @example {
+     *       "status": "ok"
+     *     }
+     */
+    HealthCheckResponse: {
+      /** @description API status */
+      status: string
+    }
+    /**
+     * GenericErrorResponse
+     * @example {
+     *       "errors": {
+     *         "detail": "Some error occurred"
+     *       }
+     *     }
+     */
+    GenericErrorResponse: {
+      errors: {
+        /** @description Error reason */
+        detail: string
+      }
+    }
+    /**
+     * TokenResponse
+     * @example {
+     *       "data": {
+     *         "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJjZW4tdmFjYW5jaWVzIiwiZXhwIjoxNzE1MTA0ODc3LCJpYXQiOjE3MTI2ODU2NzcsImlzcyI6ImNlbi12YWNhbmNpZXMiLCJqdGkiOiJmMzk5ZmQzMC0yYjJhLTQ4ZjMtODE1ZC0zNWU4MzhhYjNiODciLCJuYmYiOjE3MTI2ODU2NzYsInN1YiI6IjEiLCJ0eXAiOiJhY2Nlc3MifQ.18NmnxCYERqKFu5O0VjY85qZsDkCHL0vy0uYJ1suFJPSjiZrNS2RGQobmE8mO9P5-MkyL-_-Kp4EwWvBnCUwyA"
+     *       }
+     *     }
+     */
+    TokenResponse: {
+      data: {
+        /** Format: JWT */
+        token: string
+      }
+    }
+    /**
+     * VacanciesQueryResponse
+     * @example {
+     *       "data": [
+     *         {
+     *           "description": "Ищем очень хорошего работника!",
+     *           "education": "bachelor",
+     *           "employment_types": [
+     *             "main"
+     *           ],
+     *           "field_of_art": "other",
+     *           "id": "756",
+     *           "min_years_of_work_experience": 5,
+     *           "organization": {
+     *             "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+     *             "description": "applicant",
+     *             "email": "contact@urfu.ru",
+     *             "employer": {
+     *               "birth_date": "2000-01-01",
+     *               "email": "username@domain.org",
+     *               "fullname": "Иванов Иван Иванович",
+     *               "id": "756",
+     *               "phone": "+78001234567",
+     *               "role": "applicant"
+     *             },
+     *             "id": "756",
+     *             "logo": "/uploads/urfu.png",
+     *             "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *             "phone": "+7001005044",
+     *             "social_link": "https://vk.com/ural.federal.university",
+     *             "website": "https://urfu.me"
+     *           },
+     *           "proposed_salary": "20000",
+     *           "published": true,
+     *           "reviewed": true,
+     *           "title": "Работник",
+     *           "work_schedules": [
+     *             "full_time"
+     *           ]
+     *         }
+     *       ],
+     *       "page": {
+     *         "page_number": 1,
+     *         "page_size": 10,
+     *         "total_entries": 23,
+     *         "total_pages": 3
+     *       }
+     *     }
+     */
+    VacanciesQueryResponse: {
+      data: {
+        description: string
+        /** @enum {string} */
+        education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        id: number
+        min_years_of_work_experience: number
+        /**
+         * Organization
+         * @example {
+         *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+         *       "description": "applicant",
+         *       "email": "contact@urfu.ru",
+         *       "employer": {
+         *         "birth_date": "2000-01-01",
+         *         "email": "username@domain.org",
+         *         "fullname": "Иванов Иван Иванович",
+         *         "id": "756",
+         *         "phone": "+78001234567",
+         *         "role": "applicant"
+         *       },
+         *       "id": "756",
+         *       "logo": "/uploads/urfu.png",
+         *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+         *       "phone": "+7001005044",
+         *       "social_link": "https://vk.com/ural.federal.university",
+         *       "website": "https://urfu.me"
+         *     }
+         */
+        organization: {
+          address: string
+          description: string
+          email: string
+          /**
+           * User
+           * @example {
+           *       "birth_date": "2000-01-01",
+           *       "email": "username@domain.org",
+           *       "fullname": "Иванов Иван Иванович",
+           *       "id": "756",
+           *       "phone": "+78001234567",
+           *       "role": "applicant"
+           *     }
+           */
+          employer: {
+            /** Format: date */
+            birth_date: string
+            /** @description User email
+             *
+             *     - Must be no longer than 160 characters
+             *     - Must have the @ sign and no spaces
+             *     - Must be unique
+             *
+             *     Same email can't be used to create accounts with different roles.
+             *      */
+            email: string
+            fullname: string
+            id: number
+            /**
+             * @description Phone number
+             *
+             *     - Must contain 12 characters
+             *     - Must begin with "+7"
+             *
+             * @example +79001234567
+             */
+            phone: string
+            /** @enum {string} */
+            role: 'admin' | 'applicant' | 'employer'
+          }
+          id: number
+          logo: string
+          name: string
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
+          phone: string
+          social_link: string
+          website: string
+        }
+        proposed_salary: number | null
+        published: boolean
+        reviewed: boolean
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      }[]
+      /**
+       * Page
+       * @example {
+       *       "page_number": 1,
+       *       "page_size": 10,
+       *       "total_entries": 23,
+       *       "total_pages": 3
+       *     }
+       */
+      page: {
+        page_number: number
+        page_size: number
+        total_entries: number
+        total_pages: number
+      }
+    }
+    /**
+     * CVResponse
+     * @example {
+     *       "data": {
+     *         "applicant": {
+     *           "birth_date": "2000-01-01",
+     *           "email": "username@domain.org",
+     *           "fullname": "Иванов Иван Иванович",
+     *           "id": "756",
+     *           "phone": "+78001234567",
+     *           "role": "applicant"
+     *         },
+     *         "educations": [
+     *           {
+     *             "department": null,
+     *             "educational_institution": "УрФУ",
+     *             "level": "secondary",
+     *             "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *             "year_of_graduation": 2024
+     *           }
+     *         ],
+     *         "employment_types": [
+     *           "main"
+     *         ],
+     *         "field_of_art": "music",
+     *         "id": 521,
+     *         "jobs": [
+     *           {
+     *             "description": "Преподавал предмет",
+     *             "end_date": "2024-02-01",
+     *             "job_title": "Преподаватель",
+     *             "organization_name": "УрФУ",
+     *             "start_date": "2022-12-01"
+     *           }
+     *         ],
+     *         "photo": "/uploads/photo.png",
+     *         "published": true,
+     *         "reviewed": true,
+     *         "summary": "Я очень хорошо играю на фортепиано.",
+     *         "title": "Педагог по фортепиано",
+     *         "work_schedules": [
+     *           "full_time"
+     *         ]
+     *       }
+     *     }
+     */
+    CVResponse: {
+      /**
+       * CV
+       * @example {
+       *       "applicant": {
+       *         "birth_date": "2000-01-01",
+       *         "email": "username@domain.org",
+       *         "fullname": "Иванов Иван Иванович",
+       *         "id": "756",
+       *         "phone": "+78001234567",
+       *         "role": "applicant"
+       *       },
+       *       "educations": [
+       *         {
+       *           "department": null,
+       *           "educational_institution": "УрФУ",
+       *           "level": "secondary",
+       *           "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+       *           "year_of_graduation": 2024
+       *         }
+       *       ],
+       *       "employment_types": [
+       *         "main"
+       *       ],
+       *       "field_of_art": "music",
+       *       "id": 521,
+       *       "jobs": [
+       *         {
+       *           "description": "Преподавал предмет",
+       *           "end_date": "2024-02-01",
+       *           "job_title": "Преподаватель",
+       *           "organization_name": "УрФУ",
+       *           "start_date": "2022-12-01"
+       *         }
+       *       ],
+       *       "photo": "/uploads/photo.png",
+       *       "published": true,
+       *       "reviewed": true,
+       *       "summary": "Я очень хорошо играю на фортепиано.",
+       *       "title": "Педагог по фортепиано",
+       *       "work_schedules": [
+       *         "full_time"
+       *       ]
+       *     }
+       */
+      data: {
+        /**
+         * User
+         * @example {
+         *       "birth_date": "2000-01-01",
+         *       "email": "username@domain.org",
+         *       "fullname": "Иванов Иван Иванович",
+         *       "id": "756",
+         *       "phone": "+78001234567",
+         *       "role": "applicant"
+         *     }
+         */
+        applicant: {
+          /** Format: date */
+          birth_date: string
+          /** @description User email
+           *
+           *     - Must be no longer than 160 characters
+           *     - Must have the @ sign and no spaces
+           *     - Must be unique
+           *
+           *     Same email can't be used to create accounts with different roles.
+           *      */
+          email: string
+          fullname: string
+          id: number
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
+          phone: string
+          /** @enum {string} */
+          role: 'admin' | 'applicant' | 'employer'
+        }
+        educations: {
+          department: string | null
+          educational_institution: string | null
+          /** @enum {string} */
+          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+          specialization: string | null
+          year_of_graduation: number | null
+        }[]
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        id: number
+        jobs: {
+          description?: string | null
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          end_date: string
+          job_title?: string | null
+          organization_name?: string | null
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          start_date: string
+        }[]
+        photo: string
+        published: boolean
+        reviewed: boolean
+        summary: string
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      }
+    }
+    /**
+     * CVsQueryResponse
+     * @example {
+     *       "data": [
+     *         {
+     *           "applicant": {
+     *             "birth_date": "2000-01-01",
+     *             "email": "username@domain.org",
+     *             "fullname": "Иванов Иван Иванович",
+     *             "id": "756",
+     *             "phone": "+78001234567",
+     *             "role": "applicant"
+     *           },
+     *           "educations": [
+     *             {
+     *               "department": null,
+     *               "educational_institution": "УрФУ",
+     *               "level": "secondary",
+     *               "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *               "year_of_graduation": 2024
+     *             }
+     *           ],
+     *           "employment_types": [
+     *             "main"
+     *           ],
+     *           "field_of_art": "music",
+     *           "id": 521,
+     *           "jobs": [
+     *             {
+     *               "description": "Преподавал предмет",
+     *               "end_date": "2024-02-01",
+     *               "job_title": "Преподаватель",
+     *               "organization_name": "УрФУ",
+     *               "start_date": "2022-12-01"
+     *             }
+     *           ],
+     *           "photo": "/uploads/photo.png",
+     *           "published": true,
+     *           "reviewed": true,
+     *           "summary": "Я очень хорошо играю на фортепиано.",
+     *           "title": "Педагог по фортепиано",
+     *           "work_schedules": [
+     *             "full_time"
+     *           ]
+     *         }
+     *       ],
+     *       "page": {
+     *         "page_number": 1,
+     *         "page_size": 10,
+     *         "total_entries": 23,
+     *         "total_pages": 3
+     *       }
+     *     }
+     */
+    CVsQueryResponse: {
+      data: {
+        /**
+         * User
+         * @example {
+         *       "birth_date": "2000-01-01",
+         *       "email": "username@domain.org",
+         *       "fullname": "Иванов Иван Иванович",
+         *       "id": "756",
+         *       "phone": "+78001234567",
+         *       "role": "applicant"
+         *     }
+         */
+        applicant: {
+          /** Format: date */
+          birth_date: string
+          /** @description User email
+           *
+           *     - Must be no longer than 160 characters
+           *     - Must have the @ sign and no spaces
+           *     - Must be unique
+           *
+           *     Same email can't be used to create accounts with different roles.
+           *      */
+          email: string
+          fullname: string
+          id: number
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
+          phone: string
+          /** @enum {string} */
+          role: 'admin' | 'applicant' | 'employer'
+        }
+        educations: {
+          department: string | null
+          educational_institution: string | null
+          /** @enum {string} */
+          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+          specialization: string | null
+          year_of_graduation: number | null
+        }[]
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        id: number
+        jobs: {
+          description?: string | null
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          end_date: string
+          job_title?: string | null
+          organization_name?: string | null
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          start_date: string
+        }[]
+        photo: string
+        published: boolean
+        reviewed: boolean
+        summary: string
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      }[]
+      /**
+       * Page
+       * @example {
+       *       "page_number": 1,
+       *       "page_size": 10,
+       *       "total_entries": 23,
+       *       "total_pages": 3
+       *     }
+       */
+      page: {
+        page_number: number
+        page_size: number
+        total_entries: number
+        total_pages: number
+      }
+    }
+    /**
+     * InterestResponse
+     * @example {
+     *       "data": {
+     *         "cv": {
+     *           "applicant": {
+     *             "birth_date": "2000-01-01",
+     *             "email": "username@domain.org",
+     *             "fullname": "Иванов Иван Иванович",
+     *             "id": "756",
+     *             "phone": "+78001234567",
+     *             "role": "applicant"
+     *           },
+     *           "educations": [
+     *             {
+     *               "department": null,
+     *               "educational_institution": "УрФУ",
+     *               "level": "secondary",
+     *               "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *               "year_of_graduation": 2024
+     *             }
+     *           ],
+     *           "employment_types": [
+     *             "main"
+     *           ],
+     *           "field_of_art": "music",
+     *           "id": 521,
+     *           "jobs": [
+     *             {
+     *               "description": "Преподавал предмет",
+     *               "end_date": "2024-02-01",
+     *               "job_title": "Преподаватель",
+     *               "organization_name": "УрФУ",
+     *               "start_date": "2022-12-01"
+     *             }
+     *           ],
+     *           "photo": "/uploads/photo.png",
+     *           "published": true,
+     *           "reviewed": true,
+     *           "summary": "Я очень хорошо играю на фортепиано.",
+     *           "title": "Педагог по фортепиано",
+     *           "work_schedules": [
+     *             "full_time"
+     *           ]
+     *         },
+     *         "from": "employer",
+     *         "id": 756,
+     *         "vacancy": {
+     *           "description": "Ищем очень хорошего работника!",
+     *           "education": "bachelor",
+     *           "employment_types": [
+     *             "main"
+     *           ],
+     *           "field_of_art": "other",
+     *           "id": "756",
+     *           "min_years_of_work_experience": 5,
+     *           "organization": {
+     *             "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+     *             "description": "applicant",
+     *             "email": "contact@urfu.ru",
+     *             "employer": {
+     *               "birth_date": "2000-01-01",
+     *               "email": "username@domain.org",
+     *               "fullname": "Иванов Иван Иванович",
+     *               "id": "756",
+     *               "phone": "+78001234567",
+     *               "role": "applicant"
+     *             },
+     *             "id": "756",
+     *             "logo": "/uploads/urfu.png",
+     *             "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *             "phone": "+7001005044",
+     *             "social_link": "https://vk.com/ural.federal.university",
+     *             "website": "https://urfu.me"
+     *           },
+     *           "proposed_salary": "20000",
+     *           "published": true,
+     *           "reviewed": true,
+     *           "title": "Работник",
+     *           "work_schedules": [
+     *             "full_time"
+     *           ]
+     *         }
+     *       }
+     *     }
+     */
+    InterestResponse: {
+      /**
+       * Interest
+       * @example {
+       *       "cv": {
+       *         "applicant": {
+       *           "birth_date": "2000-01-01",
+       *           "email": "username@domain.org",
+       *           "fullname": "Иванов Иван Иванович",
+       *           "id": "756",
+       *           "phone": "+78001234567",
+       *           "role": "applicant"
+       *         },
+       *         "educations": [
+       *           {
+       *             "department": null,
+       *             "educational_institution": "УрФУ",
+       *             "level": "secondary",
+       *             "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+       *             "year_of_graduation": 2024
+       *           }
+       *         ],
+       *         "employment_types": [
+       *           "main"
+       *         ],
+       *         "field_of_art": "music",
+       *         "id": 521,
+       *         "jobs": [
+       *           {
+       *             "description": "Преподавал предмет",
+       *             "end_date": "2024-02-01",
+       *             "job_title": "Преподаватель",
+       *             "organization_name": "УрФУ",
+       *             "start_date": "2022-12-01"
+       *           }
+       *         ],
+       *         "photo": "/uploads/photo.png",
+       *         "published": true,
+       *         "reviewed": true,
+       *         "summary": "Я очень хорошо играю на фортепиано.",
+       *         "title": "Педагог по фортепиано",
+       *         "work_schedules": [
+       *           "full_time"
+       *         ]
+       *       },
+       *       "from": "employer",
+       *       "id": 756,
+       *       "vacancy": {
+       *         "description": "Ищем очень хорошего работника!",
+       *         "education": "bachelor",
+       *         "employment_types": [
+       *           "main"
+       *         ],
+       *         "field_of_art": "other",
+       *         "id": "756",
+       *         "min_years_of_work_experience": 5,
+       *         "organization": {
+       *           "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+       *           "description": "applicant",
+       *           "email": "contact@urfu.ru",
+       *           "employer": {
+       *             "birth_date": "2000-01-01",
+       *             "email": "username@domain.org",
+       *             "fullname": "Иванов Иван Иванович",
+       *             "id": "756",
+       *             "phone": "+78001234567",
+       *             "role": "applicant"
+       *           },
+       *           "id": "756",
+       *           "logo": "/uploads/urfu.png",
+       *           "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+       *           "phone": "+7001005044",
+       *           "social_link": "https://vk.com/ural.federal.university",
+       *           "website": "https://urfu.me"
+       *         },
+       *         "proposed_salary": "20000",
+       *         "published": true,
+       *         "reviewed": true,
+       *         "title": "Работник",
+       *         "work_schedules": [
+       *           "full_time"
+       *         ]
+       *       }
+       *     }
+       */
       data: {
         /**
          * CV
          * @example {
-         *   "applicant": {
-         *     "birth_date": "2000-01-01",
-         *     "email": "username@domain.org",
-         *     "fullname": "Иванов Иван Иванович",
-         *     "id": "756",
-         *     "phone": "+78001234567",
-         *     "role": "applicant"
-         *   },
-         *   "educations": [
-         *     {
-         *       "department": null,
-         *       "educational_institution": "УрФУ",
-         *       "level": "secondary",
-         *       "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
-         *       "year_of_graduation": 2024
+         *       "applicant": {
+         *         "birth_date": "2000-01-01",
+         *         "email": "username@domain.org",
+         *         "fullname": "Иванов Иван Иванович",
+         *         "id": "756",
+         *         "phone": "+78001234567",
+         *         "role": "applicant"
+         *       },
+         *       "educations": [
+         *         {
+         *           "department": null,
+         *           "educational_institution": "УрФУ",
+         *           "level": "secondary",
+         *           "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+         *           "year_of_graduation": 2024
+         *         }
+         *       ],
+         *       "employment_types": [
+         *         "main"
+         *       ],
+         *       "field_of_art": "music",
+         *       "id": 521,
+         *       "jobs": [
+         *         {
+         *           "description": "Преподавал предмет",
+         *           "end_date": "2024-02-01",
+         *           "job_title": "Преподаватель",
+         *           "organization_name": "УрФУ",
+         *           "start_date": "2022-12-01"
+         *         }
+         *       ],
+         *       "photo": "/uploads/photo.png",
+         *       "published": true,
+         *       "reviewed": true,
+         *       "summary": "Я очень хорошо играю на фортепиано.",
+         *       "title": "Педагог по фортепиано",
+         *       "work_schedules": [
+         *         "full_time"
+         *       ]
          *     }
-         *   ],
-         *   "employment_types": [
-         *     "main"
-         *   ],
-         *   "field_of_art": "music",
-         *   "id": 521,
-         *   "jobs": [
-         *     {
-         *       "description": "Преподавал предмет",
-         *       "end_date": "2024-02-01",
-         *       "job_title": "Преподаватель",
-         *       "organization_name": "УрФУ",
-         *       "start_date": "2022-12-01"
-         *     }
-         *   ],
-         *   "photo": "/uploads/photo.png",
-         *   "published": true,
-         *   "reviewed": true,
-         *   "summary": "Я очень хорошо играю на фортепиано.",
-         *   "title": "Педагог по фортепиано",
-         *   "work_schedules": [
-         *     "full_time"
-         *   ]
-         * }
          */
         cv: {
           /**
            * User
            * @example {
-           *   "birth_date": "2000-01-01",
-           *   "email": "username@domain.org",
-           *   "fullname": "Иванов Иван Иванович",
-           *   "id": "756",
-           *   "phone": "+78001234567",
-           *   "role": "applicant"
-           * }
+           *       "birth_date": "2000-01-01",
+           *       "email": "username@domain.org",
+           *       "fullname": "Иванов Иван Иванович",
+           *       "id": "756",
+           *       "phone": "+78001234567",
+           *       "role": "applicant"
+           *     }
            */
           applicant: {
             /** Format: date */
             birth_date: string
+            /** @description User email
+             *
+             *     - Must be no longer than 160 characters
+             *     - Must have the @ sign and no spaces
+             *     - Must be unique
+             *
+             *     Same email can't be used to create accounts with different roles.
+             *      */
             email: string
             fullname: string
             id: number
-            /** Format: phone */
+            /**
+             * @description Phone number
+             *
+             *     - Must contain 12 characters
+             *     - Must begin with "+7"
+             *
+             * @example +79001234567
+             */
             phone: string
             /** @enum {string} */
             role: 'admin' | 'applicant' | 'employer'
@@ -1552,14 +1561,14 @@ export interface components {
           field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
           id: number
           jobs: {
-            description: string
+            description?: string | null
             /**
              * Format: date
              * @description day should be ignored
              */
             end_date: string
-            job_title: string
-            organization_name: string
+            job_title?: string | null
+            organization_name?: string | null
             /**
              * Format: date
              * @description day should be ignored
@@ -1579,41 +1588,41 @@ export interface components {
         /**
          * Vacancy
          * @example {
-         *   "description": "Ищем очень хорошего работника!",
-         *   "education": "bachelor",
-         *   "employment_types": [
-         *     "main"
-         *   ],
-         *   "field_of_art": "other",
-         *   "id": "756",
-         *   "min_years_of_work_experience": 5,
-         *   "organization": {
-         *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-         *     "description": "applicant",
-         *     "email": "contact@urfu.ru",
-         *     "employer": {
-         *       "birth_date": "2000-01-01",
-         *       "email": "username@domain.org",
-         *       "fullname": "Иванов Иван Иванович",
+         *       "description": "Ищем очень хорошего работника!",
+         *       "education": "bachelor",
+         *       "employment_types": [
+         *         "main"
+         *       ],
+         *       "field_of_art": "other",
          *       "id": "756",
-         *       "phone": "+78001234567",
-         *       "role": "applicant"
-         *     },
-         *     "id": "756",
-         *     "logo": "/uploads/urfu.png",
-         *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-         *     "phone": "+7001005044",
-         *     "social_link": "https://vk.com/ural.federal.university",
-         *     "website": "https://urfu.me"
-         *   },
-         *   "proposed_salary": "20000",
-         *   "published": true,
-         *   "reviewed": true,
-         *   "title": "Работник",
-         *   "work_schedules": [
-         *     "full_time"
-         *   ]
-         * }
+         *       "min_years_of_work_experience": 5,
+         *       "organization": {
+         *         "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+         *         "description": "applicant",
+         *         "email": "contact@urfu.ru",
+         *         "employer": {
+         *           "birth_date": "2000-01-01",
+         *           "email": "username@domain.org",
+         *           "fullname": "Иванов Иван Иванович",
+         *           "id": "756",
+         *           "phone": "+78001234567",
+         *           "role": "applicant"
+         *         },
+         *         "id": "756",
+         *         "logo": "/uploads/urfu.png",
+         *         "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+         *         "phone": "+7001005044",
+         *         "social_link": "https://vk.com/ural.federal.university",
+         *         "website": "https://urfu.me"
+         *       },
+         *       "proposed_salary": "20000",
+         *       "published": true,
+         *       "reviewed": true,
+         *       "title": "Работник",
+         *       "work_schedules": [
+         *         "full_time"
+         *       ]
+         *     }
          */
         vacancy: {
           description: string
@@ -1623,29 +1632,28 @@ export interface components {
           /** @enum {string} */
           field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
           id: number
-          /** @default 0 */
           min_years_of_work_experience: number
           /**
            * Organization
            * @example {
-           *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-           *   "description": "applicant",
-           *   "email": "contact@urfu.ru",
-           *   "employer": {
-           *     "birth_date": "2000-01-01",
-           *     "email": "username@domain.org",
-           *     "fullname": "Иванов Иван Иванович",
-           *     "id": "756",
-           *     "phone": "+78001234567",
-           *     "role": "applicant"
-           *   },
-           *   "id": "756",
-           *   "logo": "/uploads/urfu.png",
-           *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-           *   "phone": "+7001005044",
-           *   "social_link": "https://vk.com/ural.federal.university",
-           *   "website": "https://urfu.me"
-           * }
+           *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+           *       "description": "applicant",
+           *       "email": "contact@urfu.ru",
+           *       "employer": {
+           *         "birth_date": "2000-01-01",
+           *         "email": "username@domain.org",
+           *         "fullname": "Иванов Иван Иванович",
+           *         "id": "756",
+           *         "phone": "+78001234567",
+           *         "role": "applicant"
+           *       },
+           *       "id": "756",
+           *       "logo": "/uploads/urfu.png",
+           *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+           *       "phone": "+7001005044",
+           *       "social_link": "https://vk.com/ural.federal.university",
+           *       "website": "https://urfu.me"
+           *     }
            */
           organization: {
             address: string
@@ -1654,21 +1662,36 @@ export interface components {
             /**
              * User
              * @example {
-             *   "birth_date": "2000-01-01",
-             *   "email": "username@domain.org",
-             *   "fullname": "Иванов Иван Иванович",
-             *   "id": "756",
-             *   "phone": "+78001234567",
-             *   "role": "applicant"
-             * }
+             *       "birth_date": "2000-01-01",
+             *       "email": "username@domain.org",
+             *       "fullname": "Иванов Иван Иванович",
+             *       "id": "756",
+             *       "phone": "+78001234567",
+             *       "role": "applicant"
+             *     }
              */
             employer: {
               /** Format: date */
               birth_date: string
+              /** @description User email
+               *
+               *     - Must be no longer than 160 characters
+               *     - Must have the @ sign and no spaces
+               *     - Must be unique
+               *
+               *     Same email can't be used to create accounts with different roles.
+               *      */
               email: string
               fullname: string
               id: number
-              /** Format: phone */
+              /**
+               * @description Phone number
+               *
+               *     - Must contain 12 characters
+               *     - Must begin with "+7"
+               *
+               * @example +79001234567
+               */
               phone: string
               /** @enum {string} */
               role: 'admin' | 'applicant' | 'employer'
@@ -1676,6 +1699,14 @@ export interface components {
             id: number
             logo: string
             name: string
+            /**
+             * @description Phone number
+             *
+             *     - Must contain 12 characters
+             *     - Must begin with "+7"
+             *
+             * @example +79001234567
+             */
             phone: string
             social_link: string
             website: string
@@ -1686,29 +1717,64 @@ export interface components {
           title: string
           work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
         }
-      }[]
+      }
+    }
+    /**
+     * UpdateVacancyRequest
+     * @example {
+     *       "vacancy": {
+     *         "description": "Ищем очень хорошего работника!",
+     *         "education": "bachelor",
+     *         "employment_types": [
+     *           "main"
+     *         ],
+     *         "field_of_art": "other",
+     *         "min_years_of_work_experience": 5,
+     *         "proposed_salary": "20000",
+     *         "published": true,
+     *         "title": "Работник",
+     *         "work_schedules": [
+     *           "full_time"
+     *         ]
+     *       }
+     *     }
+     */
+    UpdateVacancyRequest: {
+      vacancy: {
+        description?: string
+        /** @enum {string} */
+        education?: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+        employment_types?: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art?: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        min_years_of_work_experience?: number
+        proposed_salary?: number | null
+        published?: boolean
+        title?: string
+        work_schedules?: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      }
     }
     /**
      * Organization
      * @example {
-     *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *   "description": "applicant",
-     *   "email": "contact@urfu.ru",
-     *   "employer": {
-     *     "birth_date": "2000-01-01",
-     *     "email": "username@domain.org",
-     *     "fullname": "Иванов Иван Иванович",
-     *     "id": "756",
-     *     "phone": "+78001234567",
-     *     "role": "applicant"
-     *   },
-     *   "id": "756",
-     *   "logo": "/uploads/urfu.png",
-     *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-     *   "phone": "+7001005044",
-     *   "social_link": "https://vk.com/ural.federal.university",
-     *   "website": "https://urfu.me"
-     * }
+     *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+     *       "description": "applicant",
+     *       "email": "contact@urfu.ru",
+     *       "employer": {
+     *         "birth_date": "2000-01-01",
+     *         "email": "username@domain.org",
+     *         "fullname": "Иванов Иван Иванович",
+     *         "id": "756",
+     *         "phone": "+78001234567",
+     *         "role": "applicant"
+     *       },
+     *       "id": "756",
+     *       "logo": "/uploads/urfu.png",
+     *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *       "phone": "+7001005044",
+     *       "social_link": "https://vk.com/ural.federal.university",
+     *       "website": "https://urfu.me"
+     *     }
      */
     Organization: {
       address: string
@@ -1717,21 +1783,36 @@ export interface components {
       /**
        * User
        * @example {
-       *   "birth_date": "2000-01-01",
-       *   "email": "username@domain.org",
-       *   "fullname": "Иванов Иван Иванович",
-       *   "id": "756",
-       *   "phone": "+78001234567",
-       *   "role": "applicant"
-       * }
+       *       "birth_date": "2000-01-01",
+       *       "email": "username@domain.org",
+       *       "fullname": "Иванов Иван Иванович",
+       *       "id": "756",
+       *       "phone": "+78001234567",
+       *       "role": "applicant"
+       *     }
        */
       employer: {
         /** Format: date */
         birth_date: string
+        /** @description User email
+         *
+         *     - Must be no longer than 160 characters
+         *     - Must have the @ sign and no spaces
+         *     - Must be unique
+         *
+         *     Same email can't be used to create accounts with different roles.
+         *      */
         email: string
         fullname: string
         id: number
-        /** Format: phone */
+        /**
+         * @description Phone number
+         *
+         *     - Must contain 12 characters
+         *     - Must begin with "+7"
+         *
+         * @example +79001234567
+         */
         phone: string
         /** @enum {string} */
         role: 'admin' | 'applicant' | 'employer'
@@ -1739,167 +1820,54 @@ export interface components {
       id: number
       logo: string
       name: string
+      /**
+       * @description Phone number
+       *
+       *     - Must contain 12 characters
+       *     - Must begin with "+7"
+       *
+       * @example +79001234567
+       */
       phone: string
       social_link: string
       website: string
     }
     /**
-     * OrganizationResponse
-     * @example {
-     *   "data": {
-     *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *     "description": "applicant",
-     *     "email": "contact@urfu.ru",
-     *     "employer": {
-     *       "birth_date": "2000-01-01",
-     *       "email": "username@domain.org",
-     *       "fullname": "Иванов Иван Иванович",
-     *       "id": "756",
-     *       "phone": "+78001234567",
-     *       "role": "applicant"
-     *     },
-     *     "id": "756",
-     *     "logo": "/uploads/urfu.png",
-     *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-     *     "phone": "+7001005044",
-     *     "social_link": "https://vk.com/ural.federal.university",
-     *     "website": "https://urfu.me"
-     *   }
-     * }
-     */
-    OrganizationResponse: {
-      /**
-       * Organization
-       * @example {
-       *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-       *   "description": "applicant",
-       *   "email": "contact@urfu.ru",
-       *   "employer": {
-       *     "birth_date": "2000-01-01",
-       *     "email": "username@domain.org",
-       *     "fullname": "Иванов Иван Иванович",
-       *     "id": "756",
-       *     "phone": "+78001234567",
-       *     "role": "applicant"
-       *   },
-       *   "id": "756",
-       *   "logo": "/uploads/urfu.png",
-       *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-       *   "phone": "+7001005044",
-       *   "social_link": "https://vk.com/ural.federal.university",
-       *   "website": "https://urfu.me"
-       * }
-       */
-      data: {
-        address: string
-        description: string
-        email: string
-        /**
-         * User
-         * @example {
-         *   "birth_date": "2000-01-01",
-         *   "email": "username@domain.org",
-         *   "fullname": "Иванов Иван Иванович",
-         *   "id": "756",
-         *   "phone": "+78001234567",
-         *   "role": "applicant"
-         * }
-         */
-        employer: {
-          /** Format: date */
-          birth_date: string
-          email: string
-          fullname: string
-          id: number
-          /** Format: phone */
-          phone: string
-          /** @enum {string} */
-          role: 'admin' | 'applicant' | 'employer'
-        }
-        id: number
-        logo: string
-        name: string
-        phone: string
-        social_link: string
-        website: string
-      }
-    }
-    /**
-     * Page
-     * @example {
-     *   "page_number": 1,
-     *   "page_size": 10,
-     *   "total_entries": 23,
-     *   "total_pages": 3
-     * }
-     */
-    Page: {
-      page_number: number
-      page_size: number
-      total_entries: number
-      total_pages: number
-    }
-    /**
-     * SendInterestRequest
-     * @example {
-     *   "cv_id": 612,
-     *   "vacancy_id": 219
-     * }
-     */
-    SendInterestRequest: {
-      cv_id: number
-      vacancy_id: number
-    }
-    /**
-     * TokenResponse
-     * @example {
-     *   "data": {
-     *     "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJjZW4tdmFjYW5jaWVzIiwiZXhwIjoxNzE1MTA0ODc3LCJpYXQiOjE3MTI2ODU2NzcsImlzcyI6ImNlbi12YWNhbmNpZXMiLCJqdGkiOiJmMzk5ZmQzMC0yYjJhLTQ4ZjMtODE1ZC0zNWU4MzhhYjNiODciLCJuYmYiOjE3MTI2ODU2NzYsInN1YiI6IjEiLCJ0eXAiOiJhY2Nlc3MifQ.18NmnxCYERqKFu5O0VjY85qZsDkCHL0vy0uYJ1suFJPSjiZrNS2RGQobmE8mO9P5-MkyL-_-Kp4EwWvBnCUwyA"
-     *   }
-     * }
-     */
-    TokenResponse: {
-      data: {
-        /** Format: JWT */
-        token: string
-      }
-    }
-    /**
      * UpdateCVRequest
      * @example {
-     *   "cv": {
-     *     "educations": [
-     *       {
-     *         "department": null,
-     *         "educational_institution": "УрФУ",
-     *         "level": "secondary",
-     *         "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
-     *         "year_of_graduation": 2024
+     *       "cv": {
+     *         "educations": [
+     *           {
+     *             "department": null,
+     *             "educational_institution": "УрФУ",
+     *             "level": "secondary",
+     *             "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *             "year_of_graduation": 2024
+     *           }
+     *         ],
+     *         "employment_types": [
+     *           "main"
+     *         ],
+     *         "field_of_art": "music",
+     *         "jobs": [
+     *           {
+     *             "description": "Преподавал предмет",
+     *             "end_date": "2024-02-01",
+     *             "job_title": "Преподаватель",
+     *             "organization_name": "УрФУ",
+     *             "start_date": "2022-12-01"
+     *           }
+     *         ],
+     *         "photo": "/uploads/photo.png",
+     *         "published": true,
+     *         "reviewed": true,
+     *         "summary": "Я очень хорошо играю на фортепиано.",
+     *         "title": "Педагог по фортепиано",
+     *         "work_schedules": [
+     *           "full_time"
+     *         ]
      *       }
-     *     ],
-     *     "employment_types": [
-     *       "main"
-     *     ],
-     *     "field_of_art": "music",
-     *     "jobs": [
-     *       {
-     *         "description": "Преподавал предмет",
-     *         "end_date": "2024-02-01",
-     *         "job_title": "Преподаватель",
-     *         "organization_name": "УрФУ",
-     *         "start_date": "2022-12-01"
-     *       }
-     *     ],
-     *     "photo": "/uploads/photo.png",
-     *     "published": true,
-     *     "reviewed": true,
-     *     "summary": "Я очень хорошо играю на фортепиано.",
-     *     "title": "Педагог по фортепиано",
-     *     "work_schedules": [
-     *       "full_time"
-     *     ]
-     *   }
-     * }
+     *     }
      */
     UpdateCVRequest: {
       cv: {
@@ -1915,14 +1883,14 @@ export interface components {
         /** @enum {string} */
         field_of_art?: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
         jobs?: {
-          description: string
+          description?: string | null
           /**
            * Format: date
            * @description day should be ignored
            */
           end_date: string
-          job_title: string
-          organization_name: string
+          job_title?: string | null
+          organization_name?: string | null
           /**
            * Format: date
            * @description day should be ignored
@@ -1938,189 +1906,1572 @@ export interface components {
       }
     }
     /**
-     * UpdateOrganizationRequest
+     * SendMessageRequest
      * @example {
-     *   "organization": {
-     *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *     "description": "applicant",
-     *     "email": "contact@urfu.ru",
-     *     "logo": "/uploads/urfu.png",
-     *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-     *     "phone": "+7001005044",
-     *     "social_link": "https://vk.com/ural.federal.university",
-     *     "website": "https://urfu.me"
-     *   }
-     * }
+     *       "cv_id": 1,
+     *       "text": "I am interested in this vacancy",
+     *       "vacancy_id": 1
+     *     }
      */
-    UpdateOrganizationRequest: {
-      organization: {
-        address?: string
-        description?: string
-        email?: string
+    SendMessageRequest: {
+      cv_id: number
+      text: string
+      vacancy_id: number
+    }
+    /**
+     * OrganizationResponse
+     * @example {
+     *       "data": {
+     *         "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+     *         "description": "applicant",
+     *         "email": "contact@urfu.ru",
+     *         "employer": {
+     *           "birth_date": "2000-01-01",
+     *           "email": "username@domain.org",
+     *           "fullname": "Иванов Иван Иванович",
+     *           "id": "756",
+     *           "phone": "+78001234567",
+     *           "role": "applicant"
+     *         },
+     *         "id": "756",
+     *         "logo": "/uploads/urfu.png",
+     *         "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *         "phone": "+7001005044",
+     *         "social_link": "https://vk.com/ural.federal.university",
+     *         "website": "https://urfu.me"
+     *       }
+     *     }
+     */
+    OrganizationResponse: {
+      /**
+       * Organization
+       * @example {
+       *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+       *       "description": "applicant",
+       *       "email": "contact@urfu.ru",
+       *       "employer": {
+       *         "birth_date": "2000-01-01",
+       *         "email": "username@domain.org",
+       *         "fullname": "Иванов Иван Иванович",
+       *         "id": "756",
+       *         "phone": "+78001234567",
+       *         "role": "applicant"
+       *       },
+       *       "id": "756",
+       *       "logo": "/uploads/urfu.png",
+       *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+       *       "phone": "+7001005044",
+       *       "social_link": "https://vk.com/ural.federal.university",
+       *       "website": "https://urfu.me"
+       *     }
+       */
+      data: {
+        address: string
+        description: string
+        email: string
         /**
          * User
          * @example {
-         *   "birth_date": "2000-01-01",
-         *   "email": "username@domain.org",
-         *   "fullname": "Иванов Иван Иванович",
-         *   "id": "756",
-         *   "phone": "+78001234567",
-         *   "role": "applicant"
-         * }
+         *       "birth_date": "2000-01-01",
+         *       "email": "username@domain.org",
+         *       "fullname": "Иванов Иван Иванович",
+         *       "id": "756",
+         *       "phone": "+78001234567",
+         *       "role": "applicant"
+         *     }
          */
-        employer?: {
+        employer: {
           /** Format: date */
           birth_date: string
+          /** @description User email
+           *
+           *     - Must be no longer than 160 characters
+           *     - Must have the @ sign and no spaces
+           *     - Must be unique
+           *
+           *     Same email can't be used to create accounts with different roles.
+           *      */
           email: string
           fullname: string
           id: number
-          /** Format: phone */
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
           phone: string
           /** @enum {string} */
           role: 'admin' | 'applicant' | 'employer'
         }
-        id?: number
-        logo?: string
-        name?: string
-        phone?: string
-        social_link?: string
-        website?: string
+        id: number
+        logo: string
+        name: string
+        /**
+         * @description Phone number
+         *
+         *     - Must contain 12 characters
+         *     - Must begin with "+7"
+         *
+         * @example +79001234567
+         */
+        phone: string
+        social_link: string
+        website: string
       }
     }
     /**
-     * UpdateUserInfoRequest
+     * ChatsListResponse
      * @example {
-     *   "user": {
-     *     "birth_date": "2000-01-01",
-     *     "fullname": "Иванов Иван Иванович",
-     *     "phone": "+78001234567"
-     *   }
-     * }
+     *       "data": [
+     *         {
+     *           "cv": {
+     *             "applicant": {
+     *               "birth_date": "2000-01-01",
+     *               "email": "username@domain.org",
+     *               "fullname": "Иванов Иван Иванович",
+     *               "id": "756",
+     *               "phone": "+78001234567",
+     *               "role": "applicant"
+     *             },
+     *             "educations": [
+     *               {
+     *                 "department": null,
+     *                 "educational_institution": "УрФУ",
+     *                 "level": "secondary",
+     *                 "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *                 "year_of_graduation": 2024
+     *               }
+     *             ],
+     *             "employment_types": [
+     *               "main"
+     *             ],
+     *             "field_of_art": "music",
+     *             "id": 521,
+     *             "jobs": [
+     *               {
+     *                 "description": "Преподавал предмет",
+     *                 "end_date": "2024-02-01",
+     *                 "job_title": "Преподаватель",
+     *                 "organization_name": "УрФУ",
+     *                 "start_date": "2022-12-01"
+     *               }
+     *             ],
+     *             "photo": "/uploads/photo.png",
+     *             "published": true,
+     *             "reviewed": true,
+     *             "summary": "Я очень хорошо играю на фортепиано.",
+     *             "title": "Педагог по фортепиано",
+     *             "work_schedules": [
+     *               "full_time"
+     *             ]
+     *           },
+     *           "id": 756,
+     *           "vacancy": {
+     *             "description": "Ищем очень хорошего работника!",
+     *             "education": "bachelor",
+     *             "employment_types": [
+     *               "main"
+     *             ],
+     *             "field_of_art": "other",
+     *             "id": "756",
+     *             "min_years_of_work_experience": 5,
+     *             "organization": {
+     *               "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+     *               "description": "applicant",
+     *               "email": "contact@urfu.ru",
+     *               "employer": {
+     *                 "birth_date": "2000-01-01",
+     *                 "email": "username@domain.org",
+     *                 "fullname": "Иванов Иван Иванович",
+     *                 "id": "756",
+     *                 "phone": "+78001234567",
+     *                 "role": "applicant"
+     *               },
+     *               "id": "756",
+     *               "logo": "/uploads/urfu.png",
+     *               "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *               "phone": "+7001005044",
+     *               "social_link": "https://vk.com/ural.federal.university",
+     *               "website": "https://urfu.me"
+     *             },
+     *             "proposed_salary": "20000",
+     *             "published": true,
+     *             "reviewed": true,
+     *             "title": "Работник",
+     *             "work_schedules": [
+     *               "full_time"
+     *             ]
+     *           }
+     *         }
+     *       ],
+     *       "page": {
+     *         "page_number": 1,
+     *         "page_size": 10,
+     *         "total_entries": 23,
+     *         "total_pages": 3
+     *       }
+     *     }
      */
-    UpdateUserInfoRequest: {
-      user: {
-        /** Format: date */
-        birth_date?: string
-        fullname?: string
-        /** Format: phone */
-        phone?: string
+    ChatsListResponse: {
+      data: {
+        /**
+         * CV
+         * @example {
+         *       "applicant": {
+         *         "birth_date": "2000-01-01",
+         *         "email": "username@domain.org",
+         *         "fullname": "Иванов Иван Иванович",
+         *         "id": "756",
+         *         "phone": "+78001234567",
+         *         "role": "applicant"
+         *       },
+         *       "educations": [
+         *         {
+         *           "department": null,
+         *           "educational_institution": "УрФУ",
+         *           "level": "secondary",
+         *           "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+         *           "year_of_graduation": 2024
+         *         }
+         *       ],
+         *       "employment_types": [
+         *         "main"
+         *       ],
+         *       "field_of_art": "music",
+         *       "id": 521,
+         *       "jobs": [
+         *         {
+         *           "description": "Преподавал предмет",
+         *           "end_date": "2024-02-01",
+         *           "job_title": "Преподаватель",
+         *           "organization_name": "УрФУ",
+         *           "start_date": "2022-12-01"
+         *         }
+         *       ],
+         *       "photo": "/uploads/photo.png",
+         *       "published": true,
+         *       "reviewed": true,
+         *       "summary": "Я очень хорошо играю на фортепиано.",
+         *       "title": "Педагог по фортепиано",
+         *       "work_schedules": [
+         *         "full_time"
+         *       ]
+         *     }
+         */
+        cv: {
+          /**
+           * User
+           * @example {
+           *       "birth_date": "2000-01-01",
+           *       "email": "username@domain.org",
+           *       "fullname": "Иванов Иван Иванович",
+           *       "id": "756",
+           *       "phone": "+78001234567",
+           *       "role": "applicant"
+           *     }
+           */
+          applicant: {
+            /** Format: date */
+            birth_date: string
+            /** @description User email
+             *
+             *     - Must be no longer than 160 characters
+             *     - Must have the @ sign and no spaces
+             *     - Must be unique
+             *
+             *     Same email can't be used to create accounts with different roles.
+             *      */
+            email: string
+            fullname: string
+            id: number
+            /**
+             * @description Phone number
+             *
+             *     - Must contain 12 characters
+             *     - Must begin with "+7"
+             *
+             * @example +79001234567
+             */
+            phone: string
+            /** @enum {string} */
+            role: 'admin' | 'applicant' | 'employer'
+          }
+          educations: {
+            department: string | null
+            educational_institution: string | null
+            /** @enum {string} */
+            level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+            specialization: string | null
+            year_of_graduation: number | null
+          }[]
+          employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+          /** @enum {string} */
+          field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+          id: number
+          jobs: {
+            description?: string | null
+            /**
+             * Format: date
+             * @description day should be ignored
+             */
+            end_date: string
+            job_title?: string | null
+            organization_name?: string | null
+            /**
+             * Format: date
+             * @description day should be ignored
+             */
+            start_date: string
+          }[]
+          photo: string
+          published: boolean
+          reviewed: boolean
+          summary: string
+          title: string
+          work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+        }
+        id: number
+        /**
+         * Vacancy
+         * @example {
+         *       "description": "Ищем очень хорошего работника!",
+         *       "education": "bachelor",
+         *       "employment_types": [
+         *         "main"
+         *       ],
+         *       "field_of_art": "other",
+         *       "id": "756",
+         *       "min_years_of_work_experience": 5,
+         *       "organization": {
+         *         "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+         *         "description": "applicant",
+         *         "email": "contact@urfu.ru",
+         *         "employer": {
+         *           "birth_date": "2000-01-01",
+         *           "email": "username@domain.org",
+         *           "fullname": "Иванов Иван Иванович",
+         *           "id": "756",
+         *           "phone": "+78001234567",
+         *           "role": "applicant"
+         *         },
+         *         "id": "756",
+         *         "logo": "/uploads/urfu.png",
+         *         "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+         *         "phone": "+7001005044",
+         *         "social_link": "https://vk.com/ural.federal.university",
+         *         "website": "https://urfu.me"
+         *       },
+         *       "proposed_salary": "20000",
+         *       "published": true,
+         *       "reviewed": true,
+         *       "title": "Работник",
+         *       "work_schedules": [
+         *         "full_time"
+         *       ]
+         *     }
+         */
+        vacancy: {
+          description: string
+          /** @enum {string} */
+          education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+          employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+          /** @enum {string} */
+          field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+          id: number
+          min_years_of_work_experience: number
+          /**
+           * Organization
+           * @example {
+           *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+           *       "description": "applicant",
+           *       "email": "contact@urfu.ru",
+           *       "employer": {
+           *         "birth_date": "2000-01-01",
+           *         "email": "username@domain.org",
+           *         "fullname": "Иванов Иван Иванович",
+           *         "id": "756",
+           *         "phone": "+78001234567",
+           *         "role": "applicant"
+           *       },
+           *       "id": "756",
+           *       "logo": "/uploads/urfu.png",
+           *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+           *       "phone": "+7001005044",
+           *       "social_link": "https://vk.com/ural.federal.university",
+           *       "website": "https://urfu.me"
+           *     }
+           */
+          organization: {
+            address: string
+            description: string
+            email: string
+            /**
+             * User
+             * @example {
+             *       "birth_date": "2000-01-01",
+             *       "email": "username@domain.org",
+             *       "fullname": "Иванов Иван Иванович",
+             *       "id": "756",
+             *       "phone": "+78001234567",
+             *       "role": "applicant"
+             *     }
+             */
+            employer: {
+              /** Format: date */
+              birth_date: string
+              /** @description User email
+               *
+               *     - Must be no longer than 160 characters
+               *     - Must have the @ sign and no spaces
+               *     - Must be unique
+               *
+               *     Same email can't be used to create accounts with different roles.
+               *      */
+              email: string
+              fullname: string
+              id: number
+              /**
+               * @description Phone number
+               *
+               *     - Must contain 12 characters
+               *     - Must begin with "+7"
+               *
+               * @example +79001234567
+               */
+              phone: string
+              /** @enum {string} */
+              role: 'admin' | 'applicant' | 'employer'
+            }
+            id: number
+            logo: string
+            name: string
+            /**
+             * @description Phone number
+             *
+             *     - Must contain 12 characters
+             *     - Must begin with "+7"
+             *
+             * @example +79001234567
+             */
+            phone: string
+            social_link: string
+            website: string
+          }
+          proposed_salary: number | null
+          published: boolean
+          reviewed: boolean
+          title: string
+          work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+        }
+      }[]
+      /**
+       * Page
+       * @example {
+       *       "page_number": 1,
+       *       "page_size": 10,
+       *       "total_entries": 23,
+       *       "total_pages": 3
+       *     }
+       */
+      page: {
+        page_number: number
+        page_size: number
+        total_entries: number
+        total_pages: number
       }
     }
     /**
-     * UpdateVacancyRequest
+     * ChangesetErrorsResponse
      * @example {
-     *   "vacancy": {
-     *     "description": "Ищем очень хорошего работника!",
-     *     "education": "bachelor",
-     *     "employment_types": [
-     *       "main"
-     *     ],
-     *     "field_of_art": "other",
-     *     "min_years_of_work_experience": 5,
-     *     "proposed_salary": "20000",
-     *     "published": true,
-     *     "title": "Работник",
-     *     "work_schedules": [
-     *       "full_time"
-     *     ]
-     *   }
-     * }
+     *       "errors": {
+     *         "password": [
+     *           "too short"
+     *         ]
+     *       }
+     *     }
      */
-    UpdateVacancyRequest: {
+    ChangesetErrorsResponse: {
+      /** @description Errors map. Keys are fields and values are array of errors */
+      errors: {
+        [key: string]: unknown
+      }
+    }
+    /**
+     * Page
+     * @example {
+     *       "page_number": 1,
+     *       "page_size": 10,
+     *       "total_entries": 23,
+     *       "total_pages": 3
+     *     }
+     */
+    Page: {
+      page_number: number
+      page_size: number
+      total_entries: number
+      total_pages: number
+    }
+    /**
+     * Chat
+     * @example {
+     *       "cv": {
+     *         "applicant": {
+     *           "birth_date": "2000-01-01",
+     *           "email": "username@domain.org",
+     *           "fullname": "Иванов Иван Иванович",
+     *           "id": "756",
+     *           "phone": "+78001234567",
+     *           "role": "applicant"
+     *         },
+     *         "educations": [
+     *           {
+     *             "department": null,
+     *             "educational_institution": "УрФУ",
+     *             "level": "secondary",
+     *             "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *             "year_of_graduation": 2024
+     *           }
+     *         ],
+     *         "employment_types": [
+     *           "main"
+     *         ],
+     *         "field_of_art": "music",
+     *         "id": 521,
+     *         "jobs": [
+     *           {
+     *             "description": "Преподавал предмет",
+     *             "end_date": "2024-02-01",
+     *             "job_title": "Преподаватель",
+     *             "organization_name": "УрФУ",
+     *             "start_date": "2022-12-01"
+     *           }
+     *         ],
+     *         "photo": "/uploads/photo.png",
+     *         "published": true,
+     *         "reviewed": true,
+     *         "summary": "Я очень хорошо играю на фортепиано.",
+     *         "title": "Педагог по фортепиано",
+     *         "work_schedules": [
+     *           "full_time"
+     *         ]
+     *       },
+     *       "id": 756,
+     *       "vacancy": {
+     *         "description": "Ищем очень хорошего работника!",
+     *         "education": "bachelor",
+     *         "employment_types": [
+     *           "main"
+     *         ],
+     *         "field_of_art": "other",
+     *         "id": "756",
+     *         "min_years_of_work_experience": 5,
+     *         "organization": {
+     *           "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+     *           "description": "applicant",
+     *           "email": "contact@urfu.ru",
+     *           "employer": {
+     *             "birth_date": "2000-01-01",
+     *             "email": "username@domain.org",
+     *             "fullname": "Иванов Иван Иванович",
+     *             "id": "756",
+     *             "phone": "+78001234567",
+     *             "role": "applicant"
+     *           },
+     *           "id": "756",
+     *           "logo": "/uploads/urfu.png",
+     *           "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *           "phone": "+7001005044",
+     *           "social_link": "https://vk.com/ural.federal.university",
+     *           "website": "https://urfu.me"
+     *         },
+     *         "proposed_salary": "20000",
+     *         "published": true,
+     *         "reviewed": true,
+     *         "title": "Работник",
+     *         "work_schedules": [
+     *           "full_time"
+     *         ]
+     *       }
+     *     }
+     */
+    Chat: {
+      /**
+       * CV
+       * @example {
+       *       "applicant": {
+       *         "birth_date": "2000-01-01",
+       *         "email": "username@domain.org",
+       *         "fullname": "Иванов Иван Иванович",
+       *         "id": "756",
+       *         "phone": "+78001234567",
+       *         "role": "applicant"
+       *       },
+       *       "educations": [
+       *         {
+       *           "department": null,
+       *           "educational_institution": "УрФУ",
+       *           "level": "secondary",
+       *           "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+       *           "year_of_graduation": 2024
+       *         }
+       *       ],
+       *       "employment_types": [
+       *         "main"
+       *       ],
+       *       "field_of_art": "music",
+       *       "id": 521,
+       *       "jobs": [
+       *         {
+       *           "description": "Преподавал предмет",
+       *           "end_date": "2024-02-01",
+       *           "job_title": "Преподаватель",
+       *           "organization_name": "УрФУ",
+       *           "start_date": "2022-12-01"
+       *         }
+       *       ],
+       *       "photo": "/uploads/photo.png",
+       *       "published": true,
+       *       "reviewed": true,
+       *       "summary": "Я очень хорошо играю на фортепиано.",
+       *       "title": "Педагог по фортепиано",
+       *       "work_schedules": [
+       *         "full_time"
+       *       ]
+       *     }
+       */
+      cv: {
+        /**
+         * User
+         * @example {
+         *       "birth_date": "2000-01-01",
+         *       "email": "username@domain.org",
+         *       "fullname": "Иванов Иван Иванович",
+         *       "id": "756",
+         *       "phone": "+78001234567",
+         *       "role": "applicant"
+         *     }
+         */
+        applicant: {
+          /** Format: date */
+          birth_date: string
+          /** @description User email
+           *
+           *     - Must be no longer than 160 characters
+           *     - Must have the @ sign and no spaces
+           *     - Must be unique
+           *
+           *     Same email can't be used to create accounts with different roles.
+           *      */
+          email: string
+          fullname: string
+          id: number
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
+          phone: string
+          /** @enum {string} */
+          role: 'admin' | 'applicant' | 'employer'
+        }
+        educations: {
+          department: string | null
+          educational_institution: string | null
+          /** @enum {string} */
+          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+          specialization: string | null
+          year_of_graduation: number | null
+        }[]
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        id: number
+        jobs: {
+          description?: string | null
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          end_date: string
+          job_title?: string | null
+          organization_name?: string | null
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          start_date: string
+        }[]
+        photo: string
+        published: boolean
+        reviewed: boolean
+        summary: string
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      }
+      id: number
+      /**
+       * Vacancy
+       * @example {
+       *       "description": "Ищем очень хорошего работника!",
+       *       "education": "bachelor",
+       *       "employment_types": [
+       *         "main"
+       *       ],
+       *       "field_of_art": "other",
+       *       "id": "756",
+       *       "min_years_of_work_experience": 5,
+       *       "organization": {
+       *         "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+       *         "description": "applicant",
+       *         "email": "contact@urfu.ru",
+       *         "employer": {
+       *           "birth_date": "2000-01-01",
+       *           "email": "username@domain.org",
+       *           "fullname": "Иванов Иван Иванович",
+       *           "id": "756",
+       *           "phone": "+78001234567",
+       *           "role": "applicant"
+       *         },
+       *         "id": "756",
+       *         "logo": "/uploads/urfu.png",
+       *         "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+       *         "phone": "+7001005044",
+       *         "social_link": "https://vk.com/ural.federal.university",
+       *         "website": "https://urfu.me"
+       *       },
+       *       "proposed_salary": "20000",
+       *       "published": true,
+       *       "reviewed": true,
+       *       "title": "Работник",
+       *       "work_schedules": [
+       *         "full_time"
+       *       ]
+       *     }
+       */
       vacancy: {
-        description?: string
+        description: string
         /** @enum {string} */
-        education?: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
-        employment_types?: ('main' | 'secondary' | 'practice' | 'internship')[]
+        education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
         /** @enum {string} */
-        field_of_art?: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
-        /** @default 0 */
-        min_years_of_work_experience?: number
-        proposed_salary?: number | null
-        published?: boolean
-        title?: string
-        work_schedules?: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        id: number
+        min_years_of_work_experience: number
+        /**
+         * Organization
+         * @example {
+         *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+         *       "description": "applicant",
+         *       "email": "contact@urfu.ru",
+         *       "employer": {
+         *         "birth_date": "2000-01-01",
+         *         "email": "username@domain.org",
+         *         "fullname": "Иванов Иван Иванович",
+         *         "id": "756",
+         *         "phone": "+78001234567",
+         *         "role": "applicant"
+         *       },
+         *       "id": "756",
+         *       "logo": "/uploads/urfu.png",
+         *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+         *       "phone": "+7001005044",
+         *       "social_link": "https://vk.com/ural.federal.university",
+         *       "website": "https://urfu.me"
+         *     }
+         */
+        organization: {
+          address: string
+          description: string
+          email: string
+          /**
+           * User
+           * @example {
+           *       "birth_date": "2000-01-01",
+           *       "email": "username@domain.org",
+           *       "fullname": "Иванов Иван Иванович",
+           *       "id": "756",
+           *       "phone": "+78001234567",
+           *       "role": "applicant"
+           *     }
+           */
+          employer: {
+            /** Format: date */
+            birth_date: string
+            /** @description User email
+             *
+             *     - Must be no longer than 160 characters
+             *     - Must have the @ sign and no spaces
+             *     - Must be unique
+             *
+             *     Same email can't be used to create accounts with different roles.
+             *      */
+            email: string
+            fullname: string
+            id: number
+            /**
+             * @description Phone number
+             *
+             *     - Must contain 12 characters
+             *     - Must begin with "+7"
+             *
+             * @example +79001234567
+             */
+            phone: string
+            /** @enum {string} */
+            role: 'admin' | 'applicant' | 'employer'
+          }
+          id: number
+          logo: string
+          name: string
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
+          phone: string
+          social_link: string
+          website: string
+        }
+        proposed_salary: number | null
+        published: boolean
+        reviewed: boolean
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      }
+    }
+    /**
+     * UpdateUserPasswordRequest
+     * @example {
+     *       "user": {
+     *         "current_password": "123456qwerty",
+     *         "password": "qwerty123456"
+     *       }
+     *     }
+     */
+    UpdateUserPasswordRequest: {
+      user: {
+        current_password: string
+        password: string
+      }
+    }
+    /**
+     * UpdateUserEmailRequest
+     * @example {
+     *       "user": {
+     *         "current_password": "123456qwerty",
+     *         "email": "username@domain.org"
+     *       }
+     *     }
+     */
+    UpdateUserEmailRequest: {
+      user: {
+        current_password: string
+        /** @description User email
+         *
+         *     - Must be no longer than 160 characters
+         *     - Must have the @ sign and no spaces
+         *     - Must be unique
+         *
+         *     Same email can't be used to create accounts with different roles.
+         *      */
+        email: string
+      }
+    }
+    /**
+     * ImageUploadRequest
+     * @example {
+     *       "image": "image-data"
+     *     }
+     */
+    ImageUploadRequest: {
+      /** Format: binary */
+      image: string
+    }
+    /**
+     * @description Phone number
+     *
+     *     - Must contain 12 characters
+     *     - Must begin with "+7"
+     *
+     * @example +79001234567
+     */
+    '': string
+    /**
+     * InterestsListResponse
+     * @example {
+     *       "data": [
+     *         {
+     *           "cv": {
+     *             "applicant": {
+     *               "birth_date": "2000-01-01",
+     *               "email": "username@domain.org",
+     *               "fullname": "Иванов Иван Иванович",
+     *               "id": "756",
+     *               "phone": "+78001234567",
+     *               "role": "applicant"
+     *             },
+     *             "educations": [
+     *               {
+     *                 "department": null,
+     *                 "educational_institution": "УрФУ",
+     *                 "level": "secondary",
+     *                 "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *                 "year_of_graduation": 2024
+     *               }
+     *             ],
+     *             "employment_types": [
+     *               "main"
+     *             ],
+     *             "field_of_art": "music",
+     *             "id": 521,
+     *             "jobs": [
+     *               {
+     *                 "description": "Преподавал предмет",
+     *                 "end_date": "2024-02-01",
+     *                 "job_title": "Преподаватель",
+     *                 "organization_name": "УрФУ",
+     *                 "start_date": "2022-12-01"
+     *               }
+     *             ],
+     *             "photo": "/uploads/photo.png",
+     *             "published": true,
+     *             "reviewed": true,
+     *             "summary": "Я очень хорошо играю на фортепиано.",
+     *             "title": "Педагог по фортепиано",
+     *             "work_schedules": [
+     *               "full_time"
+     *             ]
+     *           },
+     *           "from": "employer",
+     *           "id": 756,
+     *           "vacancy": {
+     *             "description": "Ищем очень хорошего работника!",
+     *             "education": "bachelor",
+     *             "employment_types": [
+     *               "main"
+     *             ],
+     *             "field_of_art": "other",
+     *             "id": "756",
+     *             "min_years_of_work_experience": 5,
+     *             "organization": {
+     *               "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+     *               "description": "applicant",
+     *               "email": "contact@urfu.ru",
+     *               "employer": {
+     *                 "birth_date": "2000-01-01",
+     *                 "email": "username@domain.org",
+     *                 "fullname": "Иванов Иван Иванович",
+     *                 "id": "756",
+     *                 "phone": "+78001234567",
+     *                 "role": "applicant"
+     *               },
+     *               "id": "756",
+     *               "logo": "/uploads/urfu.png",
+     *               "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *               "phone": "+7001005044",
+     *               "social_link": "https://vk.com/ural.federal.university",
+     *               "website": "https://urfu.me"
+     *             },
+     *             "proposed_salary": "20000",
+     *             "published": true,
+     *             "reviewed": true,
+     *             "title": "Работник",
+     *             "work_schedules": [
+     *               "full_time"
+     *             ]
+     *           }
+     *         }
+     *       ]
+     *     }
+     */
+    InterestsListResponse: {
+      data: {
+        /**
+         * CV
+         * @example {
+         *       "applicant": {
+         *         "birth_date": "2000-01-01",
+         *         "email": "username@domain.org",
+         *         "fullname": "Иванов Иван Иванович",
+         *         "id": "756",
+         *         "phone": "+78001234567",
+         *         "role": "applicant"
+         *       },
+         *       "educations": [
+         *         {
+         *           "department": null,
+         *           "educational_institution": "УрФУ",
+         *           "level": "secondary",
+         *           "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+         *           "year_of_graduation": 2024
+         *         }
+         *       ],
+         *       "employment_types": [
+         *         "main"
+         *       ],
+         *       "field_of_art": "music",
+         *       "id": 521,
+         *       "jobs": [
+         *         {
+         *           "description": "Преподавал предмет",
+         *           "end_date": "2024-02-01",
+         *           "job_title": "Преподаватель",
+         *           "organization_name": "УрФУ",
+         *           "start_date": "2022-12-01"
+         *         }
+         *       ],
+         *       "photo": "/uploads/photo.png",
+         *       "published": true,
+         *       "reviewed": true,
+         *       "summary": "Я очень хорошо играю на фортепиано.",
+         *       "title": "Педагог по фортепиано",
+         *       "work_schedules": [
+         *         "full_time"
+         *       ]
+         *     }
+         */
+        cv: {
+          /**
+           * User
+           * @example {
+           *       "birth_date": "2000-01-01",
+           *       "email": "username@domain.org",
+           *       "fullname": "Иванов Иван Иванович",
+           *       "id": "756",
+           *       "phone": "+78001234567",
+           *       "role": "applicant"
+           *     }
+           */
+          applicant: {
+            /** Format: date */
+            birth_date: string
+            /** @description User email
+             *
+             *     - Must be no longer than 160 characters
+             *     - Must have the @ sign and no spaces
+             *     - Must be unique
+             *
+             *     Same email can't be used to create accounts with different roles.
+             *      */
+            email: string
+            fullname: string
+            id: number
+            /**
+             * @description Phone number
+             *
+             *     - Must contain 12 characters
+             *     - Must begin with "+7"
+             *
+             * @example +79001234567
+             */
+            phone: string
+            /** @enum {string} */
+            role: 'admin' | 'applicant' | 'employer'
+          }
+          educations: {
+            department: string | null
+            educational_institution: string | null
+            /** @enum {string} */
+            level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+            specialization: string | null
+            year_of_graduation: number | null
+          }[]
+          employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+          /** @enum {string} */
+          field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+          id: number
+          jobs: {
+            description?: string | null
+            /**
+             * Format: date
+             * @description day should be ignored
+             */
+            end_date: string
+            job_title?: string | null
+            organization_name?: string | null
+            /**
+             * Format: date
+             * @description day should be ignored
+             */
+            start_date: string
+          }[]
+          photo: string
+          published: boolean
+          reviewed: boolean
+          summary: string
+          title: string
+          work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+        }
+        /** @enum {string} */
+        from: 'employer' | 'applicant'
+        id: number
+        /**
+         * Vacancy
+         * @example {
+         *       "description": "Ищем очень хорошего работника!",
+         *       "education": "bachelor",
+         *       "employment_types": [
+         *         "main"
+         *       ],
+         *       "field_of_art": "other",
+         *       "id": "756",
+         *       "min_years_of_work_experience": 5,
+         *       "organization": {
+         *         "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+         *         "description": "applicant",
+         *         "email": "contact@urfu.ru",
+         *         "employer": {
+         *           "birth_date": "2000-01-01",
+         *           "email": "username@domain.org",
+         *           "fullname": "Иванов Иван Иванович",
+         *           "id": "756",
+         *           "phone": "+78001234567",
+         *           "role": "applicant"
+         *         },
+         *         "id": "756",
+         *         "logo": "/uploads/urfu.png",
+         *         "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+         *         "phone": "+7001005044",
+         *         "social_link": "https://vk.com/ural.federal.university",
+         *         "website": "https://urfu.me"
+         *       },
+         *       "proposed_salary": "20000",
+         *       "published": true,
+         *       "reviewed": true,
+         *       "title": "Работник",
+         *       "work_schedules": [
+         *         "full_time"
+         *       ]
+         *     }
+         */
+        vacancy: {
+          description: string
+          /** @enum {string} */
+          education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+          employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+          /** @enum {string} */
+          field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+          id: number
+          min_years_of_work_experience: number
+          /**
+           * Organization
+           * @example {
+           *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+           *       "description": "applicant",
+           *       "email": "contact@urfu.ru",
+           *       "employer": {
+           *         "birth_date": "2000-01-01",
+           *         "email": "username@domain.org",
+           *         "fullname": "Иванов Иван Иванович",
+           *         "id": "756",
+           *         "phone": "+78001234567",
+           *         "role": "applicant"
+           *       },
+           *       "id": "756",
+           *       "logo": "/uploads/urfu.png",
+           *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+           *       "phone": "+7001005044",
+           *       "social_link": "https://vk.com/ural.federal.university",
+           *       "website": "https://urfu.me"
+           *     }
+           */
+          organization: {
+            address: string
+            description: string
+            email: string
+            /**
+             * User
+             * @example {
+             *       "birth_date": "2000-01-01",
+             *       "email": "username@domain.org",
+             *       "fullname": "Иванов Иван Иванович",
+             *       "id": "756",
+             *       "phone": "+78001234567",
+             *       "role": "applicant"
+             *     }
+             */
+            employer: {
+              /** Format: date */
+              birth_date: string
+              /** @description User email
+               *
+               *     - Must be no longer than 160 characters
+               *     - Must have the @ sign and no spaces
+               *     - Must be unique
+               *
+               *     Same email can't be used to create accounts with different roles.
+               *      */
+              email: string
+              fullname: string
+              id: number
+              /**
+               * @description Phone number
+               *
+               *     - Must contain 12 characters
+               *     - Must begin with "+7"
+               *
+               * @example +79001234567
+               */
+              phone: string
+              /** @enum {string} */
+              role: 'admin' | 'applicant' | 'employer'
+            }
+            id: number
+            logo: string
+            name: string
+            /**
+             * @description Phone number
+             *
+             *     - Must contain 12 characters
+             *     - Must begin with "+7"
+             *
+             * @example +79001234567
+             */
+            phone: string
+            social_link: string
+            website: string
+          }
+          proposed_salary: number | null
+          published: boolean
+          reviewed: boolean
+          title: string
+          work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+        }
+      }[]
+    }
+    /**
+     * VacancyResponse
+     * @example {
+     *       "data": {
+     *         "description": "Ищем очень хорошего работника!",
+     *         "education": "bachelor",
+     *         "employment_types": [
+     *           "main"
+     *         ],
+     *         "field_of_art": "other",
+     *         "id": "756",
+     *         "min_years_of_work_experience": 5,
+     *         "organization": {
+     *           "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+     *           "description": "applicant",
+     *           "email": "contact@urfu.ru",
+     *           "employer": {
+     *             "birth_date": "2000-01-01",
+     *             "email": "username@domain.org",
+     *             "fullname": "Иванов Иван Иванович",
+     *             "id": "756",
+     *             "phone": "+78001234567",
+     *             "role": "applicant"
+     *           },
+     *           "id": "756",
+     *           "logo": "/uploads/urfu.png",
+     *           "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *           "phone": "+7001005044",
+     *           "social_link": "https://vk.com/ural.federal.university",
+     *           "website": "https://urfu.me"
+     *         },
+     *         "proposed_salary": "20000",
+     *         "published": true,
+     *         "reviewed": true,
+     *         "title": "Работник",
+     *         "work_schedules": [
+     *           "full_time"
+     *         ]
+     *       }
+     *     }
+     */
+    VacancyResponse: {
+      /**
+       * Vacancy
+       * @example {
+       *       "description": "Ищем очень хорошего работника!",
+       *       "education": "bachelor",
+       *       "employment_types": [
+       *         "main"
+       *       ],
+       *       "field_of_art": "other",
+       *       "id": "756",
+       *       "min_years_of_work_experience": 5,
+       *       "organization": {
+       *         "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+       *         "description": "applicant",
+       *         "email": "contact@urfu.ru",
+       *         "employer": {
+       *           "birth_date": "2000-01-01",
+       *           "email": "username@domain.org",
+       *           "fullname": "Иванов Иван Иванович",
+       *           "id": "756",
+       *           "phone": "+78001234567",
+       *           "role": "applicant"
+       *         },
+       *         "id": "756",
+       *         "logo": "/uploads/urfu.png",
+       *         "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+       *         "phone": "+7001005044",
+       *         "social_link": "https://vk.com/ural.federal.university",
+       *         "website": "https://urfu.me"
+       *       },
+       *       "proposed_salary": "20000",
+       *       "published": true,
+       *       "reviewed": true,
+       *       "title": "Работник",
+       *       "work_schedules": [
+       *         "full_time"
+       *       ]
+       *     }
+       */
+      data: {
+        description: string
+        /** @enum {string} */
+        education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        id: number
+        min_years_of_work_experience: number
+        /**
+         * Organization
+         * @example {
+         *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+         *       "description": "applicant",
+         *       "email": "contact@urfu.ru",
+         *       "employer": {
+         *         "birth_date": "2000-01-01",
+         *         "email": "username@domain.org",
+         *         "fullname": "Иванов Иван Иванович",
+         *         "id": "756",
+         *         "phone": "+78001234567",
+         *         "role": "applicant"
+         *       },
+         *       "id": "756",
+         *       "logo": "/uploads/urfu.png",
+         *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+         *       "phone": "+7001005044",
+         *       "social_link": "https://vk.com/ural.federal.university",
+         *       "website": "https://urfu.me"
+         *     }
+         */
+        organization: {
+          address: string
+          description: string
+          email: string
+          /**
+           * User
+           * @example {
+           *       "birth_date": "2000-01-01",
+           *       "email": "username@domain.org",
+           *       "fullname": "Иванов Иван Иванович",
+           *       "id": "756",
+           *       "phone": "+78001234567",
+           *       "role": "applicant"
+           *     }
+           */
+          employer: {
+            /** Format: date */
+            birth_date: string
+            /** @description User email
+             *
+             *     - Must be no longer than 160 characters
+             *     - Must have the @ sign and no spaces
+             *     - Must be unique
+             *
+             *     Same email can't be used to create accounts with different roles.
+             *      */
+            email: string
+            fullname: string
+            id: number
+            /**
+             * @description Phone number
+             *
+             *     - Must contain 12 characters
+             *     - Must begin with "+7"
+             *
+             * @example +79001234567
+             */
+            phone: string
+            /** @enum {string} */
+            role: 'admin' | 'applicant' | 'employer'
+          }
+          id: number
+          logo: string
+          name: string
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
+          phone: string
+          social_link: string
+          website: string
+        }
+        proposed_salary: number | null
+        published: boolean
+        reviewed: boolean
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
       }
     }
     /**
      * User
      * @example {
-     *   "birth_date": "2000-01-01",
-     *   "email": "username@domain.org",
-     *   "fullname": "Иванов Иван Иванович",
-     *   "id": "756",
-     *   "phone": "+78001234567",
-     *   "role": "applicant"
-     * }
+     *       "birth_date": "2000-01-01",
+     *       "email": "username@domain.org",
+     *       "fullname": "Иванов Иван Иванович",
+     *       "id": "756",
+     *       "phone": "+78001234567",
+     *       "role": "applicant"
+     *     }
      */
     User: {
       /** Format: date */
       birth_date: string
+      /** @description User email
+       *
+       *     - Must be no longer than 160 characters
+       *     - Must have the @ sign and no spaces
+       *     - Must be unique
+       *
+       *     Same email can't be used to create accounts with different roles.
+       *      */
       email: string
       fullname: string
       id: number
-      /** Format: phone */
+      /**
+       * @description Phone number
+       *
+       *     - Must contain 12 characters
+       *     - Must begin with "+7"
+       *
+       * @example +79001234567
+       */
       phone: string
       /** @enum {string} */
       role: 'admin' | 'applicant' | 'employer'
     }
     /**
+     * CreateVacancyRequest
+     * @example {
+     *       "vacancy": {
+     *         "description": "Ищем очень хорошего работника!",
+     *         "education": "bachelor",
+     *         "employment_types": [
+     *           "main"
+     *         ],
+     *         "field_of_art": "other",
+     *         "min_years_of_work_experience": 5,
+     *         "proposed_salary": "20000",
+     *         "published": true,
+     *         "title": "Работник",
+     *         "work_schedules": [
+     *           "full_time"
+     *         ]
+     *       }
+     *     }
+     */
+    CreateVacancyRequest: {
+      vacancy: {
+        description: string
+        /** @enum {string} */
+        education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        min_years_of_work_experience?: number
+        proposed_salary?: number | null
+        published?: boolean
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      }
+    }
+    /**
      * UserCredentials
      * @example {
-     *   "user": {
-     *     "email": "username@domain.org",
-     *     "password": "123456qwerty"
-     *   }
-     * }
+     *       "user": {
+     *         "email": "username@domain.org",
+     *         "password": "123456qwerty"
+     *       }
+     *     }
      */
     UserCredentials: {
       user: {
+        /** @description User email
+         *
+         *     - Must be no longer than 160 characters
+         *     - Must have the @ sign and no spaces
+         *     - Must be unique
+         *
+         *     Same email can't be used to create accounts with different roles.
+         *      */
         email: string
         password: string
       }
     }
     /**
-     * UserResponse
+     * CreateOrganizationRequest
      * @example {
-     *   "data": {
-     *     "birth_date": "2000-01-01",
-     *     "email": "username@domain.org",
-     *     "fullname": "Иванов Иван Иванович",
-     *     "id": "756",
-     *     "phone": "+78001234567",
-     *     "role": "applicant"
-     *   }
-     * }
+     *       "organization": {
+     *         "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+     *         "description": "applicant",
+     *         "email": "contact@urfu.ru",
+     *         "logo": "/uploads/urfu.png",
+     *         "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *         "phone": "+7001005044",
+     *         "social_link": "https://vk.com/ural.federal.university",
+     *         "website": "https://urfu.me"
+     *       }
+     *     }
      */
-    UserResponse: {
-      /**
-       * User
-       * @example {
-       *   "birth_date": "2000-01-01",
-       *   "email": "username@domain.org",
-       *   "fullname": "Иванов Иван Иванович",
-       *   "id": "756",
-       *   "phone": "+78001234567",
-       *   "role": "applicant"
-       * }
-       */
-      data: {
-        /** Format: date */
-        birth_date: string
-        email: string
-        fullname: string
-        id: number
-        /** Format: phone */
+    CreateOrganizationRequest: {
+      organization: {
+        address?: string
+        description: string
+        email?: string
+        logo?: string
+        name: string
+        /**
+         * @description Phone number
+         *
+         *     - Must contain 12 characters
+         *     - Must begin with "+7"
+         *
+         * @example +79001234567
+         */
         phone: string
-        /** @enum {string} */
-        role: 'admin' | 'applicant' | 'employer'
+        social_link?: string
+        website?: string
       }
     }
     /**
-     * VacanciesQueryResponse
+     * MessageResponse
      * @example {
-     *   "data": [
-     *     {
+     *       "author_id": 1,
+     *       "created_at": "2021-01-01T00:00:00Z",
+     *       "id": 1,
+     *       "text": "I am interested in this vacancy"
+     *     }
+     */
+    MessageResponse: {
+      author_id: number
+      /** Format: datetime */
+      created_at: string
+      id: number
+      text: string
+    }
+    /**
+     * Vacancy
+     * @example {
      *       "description": "Ищем очень хорошего работника!",
      *       "education": "bachelor",
      *       "employment_types": [
@@ -2156,141 +3507,6 @@ export interface components {
      *         "full_time"
      *       ]
      *     }
-     *   ],
-     *   "page": {
-     *     "page_number": 1,
-     *     "page_size": 10,
-     *     "total_entries": 23,
-     *     "total_pages": 3
-     *   }
-     * }
-     */
-    VacanciesQueryResponse: {
-      data: {
-        description: string
-        /** @enum {string} */
-        education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
-        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
-        /** @enum {string} */
-        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
-        id: number
-        /** @default 0 */
-        min_years_of_work_experience: number
-        /**
-         * Organization
-         * @example {
-         *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-         *   "description": "applicant",
-         *   "email": "contact@urfu.ru",
-         *   "employer": {
-         *     "birth_date": "2000-01-01",
-         *     "email": "username@domain.org",
-         *     "fullname": "Иванов Иван Иванович",
-         *     "id": "756",
-         *     "phone": "+78001234567",
-         *     "role": "applicant"
-         *   },
-         *   "id": "756",
-         *   "logo": "/uploads/urfu.png",
-         *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-         *   "phone": "+7001005044",
-         *   "social_link": "https://vk.com/ural.federal.university",
-         *   "website": "https://urfu.me"
-         * }
-         */
-        organization: {
-          address: string
-          description: string
-          email: string
-          /**
-           * User
-           * @example {
-           *   "birth_date": "2000-01-01",
-           *   "email": "username@domain.org",
-           *   "fullname": "Иванов Иван Иванович",
-           *   "id": "756",
-           *   "phone": "+78001234567",
-           *   "role": "applicant"
-           * }
-           */
-          employer: {
-            /** Format: date */
-            birth_date: string
-            email: string
-            fullname: string
-            id: number
-            /** Format: phone */
-            phone: string
-            /** @enum {string} */
-            role: 'admin' | 'applicant' | 'employer'
-          }
-          id: number
-          logo: string
-          name: string
-          phone: string
-          social_link: string
-          website: string
-        }
-        proposed_salary: number | null
-        published: boolean
-        reviewed: boolean
-        title: string
-        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
-      }[]
-      /**
-       * Page
-       * @example {
-       *   "page_number": 1,
-       *   "page_size": 10,
-       *   "total_entries": 23,
-       *   "total_pages": 3
-       * }
-       */
-      page: {
-        page_number: number
-        page_size: number
-        total_entries: number
-        total_pages: number
-      }
-    }
-    /**
-     * Vacancy
-     * @example {
-     *   "description": "Ищем очень хорошего работника!",
-     *   "education": "bachelor",
-     *   "employment_types": [
-     *     "main"
-     *   ],
-     *   "field_of_art": "other",
-     *   "id": "756",
-     *   "min_years_of_work_experience": 5,
-     *   "organization": {
-     *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *     "description": "applicant",
-     *     "email": "contact@urfu.ru",
-     *     "employer": {
-     *       "birth_date": "2000-01-01",
-     *       "email": "username@domain.org",
-     *       "fullname": "Иванов Иван Иванович",
-     *       "id": "756",
-     *       "phone": "+78001234567",
-     *       "role": "applicant"
-     *     },
-     *     "id": "756",
-     *     "logo": "/uploads/urfu.png",
-     *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-     *     "phone": "+7001005044",
-     *     "social_link": "https://vk.com/ural.federal.university",
-     *     "website": "https://urfu.me"
-     *   },
-     *   "proposed_salary": "20000",
-     *   "published": true,
-     *   "reviewed": true,
-     *   "title": "Работник",
-     *   "work_schedules": [
-     *     "full_time"
-     *   ]
-     * }
      */
     Vacancy: {
       description: string
@@ -2300,29 +3516,28 @@ export interface components {
       /** @enum {string} */
       field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
       id: number
-      /** @default 0 */
       min_years_of_work_experience: number
       /**
        * Organization
        * @example {
-       *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-       *   "description": "applicant",
-       *   "email": "contact@urfu.ru",
-       *   "employer": {
-       *     "birth_date": "2000-01-01",
-       *     "email": "username@domain.org",
-       *     "fullname": "Иванов Иван Иванович",
-       *     "id": "756",
-       *     "phone": "+78001234567",
-       *     "role": "applicant"
-       *   },
-       *   "id": "756",
-       *   "logo": "/uploads/urfu.png",
-       *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-       *   "phone": "+7001005044",
-       *   "social_link": "https://vk.com/ural.federal.university",
-       *   "website": "https://urfu.me"
-       * }
+       *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+       *       "description": "applicant",
+       *       "email": "contact@urfu.ru",
+       *       "employer": {
+       *         "birth_date": "2000-01-01",
+       *         "email": "username@domain.org",
+       *         "fullname": "Иванов Иван Иванович",
+       *         "id": "756",
+       *         "phone": "+78001234567",
+       *         "role": "applicant"
+       *       },
+       *       "id": "756",
+       *       "logo": "/uploads/urfu.png",
+       *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+       *       "phone": "+7001005044",
+       *       "social_link": "https://vk.com/ural.federal.university",
+       *       "website": "https://urfu.me"
+       *     }
        */
       organization: {
         address: string
@@ -2331,21 +3546,36 @@ export interface components {
         /**
          * User
          * @example {
-         *   "birth_date": "2000-01-01",
-         *   "email": "username@domain.org",
-         *   "fullname": "Иванов Иван Иванович",
-         *   "id": "756",
-         *   "phone": "+78001234567",
-         *   "role": "applicant"
-         * }
+         *       "birth_date": "2000-01-01",
+         *       "email": "username@domain.org",
+         *       "fullname": "Иванов Иван Иванович",
+         *       "id": "756",
+         *       "phone": "+78001234567",
+         *       "role": "applicant"
+         *     }
          */
         employer: {
           /** Format: date */
           birth_date: string
+          /** @description User email
+           *
+           *     - Must be no longer than 160 characters
+           *     - Must have the @ sign and no spaces
+           *     - Must be unique
+           *
+           *     Same email can't be used to create accounts with different roles.
+           *      */
           email: string
           fullname: string
           id: number
-          /** Format: phone */
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
           phone: string
           /** @enum {string} */
           role: 'admin' | 'applicant' | 'employer'
@@ -2353,6 +3583,14 @@ export interface components {
         id: number
         logo: string
         name: string
+        /**
+         * @description Phone number
+         *
+         *     - Must contain 12 characters
+         *     - Must begin with "+7"
+         *
+         * @example +79001234567
+         */
         phone: string
         social_link: string
         website: string
@@ -2364,22 +3602,212 @@ export interface components {
       work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
     }
     /**
-     * VacancyResponse
+     * SendInterestRequest
      * @example {
-     *   "data": {
-     *     "description": "Ищем очень хорошего работника!",
-     *     "education": "bachelor",
-     *     "employment_types": [
-     *       "main"
-     *     ],
-     *     "field_of_art": "other",
-     *     "id": "756",
-     *     "min_years_of_work_experience": 5,
-     *     "organization": {
-     *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-     *       "description": "applicant",
-     *       "email": "contact@urfu.ru",
-     *       "employer": {
+     *       "cv_id": 612,
+     *       "vacancy_id": 219
+     *     }
+     */
+    SendInterestRequest: {
+      cv_id: number
+      vacancy_id: number
+    }
+    /**
+     * UserResponse
+     * @example {
+     *       "data": {
+     *         "birth_date": "2000-01-01",
+     *         "email": "username@domain.org",
+     *         "fullname": "Иванов Иван Иванович",
+     *         "id": "756",
+     *         "phone": "+78001234567",
+     *         "role": "applicant"
+     *       }
+     *     }
+     */
+    UserResponse: {
+      /**
+       * User
+       * @example {
+       *       "birth_date": "2000-01-01",
+       *       "email": "username@domain.org",
+       *       "fullname": "Иванов Иван Иванович",
+       *       "id": "756",
+       *       "phone": "+78001234567",
+       *       "role": "applicant"
+       *     }
+       */
+      data: {
+        /** Format: date */
+        birth_date: string
+        /** @description User email
+         *
+         *     - Must be no longer than 160 characters
+         *     - Must have the @ sign and no spaces
+         *     - Must be unique
+         *
+         *     Same email can't be used to create accounts with different roles.
+         *      */
+        email: string
+        fullname: string
+        id: number
+        /**
+         * @description Phone number
+         *
+         *     - Must contain 12 characters
+         *     - Must begin with "+7"
+         *
+         * @example +79001234567
+         */
+        phone: string
+        /** @enum {string} */
+        role: 'admin' | 'applicant' | 'employer'
+      }
+    }
+    /**
+     * UpdateUserInfoRequest
+     * @example {
+     *       "user": {
+     *         "birth_date": "2000-01-01",
+     *         "fullname": "Иванов Иван Иванович",
+     *         "phone": "+78001234567"
+     *       }
+     *     }
+     */
+    UpdateUserInfoRequest: {
+      user: {
+        /** Format: date */
+        birth_date?: string
+        fullname?: string
+        /**
+         * @description Phone number
+         *
+         *     - Must contain 12 characters
+         *     - Must begin with "+7"
+         *
+         * @example +79001234567
+         */
+        phone?: string
+      }
+    }
+    /**
+     * CreateCVRequest
+     * @example {
+     *       "cv": {
+     *         "educations": [
+     *           {
+     *             "department": null,
+     *             "educational_institution": "УрФУ",
+     *             "level": "secondary",
+     *             "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *             "year_of_graduation": 2024
+     *           }
+     *         ],
+     *         "employment_types": [
+     *           "main"
+     *         ],
+     *         "field_of_art": "music",
+     *         "jobs": [
+     *           {
+     *             "description": "Преподавал предмет",
+     *             "end_date": "2024-02-01",
+     *             "job_title": "Преподаватель",
+     *             "organization_name": "УрФУ",
+     *             "start_date": "2022-12-01"
+     *           }
+     *         ],
+     *         "photo": "/uploads/photo.png",
+     *         "published": true,
+     *         "reviewed": true,
+     *         "summary": "Я очень хорошо играю на фортепиано.",
+     *         "title": "Педагог по фортепиано",
+     *         "work_schedules": [
+     *           "full_time"
+     *         ]
+     *       }
+     *     }
+     */
+    CreateCVRequest: {
+      cv: {
+        educations: {
+          department: string | null
+          educational_institution: string | null
+          /** @enum {string} */
+          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+          specialization: string | null
+          year_of_graduation: number | null
+        }[]
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        jobs: {
+          description?: string | null
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          end_date: string
+          job_title?: string | null
+          organization_name?: string | null
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          start_date: string
+        }[]
+        photo?: string
+        published?: boolean
+        reviewed: boolean
+        summary: string
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      }
+    }
+    /**
+     * CreateUserRequest
+     * @example {
+     *       "user": {
+     *         "birth_date": "2000-01-01",
+     *         "email": "username@domain.org",
+     *         "fullname": "Иванов Иван Иванович",
+     *         "password": "123456qwerty",
+     *         "phone": "+78001234567",
+     *         "role": "applicant"
+     *       }
+     *     }
+     */
+    CreateUserRequest: {
+      user: {
+        /** Format: date */
+        birth_date: string
+        /** @description User email
+         *
+         *     - Must be no longer than 160 characters
+         *     - Must have the @ sign and no spaces
+         *     - Must be unique
+         *
+         *     Same email can't be used to create accounts with different roles.
+         *      */
+        email: string
+        fullname: string
+        password: string
+        /**
+         * @description Phone number
+         *
+         *     - Must contain 12 characters
+         *     - Must begin with "+7"
+         *
+         * @example +79001234567
+         */
+        phone: string
+        /** @enum {string} */
+        role: 'applicant' | 'employer'
+      }
+    }
+    /**
+     * CV
+     * @example {
+     *       "applicant": {
      *         "birth_date": "2000-01-01",
      *         "email": "username@domain.org",
      *         "fullname": "Иванов Иван Иванович",
@@ -2387,150 +3815,195 @@ export interface components {
      *         "phone": "+78001234567",
      *         "role": "applicant"
      *       },
-     *       "id": "756",
-     *       "logo": "/uploads/urfu.png",
-     *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-     *       "phone": "+7001005044",
-     *       "social_link": "https://vk.com/ural.federal.university",
-     *       "website": "https://urfu.me"
-     *     },
-     *     "proposed_salary": "20000",
-     *     "published": true,
-     *     "reviewed": true,
-     *     "title": "Работник",
-     *     "work_schedules": [
-     *       "full_time"
-     *     ]
-     *   }
-     * }
+     *       "educations": [
+     *         {
+     *           "department": null,
+     *           "educational_institution": "УрФУ",
+     *           "level": "secondary",
+     *           "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *           "year_of_graduation": 2024
+     *         }
+     *       ],
+     *       "employment_types": [
+     *         "main"
+     *       ],
+     *       "field_of_art": "music",
+     *       "id": 521,
+     *       "jobs": [
+     *         {
+     *           "description": "Преподавал предмет",
+     *           "end_date": "2024-02-01",
+     *           "job_title": "Преподаватель",
+     *           "organization_name": "УрФУ",
+     *           "start_date": "2022-12-01"
+     *         }
+     *       ],
+     *       "photo": "/uploads/photo.png",
+     *       "published": true,
+     *       "reviewed": true,
+     *       "summary": "Я очень хорошо играю на фортепиано.",
+     *       "title": "Педагог по фортепиано",
+     *       "work_schedules": [
+     *         "full_time"
+     *       ]
+     *     }
      */
-    VacancyResponse: {
+    CV: {
       /**
-       * Vacancy
+       * User
        * @example {
-       *   "description": "Ищем очень хорошего работника!",
-       *   "education": "bachelor",
-       *   "employment_types": [
-       *     "main"
-       *   ],
-       *   "field_of_art": "other",
-       *   "id": "756",
-       *   "min_years_of_work_experience": 5,
-       *   "organization": {
-       *     "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-       *     "description": "applicant",
-       *     "email": "contact@urfu.ru",
-       *     "employer": {
        *       "birth_date": "2000-01-01",
        *       "email": "username@domain.org",
        *       "fullname": "Иванов Иван Иванович",
        *       "id": "756",
        *       "phone": "+78001234567",
        *       "role": "applicant"
-       *     },
-       *     "id": "756",
-       *     "logo": "/uploads/urfu.png",
-       *     "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-       *     "phone": "+7001005044",
-       *     "social_link": "https://vk.com/ural.federal.university",
-       *     "website": "https://urfu.me"
-       *   },
-       *   "proposed_salary": "20000",
-       *   "published": true,
-       *   "reviewed": true,
-       *   "title": "Работник",
-       *   "work_schedules": [
-       *     "full_time"
-       *   ]
-       * }
+       *     }
        */
-      data: {
-        description: string
-        /** @enum {string} */
-        education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
-        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
-        /** @enum {string} */
-        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+      applicant: {
+        /** Format: date */
+        birth_date: string
+        /** @description User email
+         *
+         *     - Must be no longer than 160 characters
+         *     - Must have the @ sign and no spaces
+         *     - Must be unique
+         *
+         *     Same email can't be used to create accounts with different roles.
+         *      */
+        email: string
+        fullname: string
         id: number
-        /** @default 0 */
-        min_years_of_work_experience: number
         /**
-         * Organization
-         * @example {
-         *   "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
-         *   "description": "applicant",
-         *   "email": "contact@urfu.ru",
-         *   "employer": {
-         *     "birth_date": "2000-01-01",
-         *     "email": "username@domain.org",
-         *     "fullname": "Иванов Иван Иванович",
-         *     "id": "756",
-         *     "phone": "+78001234567",
-         *     "role": "applicant"
-         *   },
-         *   "id": "756",
-         *   "logo": "/uploads/urfu.png",
-         *   "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
-         *   "phone": "+7001005044",
-         *   "social_link": "https://vk.com/ural.federal.university",
-         *   "website": "https://urfu.me"
-         * }
+         * @description Phone number
+         *
+         *     - Must contain 12 characters
+         *     - Must begin with "+7"
+         *
+         * @example +79001234567
          */
-        organization: {
-          address: string
-          description: string
-          email: string
-          /**
-           * User
-           * @example {
-           *   "birth_date": "2000-01-01",
-           *   "email": "username@domain.org",
-           *   "fullname": "Иванов Иван Иванович",
-           *   "id": "756",
-           *   "phone": "+78001234567",
-           *   "role": "applicant"
-           * }
-           */
-          employer: {
-            /** Format: date */
-            birth_date: string
-            email: string
-            fullname: string
-            id: number
-            /** Format: phone */
-            phone: string
-            /** @enum {string} */
-            role: 'admin' | 'applicant' | 'employer'
-          }
-          id: number
-          logo: string
-          name: string
-          phone: string
-          social_link: string
-          website: string
-        }
-        proposed_salary: number | null
-        published: boolean
-        reviewed: boolean
-        title: string
-        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+        phone: string
+        /** @enum {string} */
+        role: 'admin' | 'applicant' | 'employer'
       }
+      educations: {
+        department: string | null
+        educational_institution: string | null
+        /** @enum {string} */
+        level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+        specialization: string | null
+        year_of_graduation: number | null
+      }[]
+      employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+      /** @enum {string} */
+      field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+      id: number
+      jobs: {
+        description?: string | null
+        /**
+         * Format: date
+         * @description day should be ignored
+         */
+        end_date: string
+        job_title?: string | null
+        organization_name?: string | null
+        /**
+         * Format: date
+         * @description day should be ignored
+         */
+        start_date: string
+      }[]
+      photo: string
+      published: boolean
+      reviewed: boolean
+      summary: string
+      title: string
+      work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
     }
   }
-  responses: object
+  responses: never
   parameters: never
   requestBodies: never
   headers: never
   pathItems: never
 }
-
 export type $defs = Record<string, never>
-
-export type external = Record<string, never>
-
 export interface operations {
-  /** Create CV */
+  'CenWeb.ChatController.index': {
+    parameters: {
+      query?: {
+        /** @description Page number */
+        page?: number
+        /** @description Page size */
+        page_size?: number
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Chats list */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ChatsListResponse']
+        }
+      }
+      /** @description Changeset errors */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ChangesetErrorsResponse']
+        }
+      }
+    }
+  }
+  'CenWeb.ChatController.send_message': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description Message params */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['SendMessageRequest']
+      }
+    }
+    responses: {
+      /** @description Chats list */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['MessageResponse']
+        }
+      }
+      /** @description Changeset errors */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ChangesetErrorsResponse']
+        }
+      }
+    }
+  }
   'CenWeb.CVController.create': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** @description CV params */
     requestBody?: {
       content: {
@@ -2540,31 +4013,42 @@ export interface operations {
     responses: {
       /** @description Created CV */
       201: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['CVResponse']
         }
       }
       /** @description Unauthorized */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description You are not employer */
       403: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description Changeset errors */
       422: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['ChangesetErrorsResponse']
         }
       }
     }
   }
-  /** Search CVs */
   'CenWeb.CVController.search': {
     parameters: {
       query?: {
@@ -2585,19 +4069,27 @@ export interface operations {
         /** @description Page size */
         page_size?: number
       }
+      header?: never
+      path?: never
+      cookie?: never
     }
+    requestBody?: never
     responses: {
       /** @description CVs list */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['CVsQueryResponse']
         }
       }
     }
   }
-  /** Get CV */
   'CenWeb.CVController.show': {
     parameters: {
+      query?: never
+      header?: never
       path: {
         /**
          * @description CV ID
@@ -2605,31 +4097,43 @@ export interface operations {
          */
         cv_id: number
       }
+      cookie?: never
     }
+    requestBody?: never
     responses: {
       /** @description Requested CV */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['CVResponse']
         }
       }
       /** @description Unauthorized */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description CV not found */
       404: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
     }
   }
-  /** Update CV */
   'CenWeb.CVController.update': {
     parameters: {
+      query?: never
+      header?: never
       path: {
         /**
          * @description CV ID
@@ -2637,6 +4141,7 @@ export interface operations {
          */
         cv_id: number
       }
+      cookie?: never
     }
     /** @description CV params */
     requestBody?: {
@@ -2647,33 +4152,46 @@ export interface operations {
     responses: {
       /** @description Requested CV */
       201: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['CVResponse']
         }
       }
       /** @description Unauthorized */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description You are not the owner */
       403: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description CV not found */
       404: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
     }
   }
-  /** Delete CV */
   'CenWeb.CVController.delete': {
     parameters: {
+      query?: never
+      header?: never
       path: {
         /**
          * @description CV ID
@@ -2681,29 +4199,41 @@ export interface operations {
          */
         cv_id: number
       }
+      cookie?: never
     }
+    requestBody?: never
     responses: {
       /** @description CV deleted */
       204: {
-        content: never
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
       /** @description Unauthorized */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description You are not the owner */
       403: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
     }
   }
-  /** Update CV */
   'CenWeb.CVController.update (2)': {
     parameters: {
+      query?: never
+      header?: never
       path: {
         /**
          * @description CV ID
@@ -2711,6 +4241,7 @@ export interface operations {
          */
         cv_id: number
       }
+      cookie?: never
     }
     /** @description CV params */
     requestBody?: {
@@ -2721,42 +4252,62 @@ export interface operations {
     responses: {
       /** @description Requested CV */
       201: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['CVResponse']
         }
       }
       /** @description Unauthorized */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description You are not the owner */
       403: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description CV not found */
       404: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
     }
   }
-  /** Check health */
   'CenWeb.HealthCheckController.check': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
     responses: {
       /** @description Health response */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['HealthCheckResponse']
         }
       }
     }
   }
-  /** Send interest to vacancy or CV */
   'CenWeb.InterestController.index': {
     parameters: {
       query: {
@@ -2766,41 +4317,68 @@ export interface operations {
         /** @description Page size */
         page_size?: number
       }
+      header?: never
+      path?: never
+      cookie?: never
     }
+    requestBody?: never
     responses: {
       /** @description Interest */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['InterestsListResponse']
         }
       }
     }
   }
-  /** Get current user's organization */
   'CenWeb.OrganizationController.show': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
     responses: {
       /** @description Requested organization */
       201: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['OrganizationResponse']
         }
       }
       /** @description Unauthorized */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description Organization not found */
       404: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
     }
   }
-  /** Update organization */
   'CenWeb.OrganizationController.update': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** @description Organization params */
     requestBody?: {
       content: {
@@ -2810,32 +4388,49 @@ export interface operations {
     responses: {
       /** @description Requested organization */
       201: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['OrganizationResponse']
         }
       }
       /** @description Unauthorized */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description You are not the owner */
       403: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description Organization not found */
       404: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
     }
   }
-  /** Create organization */
   'CenWeb.OrganizationController.create': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** @description Organization params */
     requestBody?: {
       content: {
@@ -2845,53 +4440,85 @@ export interface operations {
     responses: {
       /** @description Created organization */
       201: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['OrganizationResponse']
         }
       }
       /** @description Unauthorized */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description You are not employer */
       403: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description Changeset errors */
       422: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['ChangesetErrorsResponse']
         }
       }
     }
   }
-  /** Delete organization */
   'CenWeb.OrganizationController.delete': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
     responses: {
       /** @description Organization deleted */
       204: {
-        content: never
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
       /** @description Unauthorized */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description You are not the owner */
       403: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
     }
   }
-  /** Update organization */
   'CenWeb.OrganizationController.update (2)': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** @description Organization params */
     requestBody?: {
       content: {
@@ -2901,33 +4528,46 @@ export interface operations {
     responses: {
       /** @description Requested organization */
       201: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['OrganizationResponse']
         }
       }
       /** @description Unauthorized */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description You are not the owner */
       403: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description Organization not found */
       404: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
     }
   }
-  /** Get organization */
   'CenWeb.OrganizationController.show_by_id': {
     parameters: {
+      query?: never
+      header?: never
       path: {
         /**
          * @description Organization ID
@@ -2935,30 +4575,46 @@ export interface operations {
          */
         organization_id: number
       }
+      cookie?: never
     }
+    requestBody?: never
     responses: {
       /** @description Requested organization */
       201: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['OrganizationResponse']
         }
       }
       /** @description Unauthorized */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description Organization not found */
       404: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
     }
   }
-  /** Send interest to vacancy or CV */
   'CenWeb.InterestController.send_interest': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** @description credentials */
     requestBody?: {
       content: {
@@ -2968,14 +4624,22 @@ export interface operations {
     responses: {
       /** @description Interest */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['InterestResponse']
         }
       }
     }
   }
-  /** Get access token */
   'CenWeb.TokenController.create': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** @description credentials */
     requestBody?: {
       content: {
@@ -2985,20 +4649,31 @@ export interface operations {
     responses: {
       /** @description User's token */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['TokenResponse']
         }
       }
       /** @description Wrong email or password */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
     }
   }
-  /** Upload an image */
   'CenWeb.UploadsController.upload_image': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** @description The message */
     requestBody?: {
       content: {
@@ -3014,36 +4689,57 @@ export interface operations {
            * @example /path/to/image
            */
           location?: unknown
+          [name: string]: unknown
         }
-        content: never
+        content?: never
       }
       /** @description Unauthorized */
       401: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
       /** @description Changeset errors */
       422: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['ChangesetErrorsResponse']
         }
       }
     }
   }
-  /** Get current user */
   'CenWeb.UserController.show': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
     responses: {
       /** @description Requested user */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['UserResponse']
         }
       }
     }
   }
-  /** Create user */
   'CenWeb.UserController.create': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** @description User params */
     requestBody?: {
       content: {
@@ -3053,28 +4749,42 @@ export interface operations {
     responses: {
       /** @description Created user */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['UserResponse']
         }
       }
       /** @description Changeset errors */
       422: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['ChangesetErrorsResponse']
         }
       }
     }
   }
-  /** Delete user */
   'CenWeb.UserController.delete': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
     responses: {
       /** @description User deleted */
       204: {
-        content: never
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
     }
   }
-  /** Get user's CVs */
   'CenWeb.CVController.user_index': {
     parameters: {
       query?: {
@@ -3083,18 +4793,98 @@ export interface operations {
         /** @description Page size */
         page_size?: number
       }
+      header?: never
+      path?: never
+      cookie?: never
     }
+    requestBody?: never
     responses: {
       /** @description Vacancies list */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['CVsQueryResponse']
         }
       }
     }
   }
-  /** Update user */
+  'CenWeb.UserController.update_email': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description User email */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['UpdateUserEmailRequest']
+      }
+    }
+    responses: {
+      /** @description Updated user */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['UserResponse']
+        }
+      }
+      /** @description Changeset errors */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ChangesetErrorsResponse']
+        }
+      }
+    }
+  }
+  'CenWeb.UserController.update_email (2)': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description User email */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['UpdateUserEmailRequest']
+      }
+    }
+    responses: {
+      /** @description Updated user */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['UserResponse']
+        }
+      }
+      /** @description Changeset errors */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ChangesetErrorsResponse']
+        }
+      }
+    }
+  }
   'CenWeb.UserController.update_info': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** @description User params */
     requestBody?: {
       content: {
@@ -3104,20 +4894,31 @@ export interface operations {
     responses: {
       /** @description Updated user */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['UserResponse']
         }
       }
       /** @description Changeset errors */
       422: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['ChangesetErrorsResponse']
         }
       }
     }
   }
-  /** Update user */
   'CenWeb.UserController.update_info (2)': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** @description User params */
     requestBody?: {
       content: {
@@ -3127,19 +4928,92 @@ export interface operations {
     responses: {
       /** @description Updated user */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['UserResponse']
         }
       }
       /** @description Changeset errors */
       422: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['ChangesetErrorsResponse']
         }
       }
     }
   }
-  /** Get user's vacancies */
+  'CenWeb.UserController.update_password': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description User password */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['UpdateUserPasswordRequest']
+      }
+    }
+    responses: {
+      /** @description Updated user */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['UserResponse']
+        }
+      }
+      /** @description Changeset errors */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ChangesetErrorsResponse']
+        }
+      }
+    }
+  }
+  'CenWeb.UserController.update_password (2)': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description User password */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['UpdateUserPasswordRequest']
+      }
+    }
+    responses: {
+      /** @description Updated user */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['UserResponse']
+        }
+      }
+      /** @description Changeset errors */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ChangesetErrorsResponse']
+        }
+      }
+    }
+  }
   'CenWeb.VacancyController.user_index': {
     parameters: {
       query?: {
@@ -3148,18 +5022,30 @@ export interface operations {
         /** @description Page size */
         page_size?: number
       }
+      header?: never
+      path?: never
+      cookie?: never
     }
+    requestBody?: never
     responses: {
       /** @description Vacancies list */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['VacanciesQueryResponse']
         }
       }
     }
   }
-  /** Create vacancy */
   'CenWeb.VacancyController.create': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
     /** @description Vacancy params */
     requestBody?: {
       content: {
@@ -3169,23 +5055,31 @@ export interface operations {
     responses: {
       /** @description Created vacancy */
       201: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['VacancyResponse']
         }
       }
       /** @description Unauthorized */
       401: {
-        content: never
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
       /** @description Changeset errors */
       422: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['ChangesetErrorsResponse']
         }
       }
     }
   }
-  /** Search vacancies */
   'CenWeb.VacancyController.search': {
     parameters: {
       query?: {
@@ -3208,19 +5102,27 @@ export interface operations {
         /** @description Page size */
         page_size?: number
       }
+      header?: never
+      path?: never
+      cookie?: never
     }
+    requestBody?: never
     responses: {
       /** @description Vacancies list */
       200: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['VacanciesQueryResponse']
         }
       }
     }
   }
-  /** Get vacancy */
   'CenWeb.VacancyController.show': {
     parameters: {
+      query?: never
+      header?: never
       path: {
         /**
          * @description Vacancy ID
@@ -3228,29 +5130,41 @@ export interface operations {
          */
         vacancy_id: number
       }
+      cookie?: never
     }
+    requestBody?: never
     responses: {
       /** @description Requested vacancy */
       201: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['VacancyResponse']
         }
       }
       /** @description Unauthorized */
       401: {
-        content: never
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
       /** @description Vacancy not found */
       404: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
     }
   }
-  /** Update vacancy */
   'CenWeb.VacancyController.update': {
     parameters: {
+      query?: never
+      header?: never
       path: {
         /**
          * @description Vacancy ID
@@ -3258,6 +5172,7 @@ export interface operations {
          */
         vacancy_id: number
       }
+      cookie?: never
     }
     /** @description Vacancy params */
     requestBody?: {
@@ -3268,25 +5183,35 @@ export interface operations {
     responses: {
       /** @description Requested vacancy */
       201: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['VacancyResponse']
         }
       }
       /** @description Unauthorized */
       401: {
-        content: never
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
       /** @description Vacancy not found */
       404: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
       }
     }
   }
-  /** Delete vacancy */
   'CenWeb.VacancyController.delete': {
     parameters: {
+      query?: never
+      header?: never
       path: {
         /**
          * @description Vacancy ID
@@ -3294,21 +5219,30 @@ export interface operations {
          */
         vacancy_id: number
       }
+      cookie?: never
     }
+    requestBody?: never
     responses: {
       /** @description Vacancy deleted */
       204: {
-        content: never
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
       /** @description Unauthorized */
       401: {
-        content: never
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
     }
   }
-  /** Update vacancy */
   'CenWeb.VacancyController.update (2)': {
     parameters: {
+      query?: never
+      header?: never
       path: {
         /**
          * @description Vacancy ID
@@ -3316,6 +5250,7 @@ export interface operations {
          */
         vacancy_id: number
       }
+      cookie?: never
     }
     /** @description Vacancy params */
     requestBody?: {
@@ -3326,16 +5261,25 @@ export interface operations {
     responses: {
       /** @description Requested vacancy */
       201: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['VacancyResponse']
         }
       }
       /** @description Unauthorized */
       401: {
-        content: never
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
       /** @description Vacancy not found */
       404: {
+        headers: {
+          [name: string]: unknown
+        }
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }

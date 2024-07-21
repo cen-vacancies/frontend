@@ -17,6 +17,7 @@ import Responses from './presentations/pages/responses/responses.tsx'
 import VacancyListPage from './presentations/pages/vacancy-list/vacancy-list.tsx'
 import EmployerResponses from './presentations/pages/employer-responses/employer-responses.tsx'
 import OrganizationPage from './presentations/pages/organization/organization.tsx'
+import UserEditPage from './presentations/pages/user-edit/user-edit.tsx'
 
 const queryClient = new QueryClient()
 
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
   {
     path: '/employer/responses/received',
     element: <EmployerResponses type={'recieved'} />,
+  },
+  {
+    path: 'user/edit',
+    element: <UserEditPage />,
   },
 ])
 

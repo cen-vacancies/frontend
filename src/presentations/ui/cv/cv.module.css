@@ -68,7 +68,6 @@
 .image {
   width: 140px;
   height: 140px;
-  margin-bottom: 45px;
 
   background-color: #ffffff;
   border: 2px solid #a2c7e066;
@@ -91,4 +90,19 @@
 
 .exp {
   display: grid;
+}
+
+.topBlock {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 45px;
+}
+
+@media (--desktop-min-width) {
+  .topBlock {
+    margin-bottom: 75px;
+  }
 }

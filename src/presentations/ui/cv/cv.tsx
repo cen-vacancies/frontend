@@ -2,6 +2,7 @@ import { components } from '../../../domain/api/types/api-types.ts'
 
 import s from './cv.module.css'
 import { Link } from 'react-router-dom'
+import { ReactNode } from 'react'
 
 type Props = {
   data: components['schemas']['CV']
@@ -43,12 +44,16 @@ type OrgProps = {
   src?: string
   title?: string
   id?: number
+  children?: ReactNode
 }
-CV.Name = ({ src, title, id }: OrgProps) => {
+CV.Name = ({ src, title, id, children }: OrgProps) => {
   return (
     <div className={s.organization}>
-      <img className={s.image} src={src} />
-      <Link to={id ? `/organization/${id}` : ''} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <div className={s.topBlock}>
+        <img className={s.image} src={src} />
+        {children}
+      </div>
+      <Link to={id ? `/user/${id}` : ''} style={{ textDecoration: 'none', color: 'inherit' }}>
         <h1 className={s.orgName}>{title}</h1>
       </Link>
     </div>
