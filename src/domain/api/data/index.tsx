@@ -7,10 +7,18 @@ const apiCvs = `${apiUrl}/cvs`
 const apiOrganization = `${apiUrl}/organization`
 const apiChats = `${apiUrl}/chats`
 
+export type RequestErrorCode = 'fail_update_email' | 'unauthorized' | 'has already been taken' | 'fail_update_password'
+
+class ApiError extends Error {
+  constructor(message: RequestErrorCode) {
+    super(message)
+  }
+}
+
 const getRawToken = () => {
   const token = localStorage.getItem('token')
   if (!token) {
-    throw new Error('Unauthorized')
+    throw new Error('unauthorized')
   }
   return token
 }
@@ -201,6 +209,9 @@ export const user = {
   login,
   register,
   me,
+  updateBaseUserInfo,
+  updateUserEmail,
+  updateUserPassword,
 }
 
 async function me(): Promise<components['schemas']['UserResponse']> {
@@ -210,6 +221,9 @@ async function me(): Promise<components['schemas']['UserResponse']> {
       Authorization: getToken(),
     },
   })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
   return await response.json()
 }
 
@@ -221,6 +235,9 @@ async function login(email: string, password: string): Promise<components['schem
     },
     body: JSON.stringify({ user: { email, password } }),
   })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
   const res = (await response.json()) as components['schemas']['TokenResponse']
   localStorage.setItem('token', res.data.token)
 
@@ -237,7 +254,60 @@ async function register(
     },
     body: JSON.stringify({ user: data }),
   })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
 
+async function updateBaseUserInfo(
+  data: components['schemas']['UpdateUserInfoRequest']['user'],
+): Promise<components['schemas']['UserResponse']> {
+  const response = await fetch(`${apiUrl}/user/info`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ user: data }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function updateUserEmail(
+  data: components['schemas']['UpdateUserEmailRequest']['user'],
+): Promise<components['schemas']['UserResponse']> {
+  const response = await fetch(`${apiUrl}/user/email`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ user: data }),
+  })
+  if (!response.ok) {
+    throw new ApiError('fail_update_email')
+  }
+  return await response.json()
+}
+
+async function updateUserPassword(
+  data: components['schemas']['UpdateUserPasswordRequest']['user'],
+): Promise<components['schemas']['UserResponse']> {
+  const response = await fetch(`${apiUrl}/user/password`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ user: data }),
+  })
+  if (!response.ok) {
+    throw new ApiError('fail_update_password')
+  }
   return await response.json()
 }
 

@@ -7,14 +7,14 @@ import profileImage from '../../../assets/profile.png'
 import burgerImage from '../../../assets/burger.svg'
 
 import S from './header.module.css'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { UserContext } from '../../../context/user-context.tsx'
 import { Dropdown, MenuProps, Space } from 'antd'
 import cv from './assets/cv.svg'
 import respo from './assets/respo.svg'
 import work from './assets/work.svg'
 import vacancyIcon from './assets/vacancy.svg'
-import Chat from '../chat/chat.tsx'
+import { ChatContext } from '../../../context/chat-context.tsx'
 
 const applicantConfigCv: MenuProps['items'] = [
   {
@@ -82,29 +82,27 @@ const employerConfigRespo: MenuProps['items'] = [
 
 function Header() {
   const { pathname } = useLocation()
-  const [isChatOpen, setIsChatOpen] = useState(false)
   const navigate = useNavigate()
   const { user, organization } = useContext(UserContext)
+  const { open: handleOpenChat } = useContext(ChatContext)
 
   const isRegisterBlock = pathname === '/' || pathname === '/register' || pathname === '/login'
   const isApplicant = user?.role === 'applicant'
   const isEmployer = user?.role === 'employer'
 
-  const logoHandler = () => {
-    if (isRegisterBlock) {
-      navigate('/')
-    }
-    if (isApplicant) {
-      navigate('/applicant')
-    }
-    if (isEmployer) {
-      navigate('/employer')
-    }
+  let logoLink = '/'
+  if (isApplicant) {
+    logoLink = '/applicant'
+  }
+  if (isEmployer) {
+    logoLink = '/employer'
   }
 
   return (
     <div className={S.root}>
-      <img className={S.logo} src={logo} onClick={logoHandler} />
+      <Link to={logoLink}>
+        <img className={S.logo} src={logo} />
+      </Link>
       {isEmployer && (
         <Space style={{ display: 'flex', gap: '20px', marginLeft: '40px' }}>
           <Link to={organization ? `/organization/${organization.id}` : '/organization/create'} className={S.navLink}>
@@ -146,8 +144,8 @@ function Header() {
       <div className={S.buttons}>
         {!isRegisterBlock && (
           <>
-            <ImageLink src={messagesImage} onClick={() => setIsChatOpen(true)} />
-            <ImageLink src={profileImage} to={'#'} />
+            <ImageLink src={messagesImage} onClick={() => handleOpenChat()} />
+            <ImageLink src={profileImage} to={`/user/edit`} />
             <button className={S.burgerButton}>
               <img src={burgerImage} />
             </button>
@@ -164,7 +162,6 @@ function Header() {
           </>
         )}
       </div>
-      {isChatOpen && <Chat onClose={() => setIsChatOpen(false)} />}
     </div>
   )
 }

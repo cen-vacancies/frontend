@@ -8,6 +8,7 @@ import { cvs } from '../../../domain/api/data'
 import plusIcon from './assets/plus-circle-fill.svg'
 import minusIcon from './assets/minus-circle-fill.svg'
 import s from './create-cv-page.module.css'
+import Paragraph from 'antd/es/typography/Paragraph'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -89,7 +90,7 @@ function CreateCVPage({ isEdit }: Props) {
           <Form form={form} className={s.container} layout='vertical' onFinish={onSubmit}>
             <span className={s.heading}>Резюме</span>
             <Title level={5}>Какую работу ищете?*</Title>
-            <Form.Item name='title' rules={[{ required: true, message: 'Обязательное поле' }]}>
+            <Form.Item name='title' rules={[{ required: true, message: 'Обязательное поле' }, { max: 160 }]}>
               <Input placeholder='Должность' />
             </Form.Item>
 
@@ -108,7 +109,11 @@ function CreateCVPage({ isEdit }: Props) {
               </Select>
             </Form.Item>
 
-            <Form.Item name='summary' label='О себе*' rules={[{ required: true, message: 'Обязательное поле' }]}>
+            <Form.Item
+              name='summary'
+              label='О себе*'
+              rules={[{ required: true, message: 'Обязательное поле' }, { max: 2000 }]}
+            >
               <TextArea
                 style={{ minHeight: '110px' }}
                 autoSize
@@ -142,10 +147,20 @@ function CreateCVPage({ isEdit }: Props) {
                 </Checkbox.Group>
               </Form.Item>
             </Form.Item>
-            <Title level={5}>Образование</Title>
-
-            <Form.List name='educations'>
-              {(fields, { add, remove }) => (
+            <Title level={5}>Образование*</Title>
+            <Form.List
+              name='educations'
+              rules={[
+                {
+                  validator: (_rule, value) => {
+                    if (!value || value.length <= 0) {
+                      return Promise.reject(new Error('Добавьте место учебы'))
+                    }
+                  },
+                },
+              ]}
+            >
+              {(fields, { add, remove }, { errors }) => (
                 <>
                   {fields.map(({ key, name, ...restField }) => (
                     <Space key={key} style={{ display: 'flex', marginBottom: 8 }} direction='vertical'>
@@ -171,12 +186,17 @@ function CreateCVPage({ isEdit }: Props) {
                         {...restField}
                         name={[name, 'educational_institution']}
                         label='Название учебного заведения*'
-                        rules={[{ required: true, message: 'Обязательное поле' }]}
+                        rules={[{ required: true, message: 'Обязательное поле' }, { max: 160 }]}
                       >
                         <Input />
                       </Form.Item>
 
-                      <Form.Item {...restField} name={[name, 'department']} label='Факультет'>
+                      <Form.Item
+                        {...restField}
+                        name={[name, 'department']}
+                        label='Факультет*'
+                        rules={[{ required: true, message: 'Обязательное поле' }, { max: 160 }]}
+                      >
                         <Input />
                       </Form.Item>
 
@@ -184,7 +204,7 @@ function CreateCVPage({ isEdit }: Props) {
                         {...restField}
                         name={[name, 'specialization']}
                         label='Специализация*'
-                        rules={[{ required: true, message: 'Обязательное поле' }]}
+                        rules={[{ required: true, message: 'Обязательное поле' }, { max: 160 }]}
                       >
                         <Input />
                       </Form.Item>
@@ -200,7 +220,12 @@ function CreateCVPage({ isEdit }: Props) {
                     </Space>
                   ))}
                   <Form.Item>
-                    <AddFieldButton onClick={() => add()}>Добавить место учебы</AddFieldButton>
+                    <Space direction={'vertical'} size={0}>
+                      <AddFieldButton onClick={() => add()}>Добавить место учебы</AddFieldButton>
+                      <Paragraph style={{ margin: '-5px 0 0' }} type={'danger'}>
+                        {errors}
+                      </Paragraph>
+                    </Space>
                   </Form.Item>
                 </>
               )}
@@ -219,19 +244,19 @@ function CreateCVPage({ isEdit }: Props) {
                         {...restField}
                         name={[name, 'organization_name']}
                         label='Организация'
-                        rules={[{ required: true, message: 'Обязательное поле' }]}
+                        rules={[{ max: 160 }]}
                       >
+                        <Input />
+                      </Form.Item>
+                      <Form.Item {...restField} name={[name, 'job_title']} label='Должность' rules={[{ max: 160 }]}>
                         <Input />
                       </Form.Item>
                       <Form.Item
                         {...restField}
-                        name={[name, 'job_title']}
-                        label='Должность'
-                        rules={[{ required: true, message: 'Обязательное поле' }]}
+                        name={[name, 'description']}
+                        label='Обязанности, достижения'
+                        rules={[{ max: 1000 }]}
                       >
-                        <Input />
-                      </Form.Item>
-                      <Form.Item {...restField} name={[name, 'description']} label='Обязанности, достижения'>
                         <TextArea style={{ minHeight: '110px' }} autoSize />
                       </Form.Item>
                       <Form.Item

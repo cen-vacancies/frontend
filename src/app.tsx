@@ -15,9 +15,9 @@ import UserContextProvider from './context/user-context.tsx'
 import CvListPage from './presentations/pages/cv-list/cv-list.tsx'
 import Responses from './presentations/pages/responses/responses.tsx'
 import VacancyListPage from './presentations/pages/vacancy-list/vacancy-list.tsx'
-import EmployerResponses from './presentations/pages/employer-responses/employer-responses.tsx'
 import OrganizationPage from './presentations/pages/organization/organization.tsx'
 import UserEditPage from './presentations/pages/user-edit/user-edit.tsx'
+import ChatContextProvider from './context/chat-context.tsx'
 
 const queryClient = new QueryClient()
 
@@ -104,11 +104,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/employer/responses/send',
-    element: <EmployerResponses type={'sended'} />,
+    element: <Responses type={'sended'} />,
   },
   {
     path: '/employer/responses/received',
-    element: <EmployerResponses type={'recieved'} />,
+    element: <Responses type={'recieved'} />,
   },
   {
     path: 'user/edit',
@@ -126,6 +126,7 @@ function App() {
           colorBorder: '#A2C7E0',
           colorPrimaryBorderHover: '#A2C7E0',
           borderRadius: 10,
+          screenLG: 1024,
 
           colorBgContainer: '#FFFFFF',
         },
@@ -138,7 +139,9 @@ function App() {
     >
       <UserContextProvider>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
+          <ChatContextProvider>
+            <RouterProvider router={router} />
+          </ChatContextProvider>
         </QueryClientProvider>
       </UserContextProvider>
     </ConfigProvider>

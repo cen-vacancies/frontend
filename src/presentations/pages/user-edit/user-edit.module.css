@@ -1,0 +1,37 @@
+@import url('../../components/breakpoints-tokens/breakpoints-tokens.css');
+
+.tabDesktop {
+  display: none;
+}
+
+@media (--desktop-min-width) {
+  .tabDesktop {
+    display: block;
+  }
+}
+
+@media (--desktop-min-width) {
+  .mobileTab {
+    display: none;
+  }
+
+  .mobileTitle {
+    display: none;
+  }
+}
+
+.tab {
+  cursor: pointer;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+@media (hover: hover) {
+  .tab:hover {
+    opacity: 0.7;
+  }
+}
+
+.tab[data-active='true'] {
+  color: #a2c7e0;
+}

@@ -3,6 +3,7 @@ import { components } from '../../../domain/api/types/api-types.ts'
 import s from './cv.module.css'
 import { Link } from 'react-router-dom'
 import { ReactNode } from 'react'
+import { Space } from 'antd'
 
 type Props = {
   data: components['schemas']['CV']
@@ -29,7 +30,21 @@ function CV({ data }: Props) {
       <h2 className={s.title}>Сфера искусства</h2>
       <p className={s.paragraph}>{textFieldArt[data.field_of_art]}</p>
       <h2 className={s.title}>Опыт работы</h2>
-      <div className={s.exp}></div>
+      <div className={s.exp}>
+        {data.jobs.map((item) => (
+          <>
+            <Space direction={'vertical'} size={0}>
+              <span>{item.start_date}–</span>
+              <span>{item.end_date || 'не указано'}</span>
+            </Space>
+            <Space direction={'vertical'} size={0}>
+              <span>{item.organization_name}</span>
+              <span>{item.job_title}</span>
+              <span>{item.description}</span>
+            </Space>
+          </>
+        ))}
+      </div>
       <h2 className={s.title}>Контакты</h2>
       <p className={s.paragraph}>
         {data.applicant.phone}

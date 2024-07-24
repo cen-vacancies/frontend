@@ -70,7 +70,7 @@ function CreateVacancyPage({ isEdit }: Props) {
           <Form form={form} className={s.container} layout='vertical' onFinish={onSubmit}>
             <span className={s.heading}>Вакансия</span>
             <Title level={5}>Кого вы ищете?*</Title>
-            <Form.Item name='title' rules={[{ required: true, message: 'Обязательное поле' }]}>
+            <Form.Item name='title' rules={[{ required: true, message: 'Обязательное поле' }, { max: 160 }]}>
               <Input placeholder='Должность' />
             </Form.Item>
 
@@ -92,7 +92,7 @@ function CreateVacancyPage({ isEdit }: Props) {
             <Form.Item
               name='description'
               label='Описание вакансии*'
-              rules={[{ required: true, message: 'Обязательное поле' }]}
+              rules={[{ required: true, message: 'Обязательное поле' }, { max: 2000 }]}
             >
               <TextArea style={{ minHeight: '110px' }} autoSize placeholder='Обязанности, дополнительная информация' />
             </Form.Item>

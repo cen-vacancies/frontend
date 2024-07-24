@@ -12,9 +12,11 @@ import { IMAGE_URL } from '../../../constants/constants.ts'
 
 type Props = {
   onClose: VoidFunction
+  cvInitial?: components['schemas']['CV']
+  vacancyInitial?: components['schemas']['Vacancy']
 }
 
-function Chat({ onClose }: Props) {
+function Chat({ onClose, cvInitial, vacancyInitial }: Props) {
   const { user } = useContext(UserContext)
   const [messageApi, contextHolder] = message.useMessage()
 
@@ -44,8 +46,28 @@ function Chat({ onClose }: Props) {
   }, [])
 
   useEffect(() => {
+    if (!cvInitial || !vacancyInitial || !chatList) {
+      return
+    }
+    for (const item of chatList) {
+      if (item.cv.id === cvInitial.id && item.vacancy.id === vacancyInitial.id) {
+        setActiveChat(item)
+        return
+      }
+    }
+    setActiveChat({
+      cv: cvInitial,
+      vacancy: vacancyInitial,
+      id: 0,
+    })
+  }, [chatList, cvInitial, vacancyInitial])
+
+  useEffect(() => {
     connectChat?.()
-    return () => disconnectChat?.()
+    return () => {
+      disconnectChat?.()
+      setMessages([])
+    }
   }, [connectChat, disconnectChat])
 
   const handleSubmit = () => {
