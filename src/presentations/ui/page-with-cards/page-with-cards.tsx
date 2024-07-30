@@ -29,12 +29,12 @@ type CardProps = {
 PageWithCards.Card = ({ title, children, to }: CardProps) => {
   return to ? (
     <Link className={s.card} to={to}>
-      <span className={s.cardHeading}>{title}</span>
+      {title && <span className={s.cardHeading}>{title}</span>}
       {children}
     </Link>
   ) : (
     <div className={s.card}>
-      <span className={s.cardHeading}>{title}</span>
+      {title && <span className={s.cardHeading}>{title}</span>}
       {children}
     </div>
   )

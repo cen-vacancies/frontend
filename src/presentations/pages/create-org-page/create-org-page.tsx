@@ -103,7 +103,7 @@ function CreateVacancyPage({ isEdit }: Props) {
                 customRequest={uploadRequest}
                 style={{ border: 'solid' }}
               >
-                {imageUrl && <img src={`${IMAGE_URL}${imageUrl}`} alt='avatar' style={{ width: '100%' }} />}
+                {imageUrl ? <img src={`${IMAGE_URL}${imageUrl}`} alt='avatar' style={{ width: '100%' }} /> : 'Фото'}
               </Upload>
             </Form.Item>
 

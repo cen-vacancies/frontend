@@ -16,6 +16,12 @@ export function ErrorHandler(e: unknown) {
     case 'unauthorized':
       content = 'Нужно авторизоваться'
       break
+    case 'admin_user_get_failed':
+      content = 'Не удалось получить список пользователей'
+      break
+    case 'delete_cv_failed':
+      content = 'Не удалось удалить резюме'
+      break
   }
   return content
 }

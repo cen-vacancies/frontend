@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { cvs, interest, vacancies } from '../../../domain/api/data'
 import Page from '../../ui/page/page.tsx'
 import Vacancy from '../../ui/vacancy/vacancy.tsx'
@@ -10,24 +10,97 @@ import ButtonColor from '../../components/button-color/button-color.tsx'
 import { useContext, useEffect, useState } from 'react'
 import { components } from '../../../domain/api/types/api-types.ts'
 import { UserContext } from '../../../context/user-context.tsx'
-import { Button, message, Modal, Radio } from 'antd'
+import { Button, message, Modal, Popconfirm, Radio, Space } from 'antd'
 import { ErrorHandler } from '../../helpers/error-handler.ts'
 
 function VacancyPage() {
   const { id } = useParams()
 
-  const { user } = useContext(UserContext)
-  const { data } = useQuery(['vacancy', id], () => vacancies.getVacancyById(id), {
+  const { user, organization } = useContext(UserContext)
+  const navigate = useNavigate()
+  const [messageApi, contextHolder] = message.useMessage()
+  const { data, refetch } = useQuery(['vacancy', id], () => vacancies.getVacancyById(id), {
     refetchOnWindowFocus: false,
   })
 
   const shouldShowApplicantControls = user?.role === 'applicant' && data?.data.organization.id !== undefined
   const organizationImage = data?.data.organization.logo && `${IMAGE_URL}${data.data.organization.logo}`
 
+  const isAdmin = user?.role === 'admin'
+  const shouldShowControls = isAdmin || (user?.role === 'applicant' && organization?.id === data?.data.organization.id)
+
+  const handleDelete = async () => {
+    if (!id) return
+    try {
+      await vacancies.deleteVacancyById(id)
+      navigate(`/`)
+    } catch (e: unknown) {
+      messageApi.open({
+        type: 'error',
+        content: ErrorHandler(e),
+      })
+    }
+  }
+
+  const handlePublished = async (val: boolean) => {
+    if (!id) return
+    try {
+      const data = await vacancies.updateVacancy(id, { published: val })
+      if (!data) return
+      refetch()
+    } catch (e: unknown) {
+      messageApi.open({
+        type: 'error',
+        content: ErrorHandler(e),
+      })
+    }
+  }
+
+  const handleReview = async (val: boolean) => {
+    if (!id) return
+    try {
+      const data = await vacancies.updateVacancy(id, { reviewed: val })
+      if (!data) return
+      refetch()
+    } catch (e: unknown) {
+      messageApi.open({
+        type: 'error',
+        content: ErrorHandler(e),
+      })
+    }
+  }
+
   return (
     <Page>
+      {contextHolder}
       <Page.Content>
         <div className={s.content}>
+          {shouldShowControls && (
+            <Space>
+              <Link to={'edit'}>
+                <Button shape='round'>Редактировать</Button>
+              </Link>
+              <Button shape='round' onClick={() => handlePublished(!data?.data.published)}>
+                {data?.data.published ? 'Скрыть' : 'Разместить'}
+              </Button>
+              {isAdmin && (
+                <Button shape='round' onClick={() => handleReview(!data?.data.reviewed)}>
+                  {data?.data.reviewed ? 'Снять с публикации' : 'Опубликовать'}
+                </Button>
+              )}
+              <Popconfirm
+                title='Удалить резюме'
+                description='Вы уверены, что хотите удалить резюме?'
+                onConfirm={handleDelete}
+                okText='Удалить'
+                cancelText='Отмена'
+              >
+                <Button shape='round' danger type={'primary'}>
+                  Удалить
+                </Button>
+              </Popconfirm>
+            </Space>
+          )}
           <div className={s.hideOnDesktop}>
             <Vacancy.Organization
               id={data?.data.organization.id}

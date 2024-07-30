@@ -6,12 +6,13 @@ import { Link } from 'react-router-dom'
 type Props = {
   children?: ReactNode
   linkTo?: string
+  isLight?: boolean
 }
-function ButtonWithIcon({ children, linkTo }: Props) {
+function ButtonWithIcon({ children, linkTo, isLight }: Props) {
   const Tag = linkTo ? Link : 'button'
   return (
-    <Tag className={s.button} to={linkTo as string}>
-      <img className={s.icon} src={arrow} />
+    <Tag className={s.button} data-light={isLight} to={linkTo as string}>
+      {!isLight && <img className={s.icon} src={arrow} />}
       {children}
     </Tag>
   )

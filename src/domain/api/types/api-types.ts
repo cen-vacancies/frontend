@@ -4,6 +4,93 @@
  */
 
 export interface paths {
+  '/api/admin/cvs/unreviewed': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get list of unreviewed CVs */
+    get: operations['CenWeb.AdminScope.CVController.index_unreviewed']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/admin/organizations': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get list of organizations */
+    get: operations['CenWeb.AdminScope.OrganizationController.index']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/admin/users': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get list of users */
+    get: operations['CenWeb.AdminScope.UserController.index']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/admin/users/{user_id}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    /** Update user */
+    put: operations['CenWeb.AdminScope.UserController.update']
+    post?: never
+    /** Delete user */
+    delete: operations['CenWeb.AdminScope.UserController.delete']
+    options?: never
+    head?: never
+    /** Update user */
+    patch: operations['CenWeb.AdminScope.UserController.update (2)']
+    trace?: never
+  }
+  '/api/admin/vacancies/unreviewed': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get list of unreviewed vacancies */
+    get: operations['CenWeb.AdminScope.VacancyController.index_unreviewed']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/chats': {
     parameters: {
       query?: never
@@ -116,7 +203,7 @@ export interface paths {
       path?: never
       cookie?: never
     }
-    /** Send interest to vacancy or CV */
+    /** Get list of interests */
     get: operations['CenWeb.InterestController.index']
     put?: never
     post?: never
@@ -192,6 +279,23 @@ export interface paths {
     put?: never
     /** Get access token */
     post: operations['CenWeb.TokenController.create']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/unsend_interest': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Unsend interest to vacancy or CV */
+    post: operations['CenWeb.InterestController.unsend_interest']
     delete?: never
     options?: never
     head?: never
@@ -812,6 +916,149 @@ export interface components {
       errors: {
         /** @description Error reason */
         detail: string
+      }
+    }
+    /**
+     * CVsListResponse
+     * @example {
+     *       "data": [
+     *         {
+     *           "applicant": {
+     *             "birth_date": "2000-01-01",
+     *             "email": "username@domain.org",
+     *             "fullname": "Иванов Иван Иванович",
+     *             "id": "756",
+     *             "phone": "+78001234567",
+     *             "role": "applicant"
+     *           },
+     *           "educations": [
+     *             {
+     *               "department": null,
+     *               "educational_institution": "УрФУ",
+     *               "level": "secondary",
+     *               "specialization": "Архитектура зданий и сооружений. Творческие концепции архитектурной деятельности",
+     *               "year_of_graduation": 2024
+     *             }
+     *           ],
+     *           "employment_types": [
+     *             "main"
+     *           ],
+     *           "field_of_art": "music",
+     *           "id": 521,
+     *           "jobs": [
+     *             {
+     *               "description": "Преподавал предмет",
+     *               "end_date": "2024-02-01",
+     *               "job_title": "Преподаватель",
+     *               "organization_name": "УрФУ",
+     *               "start_date": "2022-12-01"
+     *             }
+     *           ],
+     *           "photo": "/uploads/photo.png",
+     *           "published": true,
+     *           "reviewed": true,
+     *           "summary": "Я очень хорошо играю на фортепиано.",
+     *           "title": "Педагог по фортепиано",
+     *           "work_schedules": [
+     *             "full_time"
+     *           ]
+     *         }
+     *       ],
+     *       "page": {
+     *         "page_number": 1,
+     *         "page_size": 10,
+     *         "total_entries": 23,
+     *         "total_pages": 3
+     *       }
+     *     }
+     */
+    CVsListResponse: {
+      data: {
+        /**
+         * User
+         * @example {
+         *       "birth_date": "2000-01-01",
+         *       "email": "username@domain.org",
+         *       "fullname": "Иванов Иван Иванович",
+         *       "id": "756",
+         *       "phone": "+78001234567",
+         *       "role": "applicant"
+         *     }
+         */
+        applicant: {
+          /** Format: date */
+          birth_date: string
+          /** @description User email
+           *
+           *     - Must be no longer than 160 characters
+           *     - Must have the @ sign and no spaces
+           *     - Must be unique
+           *
+           *     Same email can't be used to create accounts with different roles.
+           *      */
+          email: string
+          fullname: string
+          id: number
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
+          phone: string
+          /** @enum {string} */
+          role: 'admin' | 'applicant' | 'employer'
+        }
+        educations: {
+          department: string | null
+          educational_institution: string | null
+          /** @enum {string} */
+          level: 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+          specialization: string | null
+          year_of_graduation: number | null
+        }[]
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        id: number
+        jobs: {
+          description?: string | null
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          end_date: string
+          job_title?: string | null
+          organization_name?: string | null
+          /**
+           * Format: date
+           * @description day should be ignored
+           */
+          start_date: string
+        }[]
+        photo: string
+        published: boolean
+        reviewed: boolean
+        summary: string
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      }[]
+      /**
+       * Page
+       * @example {
+       *       "page_number": 1,
+       *       "page_size": 10,
+       *       "total_entries": 23,
+       *       "total_pages": 3
+       *     }
+       */
+      page: {
+        page_number: number
+        page_size: number
+        total_entries: number
+        total_pages: number
       }
     }
     /**
@@ -1732,6 +1979,7 @@ export interface components {
      *         "min_years_of_work_experience": 5,
      *         "proposed_salary": "20000",
      *         "published": true,
+     *         "reviewed": true,
      *         "title": "Работник",
      *         "work_schedules": [
      *           "full_time"
@@ -1750,6 +1998,7 @@ export interface components {
         min_years_of_work_experience?: number
         proposed_salary?: number | null
         published?: boolean
+        reviewed?: boolean
         title?: string
         work_schedules?: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
       }
@@ -2797,6 +3046,70 @@ export interface components {
       image: string
     }
     /**
+     * UsersListResponse
+     * @example {
+     *       "data": [
+     *         {
+     *           "birth_date": "2000-01-01",
+     *           "email": "username@domain.org",
+     *           "fullname": "Иванов Иван Иванович",
+     *           "id": "756",
+     *           "phone": "+78001234567",
+     *           "role": "applicant"
+     *         }
+     *       ],
+     *       "page": {
+     *         "page_number": 1,
+     *         "page_size": 10,
+     *         "total_entries": 23,
+     *         "total_pages": 3
+     *       }
+     *     }
+     */
+    UsersListResponse: {
+      data: {
+        /** Format: date */
+        birth_date: string
+        /** @description User email
+         *
+         *     - Must be no longer than 160 characters
+         *     - Must have the @ sign and no spaces
+         *     - Must be unique
+         *
+         *     Same email can't be used to create accounts with different roles.
+         *      */
+        email: string
+        fullname: string
+        id: number
+        /**
+         * @description Phone number
+         *
+         *     - Must contain 12 characters
+         *     - Must begin with "+7"
+         *
+         * @example +79001234567
+         */
+        phone: string
+        /** @enum {string} */
+        role: 'admin' | 'applicant' | 'employer'
+      }[]
+      /**
+       * Page
+       * @example {
+       *       "page_number": 1,
+       *       "page_size": 10,
+       *       "total_entries": 23,
+       *       "total_pages": 3
+       *     }
+       */
+      page: {
+        page_number: number
+        page_size: number
+        total_entries: number
+        total_pages: number
+      }
+    }
+    /**
      * @description Phone number
      *
      *     - Must contain 12 characters
@@ -2805,6 +3118,165 @@ export interface components {
      * @example +79001234567
      */
     '': string
+    /**
+     * VacanciesListResponse
+     * @example {
+     *       "data": [
+     *         {
+     *           "description": "Ищем очень хорошего работника!",
+     *           "education": "bachelor",
+     *           "employment_types": [
+     *             "main"
+     *           ],
+     *           "field_of_art": "other",
+     *           "id": "756",
+     *           "min_years_of_work_experience": 5,
+     *           "organization": {
+     *             "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+     *             "description": "applicant",
+     *             "email": "contact@urfu.ru",
+     *             "employer": {
+     *               "birth_date": "2000-01-01",
+     *               "email": "username@domain.org",
+     *               "fullname": "Иванов Иван Иванович",
+     *               "id": "756",
+     *               "phone": "+78001234567",
+     *               "role": "applicant"
+     *             },
+     *             "id": "756",
+     *             "logo": "/uploads/urfu.png",
+     *             "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *             "phone": "+7001005044",
+     *             "social_link": "https://vk.com/ural.federal.university",
+     *             "website": "https://urfu.me"
+     *           },
+     *           "proposed_salary": "20000",
+     *           "published": true,
+     *           "reviewed": true,
+     *           "title": "Работник",
+     *           "work_schedules": [
+     *             "full_time"
+     *           ]
+     *         }
+     *       ],
+     *       "page": {
+     *         "page_number": 1,
+     *         "page_size": 10,
+     *         "total_entries": 23,
+     *         "total_pages": 3
+     *       }
+     *     }
+     */
+    VacanciesListResponse: {
+      data: {
+        description: string
+        /** @enum {string} */
+        education: 'none' | 'secondary' | 'secondary_vocational' | 'bachelor' | 'master' | 'doctor'
+        employment_types: ('main' | 'secondary' | 'practice' | 'internship')[]
+        /** @enum {string} */
+        field_of_art: 'music' | 'visual' | 'performing' | 'choreography' | 'folklore' | 'other'
+        id: number
+        min_years_of_work_experience: number
+        /**
+         * Organization
+         * @example {
+         *       "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+         *       "description": "applicant",
+         *       "email": "contact@urfu.ru",
+         *       "employer": {
+         *         "birth_date": "2000-01-01",
+         *         "email": "username@domain.org",
+         *         "fullname": "Иванов Иван Иванович",
+         *         "id": "756",
+         *         "phone": "+78001234567",
+         *         "role": "applicant"
+         *       },
+         *       "id": "756",
+         *       "logo": "/uploads/urfu.png",
+         *       "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+         *       "phone": "+7001005044",
+         *       "social_link": "https://vk.com/ural.federal.university",
+         *       "website": "https://urfu.me"
+         *     }
+         */
+        organization: {
+          address: string
+          description: string
+          email: string
+          /**
+           * User
+           * @example {
+           *       "birth_date": "2000-01-01",
+           *       "email": "username@domain.org",
+           *       "fullname": "Иванов Иван Иванович",
+           *       "id": "756",
+           *       "phone": "+78001234567",
+           *       "role": "applicant"
+           *     }
+           */
+          employer: {
+            /** Format: date */
+            birth_date: string
+            /** @description User email
+             *
+             *     - Must be no longer than 160 characters
+             *     - Must have the @ sign and no spaces
+             *     - Must be unique
+             *
+             *     Same email can't be used to create accounts with different roles.
+             *      */
+            email: string
+            fullname: string
+            id: number
+            /**
+             * @description Phone number
+             *
+             *     - Must contain 12 characters
+             *     - Must begin with "+7"
+             *
+             * @example +79001234567
+             */
+            phone: string
+            /** @enum {string} */
+            role: 'admin' | 'applicant' | 'employer'
+          }
+          id: number
+          logo: string
+          name: string
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
+          phone: string
+          social_link: string
+          website: string
+        }
+        proposed_salary: number | null
+        published: boolean
+        reviewed: boolean
+        title: string
+        work_schedules: ('full_time' | 'part_time' | 'remote_working' | 'hybrid_working' | 'flexible_schedule')[]
+      }[]
+      /**
+       * Page
+       * @example {
+       *       "page_number": 1,
+       *       "page_size": 10,
+       *       "total_entries": 23,
+       *       "total_pages": 3
+       *     }
+       */
+      page: {
+        page_number: number
+        page_size: number
+        total_entries: number
+        total_pages: number
+      }
+    }
     /**
      * InterestsListResponse
      * @example {
@@ -3454,6 +3926,147 @@ export interface components {
       }
     }
     /**
+     * UpdateUserRequest
+     * @example {
+     *       "user": {
+     *         "birth_date": "2000-01-01",
+     *         "email": "username@domain.org",
+     *         "fullname": "Иванов Иван Иванович",
+     *         "phone": "+78001234567"
+     *       }
+     *     }
+     */
+    UpdateUserRequest: {
+      user: {
+        /** Format: date */
+        birth_date?: string
+        /** @description User email
+         *
+         *     - Must be no longer than 160 characters
+         *     - Must have the @ sign and no spaces
+         *     - Must be unique
+         *
+         *     Same email can't be used to create accounts with different roles.
+         *      */
+        email?: string
+        fullname?: string
+        /**
+         * @description Phone number
+         *
+         *     - Must contain 12 characters
+         *     - Must begin with "+7"
+         *
+         * @example +79001234567
+         */
+        phone?: string
+      }
+    }
+    /**
+     * OrganizationsListResponse
+     * @example {
+     *       "data": [
+     *         {
+     *           "address": "620002, Свердловская область, г. Екатеринбург, ул. Мира, д. 19",
+     *           "description": "applicant",
+     *           "email": "contact@urfu.ru",
+     *           "employer": {
+     *             "birth_date": "2000-01-01",
+     *             "email": "username@domain.org",
+     *             "fullname": "Иванов Иван Иванович",
+     *             "id": "756",
+     *             "phone": "+78001234567",
+     *             "role": "applicant"
+     *           },
+     *           "id": "756",
+     *           "logo": "/uploads/urfu.png",
+     *           "name": "УрФУ имени первого Президента России Б.Н. Ельцина",
+     *           "phone": "+7001005044",
+     *           "social_link": "https://vk.com/ural.federal.university",
+     *           "website": "https://urfu.me"
+     *         }
+     *       ],
+     *       "page": {
+     *         "page_number": 1,
+     *         "page_size": 10,
+     *         "total_entries": 23,
+     *         "total_pages": 3
+     *       }
+     *     }
+     */
+    OrganizationsListResponse: {
+      data: {
+        address: string
+        description: string
+        email: string
+        /**
+         * User
+         * @example {
+         *       "birth_date": "2000-01-01",
+         *       "email": "username@domain.org",
+         *       "fullname": "Иванов Иван Иванович",
+         *       "id": "756",
+         *       "phone": "+78001234567",
+         *       "role": "applicant"
+         *     }
+         */
+        employer: {
+          /** Format: date */
+          birth_date: string
+          /** @description User email
+           *
+           *     - Must be no longer than 160 characters
+           *     - Must have the @ sign and no spaces
+           *     - Must be unique
+           *
+           *     Same email can't be used to create accounts with different roles.
+           *      */
+          email: string
+          fullname: string
+          id: number
+          /**
+           * @description Phone number
+           *
+           *     - Must contain 12 characters
+           *     - Must begin with "+7"
+           *
+           * @example +79001234567
+           */
+          phone: string
+          /** @enum {string} */
+          role: 'admin' | 'applicant' | 'employer'
+        }
+        id: number
+        logo: string
+        name: string
+        /**
+         * @description Phone number
+         *
+         *     - Must contain 12 characters
+         *     - Must begin with "+7"
+         *
+         * @example +79001234567
+         */
+        phone: string
+        social_link: string
+        website: string
+      }[]
+      /**
+       * Page
+       * @example {
+       *       "page_number": 1,
+       *       "page_size": 10,
+       *       "total_entries": 23,
+       *       "total_pages": 3
+       *     }
+       */
+      page: {
+        page_number: number
+        page_size: number
+        total_entries: number
+        total_pages: number
+      }
+    }
+    /**
      * MessageResponse
      * @example {
      *       "author_id": 1,
@@ -3929,6 +4542,192 @@ export interface components {
 }
 export type $defs = Record<string, never>
 export interface operations {
+  'CenWeb.AdminScope.CVController.index_unreviewed': {
+    parameters: {
+      query?: {
+        /** @description Page number */
+        page?: number
+        /** @description Page size */
+        page_size?: number
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description CVs list */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['CVsListResponse']
+        }
+      }
+    }
+  }
+  'CenWeb.AdminScope.OrganizationController.index': {
+    parameters: {
+      query?: {
+        /** @description Page number */
+        page?: number
+        /** @description Page size */
+        page_size?: number
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Organizations list */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['OrganizationsListResponse']
+        }
+      }
+    }
+  }
+  'CenWeb.AdminScope.UserController.index': {
+    parameters: {
+      query?: {
+        /** @description Page number */
+        page?: number
+        /** @description Page size */
+        page_size?: number
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Requested user */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['UsersListResponse']
+        }
+      }
+    }
+  }
+  'CenWeb.AdminScope.UserController.update': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description User params */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['UpdateUserRequest']
+      }
+    }
+    responses: {
+      /** @description Updated user */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['UserResponse']
+        }
+      }
+      /** @description Changeset errors */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ChangesetErrorsResponse']
+        }
+      }
+    }
+  }
+  'CenWeb.AdminScope.UserController.delete': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description User deleted */
+      204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  'CenWeb.AdminScope.UserController.update (2)': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description User params */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['UpdateUserRequest']
+      }
+    }
+    responses: {
+      /** @description Updated user */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['UserResponse']
+        }
+      }
+      /** @description Changeset errors */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ChangesetErrorsResponse']
+        }
+      }
+    }
+  }
+  'CenWeb.AdminScope.VacancyController.index_unreviewed': {
+    parameters: {
+      query?: {
+        /** @description Page number */
+        page?: number
+        /** @description Page size */
+        page_size?: number
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Vacancies list */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['VacanciesListResponse']
+        }
+      }
+    }
+  }
   'CenWeb.ChatController.index': {
     parameters: {
       query?: {
@@ -4664,6 +5463,29 @@ export interface operations {
         content: {
           'application/json': components['schemas']['GenericErrorResponse']
         }
+      }
+    }
+  }
+  'CenWeb.InterestController.unsend_interest': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description credentials */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['SendInterestRequest']
+      }
+    }
+    responses: {
+      /** @description User deleted */
+      204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
     }
   }

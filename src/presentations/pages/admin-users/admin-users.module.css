@@ -1,0 +1,12 @@
+@import url('../../components/breakpoints-tokens/breakpoints-tokens.css');
+
+.desktopHeader {
+  display: none;
+  padding: 0 30px;
+}
+
+@media (--desktop-min-width) {
+  .desktopHeader {
+    display: flex;
+  }
+}

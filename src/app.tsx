@@ -18,6 +18,10 @@ import VacancyListPage from './presentations/pages/vacancy-list/vacancy-list.tsx
 import OrganizationPage from './presentations/pages/organization/organization.tsx'
 import UserEditPage from './presentations/pages/user-edit/user-edit.tsx'
 import ChatContextProvider from './context/chat-context.tsx'
+import AdminUsers from './presentations/pages/admin-users/admin-users.tsx'
+import AdminOrganizations from './presentations/pages/admin-organizations/admin-organizations.tsx'
+import AdminVacancies from './presentations/pages/admin-vacancies/admin-vacancies.tsx'
+import AdminCvs from './presentations/pages/admin-cvs/admin-cvs.tsx'
 
 const queryClient = new QueryClient()
 
@@ -113,6 +117,30 @@ const router = createBrowserRouter([
   {
     path: 'user/edit',
     element: <UserEditPage />,
+  },
+  {
+    path: 'admin',
+    element: <AdminUsers />,
+  },
+  {
+    path: 'admin/users',
+    element: <AdminUsers />,
+  },
+  {
+    path: 'admin/users/:id/edit',
+    element: <UserEditPage isModeration />,
+  },
+  {
+    path: 'admin/organizations',
+    element: <AdminOrganizations />,
+  },
+  {
+    path: 'admin/vacancies',
+    element: <AdminVacancies />,
+  },
+  {
+    path: 'admin/cvs',
+    element: <AdminCvs />,
   },
 ])
 

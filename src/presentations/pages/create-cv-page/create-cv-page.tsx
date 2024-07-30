@@ -156,6 +156,7 @@ function CreateCVPage({ isEdit }: Props) {
                     if (!value || value.length <= 0) {
                       return Promise.reject(new Error('Добавьте место учебы'))
                     }
+                    return Promise.resolve()
                   },
                 },
               ]}
@@ -232,8 +233,20 @@ function CreateCVPage({ isEdit }: Props) {
             </Form.List>
 
             <Title level={5}>Опыт работы</Title>
-            <Form.List name='jobs'>
-              {(fields, { add, remove }) => (
+            <Form.List
+              name='jobs'
+              rules={[
+                {
+                  validator: (_rule, value) => {
+                    if (!value || value.length <= 0) {
+                      return Promise.reject(new Error('Добавьте место работы'))
+                    }
+                    return Promise.resolve()
+                  },
+                },
+              ]}
+            >
+              {(fields, { add, remove }, { errors }) => (
                 <>
                   {fields.map(({ key, name, ...restField }) => (
                     <Space key={key} style={{ display: 'flex', marginBottom: 8 }} direction='vertical'>
@@ -279,6 +292,9 @@ function CreateCVPage({ isEdit }: Props) {
                   ))}
                   <Form.Item>
                     <AddFieldButton onClick={() => add()}>Добавить место работы</AddFieldButton>
+                    <Paragraph style={{ margin: '-5px 0 0' }} type={'danger'}>
+                      {errors}
+                    </Paragraph>
                   </Form.Item>
                 </>
               )}

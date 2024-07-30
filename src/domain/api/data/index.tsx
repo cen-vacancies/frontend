@@ -6,8 +6,17 @@ const apiVacancies = `${apiUrl}/vacancies`
 const apiCvs = `${apiUrl}/cvs`
 const apiOrganization = `${apiUrl}/organization`
 const apiChats = `${apiUrl}/chats`
+const apiAdmin = `${apiUrl}/admin`
 
-export type RequestErrorCode = 'fail_update_email' | 'unauthorized' | 'has already been taken' | 'fail_update_password'
+export type RequestErrorCode =
+  | 'fail_update_email'
+  | 'unauthorized'
+  | 'has already been taken'
+  | 'fail_update_password'
+  | 'admin_user_get_failed'
+  | 'admin_organization_get_failed'
+  | 'delete_cv_failed'
+  | 'delete_vacancy_failed'
 
 class ApiError extends Error {
   constructor(message: RequestErrorCode) {
@@ -33,6 +42,7 @@ export const vacancies = {
   createVacancy,
   updateVacancy,
   getVacancies,
+  deleteVacancyById,
 }
 
 type FiltersQuery = NonNullable<ApiOperations['CenWeb.VacancyController.search']['parameters']['query']>
@@ -47,20 +57,22 @@ export type FiltersType = {
   min_years_of_work_experience?: string
 }
 
-async function searchVacancy(filters: FiltersType): Promise<components['schemas']['VacanciesQueryResponse']> {
+async function searchVacancy(filters?: FiltersType): Promise<components['schemas']['VacanciesQueryResponse']> {
   const query = new URLSearchParams()
-  Object.keys(filters).forEach((key) => {
-    const value = filters[key as keyof FiltersType]
-    if (typeof value === 'string' || value === undefined) {
-      if (value !== '' && value !== undefined) {
-        query.set(key, value)
+  if (filters) {
+    Object.keys(filters).forEach((key) => {
+      const value = filters[key as keyof FiltersType]
+      if (typeof value === 'string' || value === undefined) {
+        if (value !== '' && value !== undefined) {
+          query.set(key, value)
+        }
+        return
       }
-      return
-    }
-    value.forEach((item) => {
-      query.append(key, item)
+      value.forEach((item) => {
+        query.append(key, item)
+      })
     })
-  })
+  }
 
   const response = await fetch(`${apiVacancies}/search?${query.toString()}`, { method: 'GET' })
   return await response.json()
@@ -122,28 +134,45 @@ async function getVacancies(): Promise<components['schemas']['VacanciesQueryResp
   return await response.json()
 }
 
+async function deleteVacancyById(id: string): Promise<unknown> {
+  const response = await fetch(`${apiVacancies}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+  })
+  if (!response.ok) {
+    throw new Error('delete_vacancy_failed')
+  }
+  return response
+}
+
 export const cvs = {
   searchCvs,
   getCVById,
   createCv,
   updateCv,
   getCurrentCVS,
+  deleteCvById,
 }
 
-async function searchCvs(filters: FiltersType): Promise<components['schemas']['CVsQueryResponse']> {
+async function searchCvs(filters?: FiltersType): Promise<components['schemas']['CVsQueryResponse']> {
   const query = new URLSearchParams()
-  Object.keys(filters).forEach((key) => {
-    const value = filters[key as keyof FiltersType]
-    if (typeof value === 'string' || value === undefined) {
-      if (value !== '' && value !== undefined) {
-        query.set(key, value)
+  if (filters) {
+    Object.keys(filters).forEach((key) => {
+      const value = filters[key as keyof FiltersType]
+      if (typeof value === 'string' || value === undefined) {
+        if (value !== '' && value !== undefined) {
+          query.set(key, value)
+        }
+        return
       }
-      return
-    }
-    value.forEach((item) => {
-      query.append(key, item)
+      value.forEach((item) => {
+        query.append(key, item)
+      })
     })
-  })
+  }
 
   const response = await fetch(`${apiCvs}/search?${query.toString()}`, { method: 'GET' })
   return await response.json()
@@ -184,7 +213,7 @@ async function updateCv(
       'Content-Type': 'application/json',
       Authorization: getToken(),
     },
-    body: JSON.stringify({ cv: { ...data, reviewed: true } }),
+    body: JSON.stringify({ cv: { ...data, reviewed: data.reviewed ?? true } }),
   })
   if (!response.ok) {
     throw new Error('request not success')
@@ -203,6 +232,20 @@ async function getCurrentCVS(): Promise<components['schemas']['CVsQueryResponse'
     throw new Error('request not success')
   }
   return await response.json()
+}
+
+async function deleteCvById(id: string): Promise<unknown> {
+  const response = await fetch(`${apiCvs}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+  })
+  if (!response.ok) {
+    throw new Error('delete_cv_failed')
+  }
+  return response
 }
 
 export const user = {
@@ -504,4 +547,98 @@ export const chats = {
   getChats,
   chatSocket,
   sendMessage,
+}
+
+export const admin = {
+  getPrivateUsers,
+  getPrivateOrganizations,
+  getPrivateUser,
+  updatePrivateUserInfo,
+  getPrivateVacancies,
+  getPrivateCvs,
+}
+
+async function getPrivateUsers(): Promise<components['schemas']['UsersListResponse']> {
+  const response = await fetch(`${apiAdmin}/users`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('admin_user_get_failed')
+  }
+  return await response.json()
+}
+
+async function getPrivateOrganizations(): Promise<components['schemas']['OrganizationsListResponse']> {
+  const response = await fetch(`${apiAdmin}/organizations`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('admin_organization_get_failed')
+  }
+  return await response.json()
+}
+
+async function getPrivateUser(id?: string): Promise<components['schemas']['UserResponse'] | undefined> {
+  if (!id) {
+    return undefined
+  }
+  const response = await fetch(`${apiAdmin}/users/${id}`, { method: 'GET' })
+  if (!response.ok) {
+    throw new Error('admin_user_get_failed')
+  }
+  return await response.json()
+}
+
+async function updatePrivateUserInfo(
+  id: string,
+  data: components['schemas']['UpdateUserRequest']['user'],
+): Promise<components['schemas']['UserResponse']> {
+  const response = await fetch(`${apiAdmin}/users/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ user: data }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function getPrivateVacancies(): Promise<components['schemas']['VacanciesListResponse']> {
+  const response = await fetch(`${apiAdmin}/vacancies/unreviewed`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function getPrivateCvs(): Promise<components['schemas']['CVsListResponse']> {
+  const response = await fetch(`${apiAdmin}/cvs/unreviewed`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
 }

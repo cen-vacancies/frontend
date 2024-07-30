@@ -1,5 +1,5 @@
 import ImageLink from '../../components/image-link/image-link.tsx'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 
 import logo from '../../../assets/logo.svg'
 import messagesImage from '../../../assets/messages.png'
@@ -80,6 +80,13 @@ const employerConfigRespo: MenuProps['items'] = [
   },
 ]
 
+const adminConfigNavLinks = [
+  { to: '/admin/vacancies', text: 'ВАКАНСИИ' },
+  { to: '/admin/cvs', text: 'РЕЗЮМЕ' },
+  { to: '/admin/organizations', text: 'ОРГАНИЗАЦИИ' },
+  { to: '/admin/users', text: 'ПОЛЬЗОВАТЕЛИ' },
+]
+
 function Header() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
@@ -89,6 +96,7 @@ function Header() {
   const isRegisterBlock = pathname === '/' || pathname === '/register' || pathname === '/login'
   const isApplicant = user?.role === 'applicant'
   const isEmployer = user?.role === 'employer'
+  const isAdmin = user?.role === 'admin'
 
   let logoLink = '/'
   if (isApplicant) {
@@ -96,6 +104,9 @@ function Header() {
   }
   if (isEmployer) {
     logoLink = '/employer'
+  }
+  if (isAdmin) {
+    logoLink = '/admin'
   }
 
   return (
@@ -139,6 +150,15 @@ function Header() {
               Отклики
             </Space>
           </Dropdown>
+        </Space>
+      )}
+      {isAdmin && (
+        <Space style={{ display: 'flex', gap: '20px', marginLeft: '40px' }}>
+          {adminConfigNavLinks.map((link) => (
+            <NavLink key={link.to} className={({ isActive }) => (isActive ? S.navLinkActive : S.navLink)} to={link.to}>
+              {link.text}
+            </NavLink>
+          ))}
         </Space>
       )}
       <div className={S.buttons}>
