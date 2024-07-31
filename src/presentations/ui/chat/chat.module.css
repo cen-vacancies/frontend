@@ -180,3 +180,15 @@
   margin: 0 0 0 auto;
   color: #00000033;
 }
+
+.link {
+  color: #000;
+}
+
+.link:focus {
+  color: #a2c7e0;
+}
+
+.link:hover {
+  opacity: 0.7;
+}

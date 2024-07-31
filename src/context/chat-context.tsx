@@ -10,7 +10,7 @@ export const ChatContext = createContext<ChatContext>({
   open: () => {},
 })
 
-export default function ChatContextProvider({ children }: { children: ReactNode }) {
+export default function ChatContextProvider({ children }: { children?: ReactNode }) {
   const [chatObject, setChatObject] = useState<
     | {
         cv?: components['schemas']['CV']

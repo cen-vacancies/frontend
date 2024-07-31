@@ -9,6 +9,7 @@ import { UserContext } from '../../../context/user-context.tsx'
 import { SendOutlined, LeftOutlined } from '@ant-design/icons'
 import { ErrorHandler } from '../../helpers/error-handler.ts'
 import { IMAGE_URL } from '../../../constants/constants.ts'
+import { Link } from 'react-router-dom'
 
 type Props = {
   onClose: VoidFunction
@@ -113,7 +114,7 @@ function Chat({ onClose, cvInitial, vacancyInitial }: Props) {
           {chatList && chatList?.length > 0 && (
             <Space size={15} direction={'vertical'} style={{ width: '100%' }}>
               {chatList.map((item) => (
-                <Chat.Preview {...item} onClick={() => handleSetChat(item)} />
+                <Chat.Preview key={item.id} {...item} onClick={() => handleSetChat(item)} />
               ))}
             </Space>
           )}
@@ -128,10 +129,16 @@ function Chat({ onClose, cvInitial, vacancyInitial }: Props) {
                   {activeChatObject.title}
                 </Title>
                 <Paragraph style={{ padding: 0, margin: 0 }}>
-                  <span className={s.accent}>Вакансия:</span> {activeChat?.vacancy.title}
+                  <span className={s.accent}>Вакансия:</span>{' '}
+                  <Link to={`/vacancy/${activeChat?.vacancy.id}`}>
+                    <span className={s.link}>{activeChat?.vacancy.title}</span>
+                  </Link>
                 </Paragraph>
                 <Paragraph style={{ padding: 0, margin: 0 }}>
-                  <span className={s.accent}>Резюме:</span> {activeChat?.cv.title}
+                  <span className={s.accent}>Резюме:</span>{' '}
+                  <Link to={`/cv/${activeChat?.cv.id}`}>
+                    <span className={s.link}>{activeChat?.cv.title}</span>
+                  </Link>
                 </Paragraph>
               </Space>
             </div>
