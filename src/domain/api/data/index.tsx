@@ -255,6 +255,7 @@ export const user = {
   updateBaseUserInfo,
   updateUserEmail,
   updateUserPassword,
+  deleteUser,
 }
 
 async function me(): Promise<components['schemas']['UserResponse']> {
@@ -354,6 +355,20 @@ async function updateUserPassword(
   return await response.json()
 }
 
+async function deleteUser(): Promise<unknown> {
+  const response = await fetch(`${apiUrl}/user/`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+  })
+  if (!response.ok) {
+    throw new Error('delete_user_failed')
+  }
+  return response
+}
+
 export const organisations = {
   currentOrganization,
   createOrganization,
@@ -436,6 +451,7 @@ export async function upload(file: File) {
 export const interest = {
   sendInterestToVacancy,
   getInterests,
+  unsendInterest,
 }
 
 async function sendInterestToVacancy(cv_id: number, vacancy_id: number) {
@@ -474,6 +490,22 @@ async function getInterests(typeInt: 'sended' | 'recieved'): Promise<components[
     throw new Error('request not success')
   }
   return await response.json()
+}
+
+async function unsendInterest(cv_id: number, vacancy_id: number) {
+  const response = await fetch(`${apiUrl}/unsend_interest`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ cv_id, vacancy_id } as components['schemas']['SendInterestRequest']),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+
+  return response
 }
 
 async function getChats(): Promise<components['schemas']['ChatsListResponse']> {
@@ -556,6 +588,7 @@ export const admin = {
   updatePrivateUserInfo,
   getPrivateVacancies,
   getPrivateCvs,
+  deletePrivateUser,
 }
 
 async function getPrivateUsers(): Promise<components['schemas']['UsersListResponse']> {
@@ -590,7 +623,12 @@ async function getPrivateUser(id?: string): Promise<components['schemas']['UserR
   if (!id) {
     return undefined
   }
-  const response = await fetch(`${apiAdmin}/users/${id}`, { method: 'GET' })
+  const response = await fetch(`${apiAdmin}/users/${id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
   if (!response.ok) {
     throw new Error('admin_user_get_failed')
   }
@@ -641,4 +679,19 @@ async function getPrivateCvs(): Promise<components['schemas']['CVsListResponse']
     throw new Error('request not success')
   }
   return await response.json()
+}
+
+async function deletePrivateUser(id?: string): Promise<unknown> {
+  if (!id) return Promise.resolve(undefined)
+  const response = await fetch(`${apiAdmin}/users/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+  })
+  if (!response.ok) {
+    throw new Error('delete_admin_user_failed')
+  }
+  return response
 }

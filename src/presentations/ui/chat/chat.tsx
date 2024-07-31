@@ -130,13 +130,13 @@ function Chat({ onClose, cvInitial, vacancyInitial }: Props) {
                 </Title>
                 <Paragraph style={{ padding: 0, margin: 0 }}>
                   <span className={s.accent}>Вакансия:</span>{' '}
-                  <Link to={`/vacancy/${activeChat?.vacancy.id}`}>
+                  <Link target={'_blank'} to={`/vacancy/${activeChat?.vacancy.id}`}>
                     <span className={s.link}>{activeChat?.vacancy.title}</span>
                   </Link>
                 </Paragraph>
                 <Paragraph style={{ padding: 0, margin: 0 }}>
                   <span className={s.accent}>Резюме:</span>{' '}
-                  <Link to={`/cv/${activeChat?.cv.id}`}>
+                  <Link target={'_blank'} to={`/cv/${activeChat?.cv.id}`}>
                     <span className={s.link}>{activeChat?.cv.title}</span>
                   </Link>
                 </Paragraph>

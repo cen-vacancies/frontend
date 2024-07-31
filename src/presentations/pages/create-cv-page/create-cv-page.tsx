@@ -232,7 +232,7 @@ function CreateCVPage({ isEdit }: Props) {
               )}
             </Form.List>
 
-            <Title level={5}>Опыт работы</Title>
+            <Title level={5}>Опыт работы*</Title>
             <Form.List
               name='jobs'
               rules={[

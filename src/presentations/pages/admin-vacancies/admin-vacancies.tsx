@@ -77,7 +77,7 @@ function AdminVacancies() {
                     <Paragraph>{item.organization.name}</Paragraph>
                   </Col>
                   <Col xs={24} lg={6}>
-                    <Link to={`/vacancy/${item.id}/edit`}>
+                    <Link to={`/vacancy/${item.id}`}>
                       <Button shape='round'>Редактировать</Button>
                     </Link>
                   </Col>

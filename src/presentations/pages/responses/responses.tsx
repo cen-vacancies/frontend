@@ -1,5 +1,5 @@
 import PageWithCards from '../../ui/page-with-cards/page-with-cards.tsx'
-import { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { interest } from '../../../domain/api/data'
 import { components } from '../../../domain/api/types/api-types.ts'
 import { message } from 'antd'
@@ -41,6 +41,7 @@ function Responses({ type }: Props) {
     e.preventDefault()
     handleOpenChat(cv, vacancy)
   }
+
   const isEmployer = user?.role === 'employer'
   let title = type === 'sended' ? 'Отклики' : 'Приглашения'
   let emptyText = type === 'sended' ? `Откликов еще нет` : `Приглашений еще нет`
@@ -54,10 +55,27 @@ function Responses({ type }: Props) {
       {contextHolder}
       {interests && interests.length > 0
         ? interests.map((item) => {
+            const handleUnInterest = (e: React.MouseEvent<HTMLButtonElement>) => {
+              e.preventDefault()
+              e.stopPropagation()
+              interest
+                .unsendInterest(item.cv.id, item.vacancy.id)
+                .then(() => {
+                  setInterests((prev) => prev.filter((inter) => inter.id !== item.id))
+                })
+                .catch((e) => {
+                  console.error(e)
+                  messageApi.open({
+                    type: 'error',
+                    content: ErrorHandler(e),
+                  })
+                })
+            }
             return (
               <PageWithCards.Card
                 to={isEmployer ? `/cv/${item.cv.id}` : `/vacancy/${item.vacancy.id}`}
                 title={isEmployer ? item.cv.title : item.vacancy.title}
+                key={item.id}
               >
                 <div className={s.cardContent}>
                   {item.vacancy.proposed_salary && (
@@ -66,7 +84,7 @@ function Responses({ type }: Props) {
                   <span>{isEmployer ? item.cv.applicant.fullname : item.vacancy.organization.name}</span>
                 </div>
                 <div className={s.cardControls}>
-                  <ButtonColor color='fill' width={180} disabled>
+                  <ButtonColor color='fill' width={180} onClick={handleUnInterest}>
                     Отозвать
                   </ButtonColor>
                   <ButtonColor width={180} onClick={(e) => handleSendMessage(e, item.cv, item.vacancy)}>

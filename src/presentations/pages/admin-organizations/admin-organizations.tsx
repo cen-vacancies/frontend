@@ -62,7 +62,7 @@ function AdminOrganizations() {
                     <Paragraph>{item.website}</Paragraph>
                   </Col>
                   <Col xs={24} lg={6}>
-                    <Link to={`/admin/organizations/${item.id}`}>
+                    <Link to={`/organization/${item.id}`}>
                       <Button shape='round'>Редактировать</Button>
                     </Link>
                   </Col>

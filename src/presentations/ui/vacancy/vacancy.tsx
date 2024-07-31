@@ -3,6 +3,7 @@ import { components } from '../../../domain/api/types/api-types.ts'
 import s from './vacancy.module.css'
 import { Link } from 'react-router-dom'
 import { ReactNode } from 'react'
+import React from 'react'
 
 type Props = {
   data: components['schemas']['Vacancy']
@@ -13,11 +14,11 @@ function Vacancy({ data }: Props) {
     <article className={s.vacancy}>
       <h2 className={s.title}>{data.title}</h2>
       <p className={s.paragraph}>
-        {data.description.split('\n').map((item) => (
-          <>
+        {data.description.split('\n').map((item, index) => (
+          <React.Fragment key={index}>
             {item}
             <br />
-          </>
+          </React.Fragment>
         ))}
       </p>
       {data.proposed_salary && (

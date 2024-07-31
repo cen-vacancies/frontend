@@ -9,6 +9,7 @@ export type UserContext = {
   fetchOrganization: VoidFunction
   refetchAll: VoidFunction
   updateUser: (user: components['schemas']['UserResponse']['data'] | undefined) => void
+  logoutUser: VoidFunction
 }
 
 export const UserContext = createContext<UserContext>({
@@ -18,6 +19,7 @@ export const UserContext = createContext<UserContext>({
   fetchOrganization: () => {},
   refetchAll: () => {},
   updateUser: () => {},
+  logoutUser: () => {},
 })
 
 export default function UserContextProvider({ children }: { children: ReactNode }) {
@@ -71,6 +73,13 @@ export default function UserContextProvider({ children }: { children: ReactNode 
     setUserData(user)
   }, [])
 
+  const logoutUser = useCallback(() => {
+    setUserData(undefined)
+    setOrgData(undefined)
+    localStorage.removeItem('token')
+    window.location.assign('/')
+  }, [])
+
   useEffect(() => {
     fetchUser()
   }, [fetchUser])
@@ -80,7 +89,15 @@ export default function UserContextProvider({ children }: { children: ReactNode 
   }, [fetchOrganization])
   return (
     <UserContext.Provider
-      value={{ fetchUser, user: userData, organization: orgData, fetchOrganization, refetchAll, updateUser }}
+      value={{
+        fetchUser,
+        user: userData,
+        organization: orgData,
+        fetchOrganization,
+        refetchAll,
+        updateUser,
+        logoutUser,
+      }}
     >
       {children}
     </UserContext.Provider>

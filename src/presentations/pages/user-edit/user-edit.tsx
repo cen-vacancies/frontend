@@ -1,4 +1,4 @@
-import { Col, Form, Row, Input, ConfigProvider, Space, message } from 'antd'
+import { Col, Form, Row, Input, ConfigProvider, Space, message, Button, Popconfirm } from 'antd'
 import Page from '../../ui/page/page.tsx'
 import PageWithCards from '../../ui/page-with-cards/page-with-cards.tsx'
 import Title from 'antd/lib/typography/Title'
@@ -10,7 +10,7 @@ import { UserContext } from '../../../context/user-context.tsx'
 import { ErrorHandler } from '../../helpers/error-handler.ts'
 import { admin, user } from '../../../domain/api/data'
 import s from './user-edit.module.css'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 type Props = {
   isModeration?: boolean
@@ -151,9 +151,11 @@ type BaseInfoProps = Pick<components['schemas']['User'], 'fullname' | 'birth_dat
   id?: string
 }
 function BaseInfoForm(props: BaseInfoProps) {
+  const { logoutUser } = useContext(UserContext)
   const { fullname, birth_date, phone, onError, onUpdateUser, isModeration, id } = props
   const [isLoading, setIsLoading] = useState(false)
   const [form] = Form.useForm<components['schemas']['UpdateUserInfoRequest']['user']>()
+  const navigate = useNavigate()
   const handleSubmit = async (value: components['schemas']['UpdateUserInfoRequest']['user']) => {
     setIsLoading(true)
     /*const dataReq = Object.keys(value).reduce((previousValue, currentValue) => {
@@ -169,8 +171,9 @@ function BaseInfoForm(props: BaseInfoProps) {
     }
     let userRes
 
-    const fetchFunction =
-      isModeration && id ? admin.updatePrivateUserInfo(id, dataReq) : user.updateBaseUserInfo(dataReq)
+    const fetchFunction = isModeration
+      ? admin.updatePrivateUserInfo(id as string, dataReq)
+      : user.updateBaseUserInfo(dataReq)
 
     try {
       userRes = (await fetchFunction).data
@@ -181,24 +184,51 @@ function BaseInfoForm(props: BaseInfoProps) {
       setIsLoading(false)
     }
   }
+  const handleDelete = async () => {
+    setIsLoading(true)
+    const fetchFunction = isModeration ? admin.deletePrivateUser(id) : user.deleteUser()
+    const successFunction = () => (isModeration ? navigate('/admin/users') : logoutUser())
+    try {
+      await fetchFunction
+      successFunction()
+    } catch (e) {
+      onError(e)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
-    <Form disabled={isLoading} form={form} layout='vertical' onFinish={handleSubmit}>
-      <Form.Item name='fullname' label={'ФИО'} initialValue={fullname}>
-        <Input type='text' placeholder='Иванов Иван Иванович' />
-      </Form.Item>
-      <Form.Item name='birth_date' label={'Дата рождения'} initialValue={birth_date}>
-        <Input type='date' />
-      </Form.Item>
-      <Form.Item
-        name='phone'
-        label='Номер телефона'
-        rules={[{ message: 'Номер должен быть в формате +79000000000', pattern: /(\+7)(\d{10})/, len: 12 }]}
-        initialValue={phone}
+    <Space direction={'vertical'} style={{ display: 'flex' }}>
+      <Popconfirm
+        title='Удалить аккаунт'
+        description='Вы уверены, что хотите удалить аккаунт?'
+        onConfirm={handleDelete}
+        okText='Удалить'
+        cancelText='Отмена'
       >
-        <Input />
-      </Form.Item>
-      <ButtonWithIcon>Сохранить</ButtonWithIcon>
-    </Form>
+        <Button shape='round' size={'small'} type={'primary'}>
+          Удалить аккаунт
+        </Button>
+      </Popconfirm>
+      <Form disabled={isLoading} form={form} layout='vertical' onFinish={handleSubmit}>
+        <Form.Item name='fullname' label={'ФИО'} initialValue={fullname}>
+          <Input type='text' placeholder='Иванов Иван Иванович' />
+        </Form.Item>
+        <Form.Item name='birth_date' label={'Дата рождения'} initialValue={birth_date}>
+          <Input type='date' />
+        </Form.Item>
+        <Form.Item
+          name='phone'
+          label='Номер телефона'
+          rules={[{ message: 'Номер должен быть в формате +79000000000', pattern: /(\+7)(\d{10})/, len: 12 }]}
+          initialValue={phone}
+        >
+          <Input />
+        </Form.Item>
+        <ButtonWithIcon>Сохранить</ButtonWithIcon>
+      </Form>
+    </Space>
   )
 }
 
@@ -233,8 +263,8 @@ function PrivateInfoForm({
     let userRes
 
     try {
-      if (email !== newEmail && isModeration && id) {
-        userRes = (await admin.updatePrivateUserInfo(id, { email: newEmail })).data
+      if (email !== newEmail && isModeration) {
+        userRes = (await admin.updatePrivateUserInfo(id as string, { email: newEmail })).data
       }
       if (email !== newEmail && current_pass_email) {
         userRes = (await user.updateUserEmail({ email: newEmail, current_password: current_pass_email })).data

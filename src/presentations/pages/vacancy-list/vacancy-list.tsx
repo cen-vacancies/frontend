@@ -33,7 +33,7 @@ function VacancyListPage() {
       {contextHolder}
       {vacancyData && vacancyData.length > 0
         ? vacancyData.map((item) => (
-            <PageWithCards.Card to={`/vacancy/${item.id}`} title={item.title}>
+            <PageWithCards.Card key={item.id} to={`/vacancy/${item.id}`} title={item.title}>
               <div className={s.cardContent}>
                 {item.proposed_salary && <span>{item.proposed_salary.toLocaleString('ru')} &#8381;</span>}
                 <span>{item.organization.name}</span>

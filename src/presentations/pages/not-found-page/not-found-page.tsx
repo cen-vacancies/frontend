@@ -5,7 +5,7 @@ function NotFoundPage() {
   return (
     <Page>
       <Page.Content fullsize>
-        <Title>Страница не существует</Title>
+        <Title>Страница пока не доступна</Title>
       </Page.Content>
     </Page>
   )

@@ -42,6 +42,12 @@
   border: none;
 }
 
+@media (--desktop-min-width) {
+  .burgerButton {
+    display: none;
+  }
+}
+
 .register {
   cursor: pointer;
 
@@ -108,4 +114,14 @@
 
 .navLinkActive:hover {
   color: #a2c7e0;
+}
+
+.hideOnMobile {
+  display: none;
+}
+
+@media (--desktop-min-width) {
+  .hideOnMobile {
+    display: flex;
+  }
 }

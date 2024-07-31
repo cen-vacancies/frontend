@@ -9,7 +9,7 @@ import burgerImage from '../../../assets/burger.svg'
 import S from './header.module.css'
 import { useContext } from 'react'
 import { UserContext } from '../../../context/user-context.tsx'
-import { Dropdown, MenuProps, Space } from 'antd'
+import { Button, Dropdown, MenuProps, Space } from 'antd'
 import cv from './assets/cv.svg'
 import respo from './assets/respo.svg'
 import work from './assets/work.svg'
@@ -90,7 +90,7 @@ const adminConfigNavLinks = [
 function Header() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const { user, organization } = useContext(UserContext)
+  const { user, organization, logoutUser } = useContext(UserContext)
   const { open: handleOpenChat } = useContext(ChatContext)
 
   const isRegisterBlock = pathname === '/' || pathname === '/register' || pathname === '/login'
@@ -181,6 +181,7 @@ function Header() {
             </button>
           </>
         )}
+        {user && <Button onClick={logoutUser}>Выйти</Button>}
       </div>
     </div>
   )

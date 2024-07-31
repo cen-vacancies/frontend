@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { cvs, interest, vacancies } from '../../../domain/api/data'
+import { chats, cvs, interest, vacancies } from '../../../domain/api/data'
 import Page from '../../ui/page/page.tsx'
 import Vacancy from '../../ui/vacancy/vacancy.tsx'
 import s from './vacancy.module.css'
@@ -12,6 +12,7 @@ import { components } from '../../../domain/api/types/api-types.ts'
 import { UserContext } from '../../../context/user-context.tsx'
 import { Button, message, Modal, Popconfirm, Radio, Space } from 'antd'
 import { ErrorHandler } from '../../helpers/error-handler.ts'
+import TextArea from 'antd/lib/input/TextArea'
 
 function VacancyPage() {
   const { id } = useParams()
@@ -135,22 +136,38 @@ type ApplicantControlsProps = {
 function ApplicantControls({ vacancyId }: ApplicantControlsProps) {
   const [messageApi, contextHolder] = message.useMessage()
   const [isModalCvOpen, setIsModalCvOpen] = useState(false)
+  const [messageText, setMessageText] = useState('')
   const [cvsList, setCvsList] = useState<components['schemas']['CVsQueryResponse']['data']>()
   const [selectedCv, setSelectedCv] = useState<number>()
   const sendInterestToVacancy = () => {
-    if (selectedCv !== undefined) {
-      interest
-        .sendInterestToVacancy(selectedCv, Number(vacancyId))
-        .then(() => {
-          setIsModalCvOpen(false)
-        })
-        .catch((e) =>
-          messageApi.open({
-            type: 'error',
-            content: ErrorHandler(e),
-          }),
-        )
+    if (selectedCv === undefined) {
+      return
     }
+    interest
+      .sendInterestToVacancy(selectedCv, Number(vacancyId))
+      .then(() => {
+        setIsModalCvOpen(false)
+      })
+      .catch((e) =>
+        messageApi.open({
+          type: 'error',
+          content: ErrorHandler(e),
+        }),
+      )
+    if (!messageText || messageText.length <= 0) {
+      return
+    }
+    chats
+      .sendMessage(messageText, Number(selectedCv), Number(vacancyId))
+      .catch((e) =>
+        messageApi.open({
+          type: 'error',
+          content: ErrorHandler(e),
+        }),
+      )
+      .finally(() => {
+        setMessageText('')
+      })
   }
 
   useEffect(() => {
@@ -179,7 +196,7 @@ function ApplicantControls({ vacancyId }: ApplicantControlsProps) {
       >
         {cvsList && cvsList.length > 0 ? (
           <Radio.Group
-            style={{ display: 'flex', flexDirection: 'column', gap: 10 }}
+            style={{ display: 'flex', flexDirection: 'column', gap: 10, maxHeight: 150, overflow: 'hidden' }}
             options={cvsList.map((item) => ({ value: item.id, label: item.title }))}
             onChange={({ target: { value } }) => setSelectedCv(value)}
             value={selectedCv}
@@ -187,14 +204,22 @@ function ApplicantControls({ vacancyId }: ApplicantControlsProps) {
         ) : (
           'Резюме еще нет'
         )}
+        <TextArea
+          style={{ marginTop: 20 }}
+          autoSize
+          placeholder={'Введите сообщение'}
+          value={messageText}
+          onChange={(e) => setMessageText(e.target.value)}
+        />
       </Modal>
       <div className={s.buttonsApplicant}>
         <ButtonColor color='fill' width={160} onClick={() => setIsModalCvOpen(true)}>
           Откликнуться
         </ButtonColor>
+        {/*
         <ButtonColor disabled width={160}>
           Написать
-        </ButtonColor>
+        </ButtonColor>*/}
       </div>
     </>
   )
