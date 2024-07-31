@@ -9,6 +9,7 @@ import { message, Space } from 'antd'
 import ButtonWithIcon from '../../components/button-with-icon/button-with-icon.tsx'
 import { IMAGE_URL } from '../../../constants/constants.ts'
 import { UserContext } from '../../../context/user-context.tsx'
+import React from 'react'
 
 function OrganizationPage() {
   const { id } = useParams()
@@ -57,11 +58,11 @@ function OrganizationPage() {
           <div className={s.organizationContent}>
             <h1 className={s.organizationHeading}>{organizationData?.name}</h1>
             <div className={s.card}>
-              {organizationData?.description.split('\n').map((item) => (
-                <>
+              {organizationData?.description.split('\n').map((item, index) => (
+                <React.Fragment key={index}>
                   {item}
                   <br />
-                </>
+                </React.Fragment>
               ))}
               <div>
                 <h3 className={s.subtitle}>Контакты</h3>
@@ -80,7 +81,7 @@ function OrganizationPage() {
               </h1>
               <div className={s.vacancyList}>
                 {vacancyData.map((item) => (
-                  <Link to={`/vacancy/${item.id}`} className={s.vacancyCard}>
+                  <Link key={item.id} to={`/vacancy/${item.id}`} className={s.vacancyCard}>
                     <span className={s.vacancyTitle}>{item.title}</span>
                     <div className={s.vacancyCardContent}>
                       {item.proposed_salary && <span>{item.proposed_salary.toLocaleString('ru')} &#8381;</span>}

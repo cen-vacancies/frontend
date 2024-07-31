@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "antd": "^5.17.4",
+    "phoenix": "^1.7.14",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
@@ -110,6 +111,7 @@
     ]
   },
   "devDependencies": {
+    "@types/phoenix": "^1.6.5",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "@typescript-eslint/eslint-plugin": "^7.1.1",

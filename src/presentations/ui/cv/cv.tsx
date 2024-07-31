@@ -2,6 +2,9 @@ import { components } from '../../../domain/api/types/api-types.ts'
 
 import s from './cv.module.css'
 import { Link } from 'react-router-dom'
+import { ReactNode } from 'react'
+import { Space } from 'antd'
+import React from 'react'
 
 type Props = {
   data: components['schemas']['CV']
@@ -12,11 +15,11 @@ function CV({ data }: Props) {
     <article className={s.vacancy}>
       <h2 className={s.title}>{data.title}</h2>
       <p className={s.paragraph}>
-        {data.summary.split('\n').map((item) => (
-          <>
+        {data.summary.split('\n').map((item, index) => (
+          <React.Fragment key={index}>
             {item}
             <br />
-          </>
+          </React.Fragment>
         ))}
       </p>
       <h2 className={s.title}>Тип занятости</h2>
@@ -28,7 +31,21 @@ function CV({ data }: Props) {
       <h2 className={s.title}>Сфера искусства</h2>
       <p className={s.paragraph}>{textFieldArt[data.field_of_art]}</p>
       <h2 className={s.title}>Опыт работы</h2>
-      <div className={s.exp}></div>
+      <div className={s.exp}>
+        {data.jobs.map((item, index) => (
+          <React.Fragment key={index}>
+            <Space direction={'vertical'} size={0}>
+              <span>{item.start_date}–</span>
+              <span>{item.end_date || 'не указано'}</span>
+            </Space>
+            <Space direction={'vertical'} size={0}>
+              <span>{item.organization_name}</span>
+              <span>{item.job_title}</span>
+              <span>{item.description}</span>
+            </Space>
+          </React.Fragment>
+        ))}
+      </div>
       <h2 className={s.title}>Контакты</h2>
       <p className={s.paragraph}>
         {data.applicant.phone}
@@ -43,12 +60,16 @@ type OrgProps = {
   src?: string
   title?: string
   id?: number
+  children?: ReactNode
 }
-CV.Name = ({ src, title, id }: OrgProps) => {
+CV.Name = ({ src, title, id, children }: OrgProps) => {
   return (
     <div className={s.organization}>
-      <img className={s.image} src={src} />
-      <Link to={id ? `/organization/${id}` : ''} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <div className={s.topBlock}>
+        <img className={s.image} src={src} />
+        {children}
+      </div>
+      <Link to={id ? `/user/${id}` : ''} style={{ textDecoration: 'none', color: 'inherit' }}>
         <h1 className={s.orgName}>{title}</h1>
       </Link>
     </div>
@@ -104,18 +125,17 @@ function getEducation(items: components['schemas']['CV']['educations']) {
     doctor: 'научная степень',
   }
 
-  return items.map((item) => {
+  return items.map((item, index) => {
     const { year_of_graduation, educational_institution } = item
-    console.log(item)
     return (
-      <>
+      <React.Fragment key={index}>
         {['bachelor', 'master'].includes(item.level) ? `Высшее образование (${text[item.level]})` : text[item.level]}
         <br />
         {educational_institution}
         {year_of_graduation && `, ${year_of_graduation}`}
         <br />
         {item.specialization}
-      </>
+      </React.Fragment>
     )
   })
 }

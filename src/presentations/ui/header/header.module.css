@@ -42,6 +42,12 @@
   border: none;
 }
 
+@media (--desktop-min-width) {
+  .burgerButton {
+    display: none;
+  }
+}
+
 .register {
   cursor: pointer;
 
@@ -94,6 +100,28 @@
   color: #000;
 }
 
+.navLink:focus {
+  color: #a2c7e0;
+}
+
 .navLink:hover {
-  color: #000;
+  opacity: 0.7;
+}
+
+.navLinkActive {
+  color: #a2c7e0;
+}
+
+.navLinkActive:hover {
+  color: #a2c7e0;
+}
+
+.hideOnMobile {
+  display: none;
+}
+
+@media (--desktop-min-width) {
+  .hideOnMobile {
+    display: flex;
+  }
 }

@@ -1,4 +1,6 @@
 .imageLink {
+  cursor: pointer;
+
   display: flex;
 
   width: 30px;

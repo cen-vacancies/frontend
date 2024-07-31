@@ -7,6 +7,9 @@ export type UserContext = {
   organization?: components['schemas']['OrganizationResponse']['data']
   fetchUser: VoidFunction
   fetchOrganization: VoidFunction
+  refetchAll: VoidFunction
+  updateUser: (user: components['schemas']['UserResponse']['data'] | undefined) => void
+  logoutUser: VoidFunction
 }
 
 export const UserContext = createContext<UserContext>({
@@ -14,6 +17,9 @@ export const UserContext = createContext<UserContext>({
   organization: undefined,
   fetchUser: () => {},
   fetchOrganization: () => {},
+  refetchAll: () => {},
+  updateUser: () => {},
+  logoutUser: () => {},
 })
 
 export default function UserContextProvider({ children }: { children: ReactNode }) {
@@ -25,11 +31,15 @@ export default function UserContextProvider({ children }: { children: ReactNode 
 
   const fetchUser = useCallback(() => {
     if (canFetchUser) {
-      user
+      return user
         .me()
-        .then((userRes) => setUserData(userRes.data))
+        .then((userRes) => {
+          setUserData(userRes.data)
+          return userRes
+        })
         .catch((e) => console.error(e))
     }
+    return
   }, [canFetchUser])
 
   const fetchOrganization = useCallback(() => {
@@ -41,6 +51,35 @@ export default function UserContextProvider({ children }: { children: ReactNode 
     }
   }, [canFetchOrg])
 
+  const refetchAll = useCallback(async () => {
+    setUserData(undefined)
+    setOrgData(undefined)
+    try {
+      const { data: userRes } = await user.me()
+      setUserData(userRes)
+      if (userRes.role === 'employer') {
+        const { data: orgRes } = await organisations.currentOrganization()
+        setOrgData(orgRes)
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }, [])
+
+  const updateUser = useCallback((user: components['schemas']['UserResponse']['data'] | undefined) => {
+    if (!user) {
+      return
+    }
+    setUserData(user)
+  }, [])
+
+  const logoutUser = useCallback(() => {
+    setUserData(undefined)
+    setOrgData(undefined)
+    localStorage.removeItem('token')
+    window.location.assign('/')
+  }, [])
+
   useEffect(() => {
     fetchUser()
   }, [fetchUser])
@@ -49,7 +88,17 @@ export default function UserContextProvider({ children }: { children: ReactNode 
     fetchOrganization()
   }, [fetchOrganization])
   return (
-    <UserContext.Provider value={{ fetchUser, user: userData, organization: orgData, fetchOrganization }}>
+    <UserContext.Provider
+      value={{
+        fetchUser,
+        user: userData,
+        organization: orgData,
+        fetchOrganization,
+        refetchAll,
+        updateUser,
+        logoutUser,
+      }}
+    >
       {children}
     </UserContext.Provider>
   )

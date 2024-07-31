@@ -3,6 +3,7 @@
 .content {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   width: 100%;
 }
 
@@ -31,4 +32,10 @@
   .footer {
     justify-content: flex-start;
   }
+}
+
+.buttonsApplicant {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

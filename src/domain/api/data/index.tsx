@@ -1,16 +1,39 @@
+import { Channel, Socket } from 'phoenix'
 import { operations as ApiOperations, components } from '../../../domain/api/types/api-types.ts'
 
 export const apiUrl = `${import.meta.env.VITE_API_URL}/api`
 const apiVacancies = `${apiUrl}/vacancies`
 const apiCvs = `${apiUrl}/cvs`
 const apiOrganization = `${apiUrl}/organization`
+const apiChats = `${apiUrl}/chats`
+const apiAdmin = `${apiUrl}/admin`
 
-export const getToken = () => {
+export type RequestErrorCode =
+  | 'fail_update_email'
+  | 'unauthorized'
+  | 'has already been taken'
+  | 'fail_update_password'
+  | 'admin_user_get_failed'
+  | 'admin_organization_get_failed'
+  | 'delete_cv_failed'
+  | 'delete_vacancy_failed'
+
+class ApiError extends Error {
+  constructor(message: RequestErrorCode) {
+    super(message)
+  }
+}
+
+const getRawToken = () => {
   const token = localStorage.getItem('token')
   if (!token) {
-    throw new Error('Unauthorized')
+    throw new Error('unauthorized')
   }
-  return `Bearer ${token}`
+  return token
+}
+
+export const getToken = () => {
+  return `Bearer ${getRawToken()}`
 }
 
 export const vacancies = {
@@ -19,6 +42,7 @@ export const vacancies = {
   createVacancy,
   updateVacancy,
   getVacancies,
+  deleteVacancyById,
 }
 
 type FiltersQuery = NonNullable<ApiOperations['CenWeb.VacancyController.search']['parameters']['query']>
@@ -33,20 +57,22 @@ export type FiltersType = {
   min_years_of_work_experience?: string
 }
 
-async function searchVacancy(filters: FiltersType): Promise<components['schemas']['VacanciesQueryResponse']> {
+async function searchVacancy(filters?: FiltersType): Promise<components['schemas']['VacanciesQueryResponse']> {
   const query = new URLSearchParams()
-  Object.keys(filters).forEach((key) => {
-    const value = filters[key as keyof FiltersType]
-    if (typeof value === 'string' || value === undefined) {
-      if (value !== '' && value !== undefined) {
-        query.set(key, value)
+  if (filters) {
+    Object.keys(filters).forEach((key) => {
+      const value = filters[key as keyof FiltersType]
+      if (typeof value === 'string' || value === undefined) {
+        if (value !== '' && value !== undefined) {
+          query.set(key, value)
+        }
+        return
       }
-      return
-    }
-    value.forEach((item) => {
-      query.append(key, item)
+      value.forEach((item) => {
+        query.append(key, item)
+      })
     })
-  })
+  }
 
   const response = await fetch(`${apiVacancies}/search?${query.toString()}`, { method: 'GET' })
   return await response.json()
@@ -108,28 +134,45 @@ async function getVacancies(): Promise<components['schemas']['VacanciesQueryResp
   return await response.json()
 }
 
+async function deleteVacancyById(id: string): Promise<unknown> {
+  const response = await fetch(`${apiVacancies}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+  })
+  if (!response.ok) {
+    throw new Error('delete_vacancy_failed')
+  }
+  return response
+}
+
 export const cvs = {
   searchCvs,
   getCVById,
   createCv,
   updateCv,
   getCurrentCVS,
+  deleteCvById,
 }
 
-async function searchCvs(filters: FiltersType): Promise<components['schemas']['CVsQueryResponse']> {
+async function searchCvs(filters?: FiltersType): Promise<components['schemas']['CVsQueryResponse']> {
   const query = new URLSearchParams()
-  Object.keys(filters).forEach((key) => {
-    const value = filters[key as keyof FiltersType]
-    if (typeof value === 'string' || value === undefined) {
-      if (value !== '' && value !== undefined) {
-        query.set(key, value)
+  if (filters) {
+    Object.keys(filters).forEach((key) => {
+      const value = filters[key as keyof FiltersType]
+      if (typeof value === 'string' || value === undefined) {
+        if (value !== '' && value !== undefined) {
+          query.set(key, value)
+        }
+        return
       }
-      return
-    }
-    value.forEach((item) => {
-      query.append(key, item)
+      value.forEach((item) => {
+        query.append(key, item)
+      })
     })
-  })
+  }
 
   const response = await fetch(`${apiCvs}/search?${query.toString()}`, { method: 'GET' })
   return await response.json()
@@ -170,7 +213,7 @@ async function updateCv(
       'Content-Type': 'application/json',
       Authorization: getToken(),
     },
-    body: JSON.stringify({ cv: { ...data, reviewed: true } }),
+    body: JSON.stringify({ cv: { ...data, reviewed: data.reviewed ?? true } }),
   })
   if (!response.ok) {
     throw new Error('request not success')
@@ -191,10 +234,28 @@ async function getCurrentCVS(): Promise<components['schemas']['CVsQueryResponse'
   return await response.json()
 }
 
+async function deleteCvById(id: string): Promise<unknown> {
+  const response = await fetch(`${apiCvs}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+  })
+  if (!response.ok) {
+    throw new Error('delete_cv_failed')
+  }
+  return response
+}
+
 export const user = {
   login,
   register,
   me,
+  updateBaseUserInfo,
+  updateUserEmail,
+  updateUserPassword,
+  deleteUser,
 }
 
 async function me(): Promise<components['schemas']['UserResponse']> {
@@ -204,6 +265,9 @@ async function me(): Promise<components['schemas']['UserResponse']> {
       Authorization: getToken(),
     },
   })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
   return await response.json()
 }
 
@@ -215,6 +279,9 @@ async function login(email: string, password: string): Promise<components['schem
     },
     body: JSON.stringify({ user: { email, password } }),
   })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
   const res = (await response.json()) as components['schemas']['TokenResponse']
   localStorage.setItem('token', res.data.token)
 
@@ -231,8 +298,75 @@ async function register(
     },
     body: JSON.stringify({ user: data }),
   })
-
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
   return await response.json()
+}
+
+async function updateBaseUserInfo(
+  data: components['schemas']['UpdateUserInfoRequest']['user'],
+): Promise<components['schemas']['UserResponse']> {
+  const response = await fetch(`${apiUrl}/user/info`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ user: data }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function updateUserEmail(
+  data: components['schemas']['UpdateUserEmailRequest']['user'],
+): Promise<components['schemas']['UserResponse']> {
+  const response = await fetch(`${apiUrl}/user/email`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ user: data }),
+  })
+  if (!response.ok) {
+    throw new ApiError('fail_update_email')
+  }
+  return await response.json()
+}
+
+async function updateUserPassword(
+  data: components['schemas']['UpdateUserPasswordRequest']['user'],
+): Promise<components['schemas']['UserResponse']> {
+  const response = await fetch(`${apiUrl}/user/password`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ user: data }),
+  })
+  if (!response.ok) {
+    throw new ApiError('fail_update_password')
+  }
+  return await response.json()
+}
+
+async function deleteUser(): Promise<unknown> {
+  const response = await fetch(`${apiUrl}/user/`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+  })
+  if (!response.ok) {
+    throw new Error('delete_user_failed')
+  }
+  return response
 }
 
 export const organisations = {
@@ -317,6 +451,7 @@ export async function upload(file: File) {
 export const interest = {
   sendInterestToVacancy,
   getInterests,
+  unsendInterest,
 }
 
 async function sendInterestToVacancy(cv_id: number, vacancy_id: number) {
@@ -355,4 +490,208 @@ async function getInterests(typeInt: 'sended' | 'recieved'): Promise<components[
     throw new Error('request not success')
   }
   return await response.json()
+}
+
+async function unsendInterest(cv_id: number, vacancy_id: number) {
+  const response = await fetch(`${apiUrl}/unsend_interest`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ cv_id, vacancy_id } as components['schemas']['SendInterestRequest']),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+
+  return response
+}
+
+async function getChats(): Promise<components['schemas']['ChatsListResponse']> {
+  const response = await fetch(apiChats, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+type ChatSocketProps = {
+  cv_id: number
+  vacancy_id: number
+  onInit: (messages: Array<components['schemas']['MessageResponse']>) => void
+  onNewMessage: (message: components['schemas']['MessageResponse']) => void
+}
+const chatSocket = ({ cv_id, vacancy_id, onNewMessage, onInit }: ChatSocketProps) => {
+  const socket = new Socket(`${apiUrl}/socket`, {
+    params: { token: getRawToken() },
+  })
+  let channel: Channel
+
+  const connect = () => {
+    channel = socket.channel(`chat:${cv_id}:${vacancy_id}`)
+    channel.join().receive('ok', onInit).receive('error', console.log)
+
+    channel.on('new_message', onNewMessage)
+    socket.onError(console.error)
+
+    socket.connect()
+  }
+
+  const disconnect = () => {
+    if (channel) {
+      socket.remove(channel)
+    }
+    socket.disconnect()
+  }
+
+  return {
+    connect,
+    disconnect,
+  }
+}
+
+async function sendMessage(
+  text: string,
+  cv_id: number,
+  vacancy_id: number,
+): Promise<components['schemas']['MessageResponse']> {
+  const response = await fetch(`${apiChats}/send_message`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ cv_id, text, vacancy_id }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+export const chats = {
+  getChats,
+  chatSocket,
+  sendMessage,
+}
+
+export const admin = {
+  getPrivateUsers,
+  getPrivateOrganizations,
+  getPrivateUser,
+  updatePrivateUserInfo,
+  getPrivateVacancies,
+  getPrivateCvs,
+  deletePrivateUser,
+}
+
+async function getPrivateUsers(): Promise<components['schemas']['UsersListResponse']> {
+  const response = await fetch(`${apiAdmin}/users`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('admin_user_get_failed')
+  }
+  return await response.json()
+}
+
+async function getPrivateOrganizations(): Promise<components['schemas']['OrganizationsListResponse']> {
+  const response = await fetch(`${apiAdmin}/organizations`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('admin_organization_get_failed')
+  }
+  return await response.json()
+}
+
+async function getPrivateUser(id?: string): Promise<components['schemas']['UserResponse'] | undefined> {
+  if (!id) {
+    return undefined
+  }
+  const response = await fetch(`${apiAdmin}/users/${id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+  if (!response.ok) {
+    throw new Error('admin_user_get_failed')
+  }
+  return await response.json()
+}
+
+async function updatePrivateUserInfo(
+  id: string,
+  data: components['schemas']['UpdateUserRequest']['user'],
+): Promise<components['schemas']['UserResponse']> {
+  const response = await fetch(`${apiAdmin}/users/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+    body: JSON.stringify({ user: data }),
+  })
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function getPrivateVacancies(): Promise<components['schemas']['VacanciesListResponse']> {
+  const response = await fetch(`${apiAdmin}/vacancies/unreviewed`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function getPrivateCvs(): Promise<components['schemas']['CVsListResponse']> {
+  const response = await fetch(`${apiAdmin}/cvs/unreviewed`, {
+    method: 'GET',
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('request not success')
+  }
+  return await response.json()
+}
+
+async function deletePrivateUser(id?: string): Promise<unknown> {
+  if (!id) return Promise.resolve(undefined)
+  const response = await fetch(`${apiAdmin}/users/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getToken(),
+    },
+  })
+  if (!response.ok) {
+    throw new Error('delete_admin_user_failed')
+  }
+  return response
 }

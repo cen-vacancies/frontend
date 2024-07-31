@@ -92,7 +92,7 @@ function CreateVacancyPage({ isEdit }: Props) {
             <Form.Item
               label='Название организации*'
               name='name'
-              rules={[{ required: true, message: 'Обязательное поле' }]}
+              rules={[{ required: true, message: 'Обязательное поле' }, { max: 160 }]}
             >
               <TextArea autoSize />
             </Form.Item>
@@ -103,38 +103,45 @@ function CreateVacancyPage({ isEdit }: Props) {
                 customRequest={uploadRequest}
                 style={{ border: 'solid' }}
               >
-                {imageUrl && <img src={`${IMAGE_URL}${imageUrl}`} alt='avatar' style={{ width: '100%' }} />}
+                {imageUrl ? <img src={`${IMAGE_URL}${imageUrl}`} alt='avatar' style={{ width: '100%' }} /> : 'Фото'}
               </Upload>
             </Form.Item>
 
-            <Form.Item name='description' label='Описание*' rules={[{ required: true, message: 'Обязательное поле' }]}>
+            <Form.Item
+              name='description'
+              label='Описание*'
+              rules={[{ required: true, message: 'Обязательное поле' }, { max: 2000 }]}
+            >
               <TextArea style={{ minHeight: '110px' }} autoSize placeholder='Обязанности, дополнительная информация' />
             </Form.Item>
 
             <Title level={5}>Контакты</Title>
-            <Form.Item name='phone' label='Номер телефона*' rules={[{ required: true, message: 'Обязательное поле' }]}>
+            <Form.Item
+              name='phone'
+              label='Номер телефона*'
+              rules={[
+                { required: true, message: 'Обязательное поле' },
+                { message: 'Номер должен быть в формате +79000000000', pattern: /(\+7)(\d{10})/, len: 12 },
+              ]}
+            >
               <Input />
             </Form.Item>
-            <Form.Item name='email' label='Почта*' rules={[{ required: true, message: 'Обязательное поле' }]}>
+            <Form.Item name='email' label='Почта' rules={[{ max: 160 }]}>
               <Input />
             </Form.Item>
 
             <Title level={5}>Контакты</Title>
-            <Form.Item
-              name='website'
-              label='Сайт организации*'
-              rules={[{ required: true, message: 'Обязательное поле' }]}
-            >
+            <Form.Item name='website' label='Сайт организации' rules={[{ max: 160 }]}>
               <Input />
             </Form.Item>
-            <Form.Item name='social_link' label='Соцсеть*' rules={[{ required: true, message: 'Обязательное поле' }]}>
+            <Form.Item name='social_link' label='Соцсеть' rules={[{ max: 160 }]}>
               <Input />
             </Form.Item>
 
             <Title level={5} style={{ marginBottom: '8px' }}>
-              Адрес*
+              Адрес
             </Title>
-            <Form.Item name='address' rules={[{ required: true, message: 'Обязательное поле' }]}>
+            <Form.Item name='address' rules={[{ max: 160 }]}>
               <Input />
             </Form.Item>
 
